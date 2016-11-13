@@ -7,20 +7,46 @@ public class UI {
     private GameEngine G;
     private int userinput;
     private Scanner scan;
-    public UI(GameEngine game){
+
+    /**
+     * Constructor for UI takes a {@link GameEngine}
+     * for an argument. instantiates the game, and
+     * creates a scanner variable to input data.
+     * Lastly, calls the {@code startMenu} method
+     */
+    /
+    public UI(GameEngine game)
+    {
         this.G = game;
         scan = new Scanner(System.in);
         startMenu();
     }
+
+    /**
+     * This method allows the user to choose
+     * to either start a new game, load a game
+     * or quit.
+     */
+    /
     public void menuSelect(){
         System.out.println("");
         scan.nextInt();
-
     }
-    public void gameMove(){
+
+    /**
+     * This method will print the {@link Grid}
+     */
+    /
+    public void gameMove()
+    {
         G.printMap();
     }
 
+    /**
+     * This method outputs the game description
+     * to the screen.
+     */
+    /
     public void startMenu(){
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
@@ -28,7 +54,10 @@ public class UI {
 
         menuSelect();
     }
-
+    /**
+     * This method outputs the choices for actions during
+     * the game
+     */
     public static void displayChoice()
     {
         System.out.println("0. Look");
@@ -37,9 +66,15 @@ public class UI {
         System.out.println("3. quit");
     }
 
+    /**
+     * This method outputs the keypad options
+     * to the screen
+     */
+    /
     public static void displayKeypad()
     {
-        System.out.println("Press the following Keys to choose a direction:");
+        System.out.println("Press the following" +
+                " Keys to choose a direction:");
         System.out.println("  Up  : W ");
         System.out.println(" Left : A ");
         System.out.println("Right : D ");

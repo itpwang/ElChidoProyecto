@@ -5,10 +5,22 @@ import java.util.Scanner;
  * Created by travis on 11/13/16.
  */
 public class Player implements Entity {
+   /**
+    * This {@code Scanner} variable allows the user
+    * to input values for their choices in battle
+    */
    private Scanner input = new Scanner(System.in);
+   /**
+    * This field stores the {@link Player}'s movement choice
+    * on the keypad
+    */
    enum moveChoice {UP, DOWN, LEFT, RIGHT};
 
-   public void attack()
+   /**
+    * This method firts checks that the {@link Player}
+    * has {@link ammo}. If so, they attack an adjacent square.
+    */
+   public void attack(/*The argument should be a tile position*/ )
    {
       if(checkAmmo())
       {
@@ -21,6 +33,12 @@ public class Player implements Entity {
       }
    }
 
+/**
+ * This method outputs the keypad to the screen
+ * and gets user input for the {@code moveChoice}
+ *
+ */
+   /
    public void move()
    {
       moveChoice movechoice;
@@ -50,6 +68,14 @@ public class Player implements Entity {
       }
    }
 
+   /**
+    * This method returns a boolean value based
+    * on whether the spaces they are looking at
+    * are empty or not.
+    *
+    * @return True/False
+    */
+   /
    public boolean look()
    {
       if(peekAhead())
@@ -58,11 +84,13 @@ public class Player implements Entity {
          return true;
       }
       else
-
       System.out.println("All clear!");
       return false;
    }
 
+   /**
+    * This method checks the adjacent space
+    */
    private boolean peekAhead()
    {
       // Checks the adjacent spaces
@@ -70,6 +98,13 @@ public class Player implements Entity {
       return true;
    }
 
+   /**
+    * This method calls the {@code displayChoice} method
+    * and returns the respective integer from the
+    * users decision
+    *
+    * @return answer
+    */
    public int taketurn()
    {
       int answer;
@@ -95,11 +130,19 @@ public class Player implements Entity {
       return answer;
    }
 
+   /**
+    * This method prompts the user to imput a
+    * {@code moveChoice} for the {@link Player}'s
+    * Handles exceptions for invalid input
+    *
+    * @return moveChoice
+    */
    private moveChoice getMoveChoice()
    {
       String answer;
       char movechoice;
 
+      UI.displayKeypad();
       answer = input.next();
       movechoice = answer.charAt(0);
 
@@ -134,6 +177,12 @@ public class Player implements Entity {
       return moveChoice.RIGHT;
    }
 
+   /**
+    * This method checks to see if the player has ammo
+    *
+    * @return True/False
+    */
+   /
    private boolean checkAmmo()
    {
       // total ammo is stored in game engine
