@@ -5,7 +5,7 @@ public class GameEngine {
     private Grid map;
     private Character player;
     public GameEngine(){
-
+        this.player = new Character();
     }
     public void printMap(){
 
