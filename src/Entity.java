@@ -30,5 +30,8 @@ public abstract class Entity implements Cell{
     /**
      * This abstract method allows {@link Entity} to die
      */
-    abstract char returnSymbol();
+    public char returnSymbol()
+    {
+        return 'C';
+    }
 }

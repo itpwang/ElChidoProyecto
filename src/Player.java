@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 public class Player extends Entity {
 
-   final char returnSymbol()
+   public char returnSymbol()
    {
       return 'P';
    }

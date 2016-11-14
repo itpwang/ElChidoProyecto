@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class UI {
     private GameEngine G;
+    private Grid map;
     private int userinput;
     private Scanner scan;
 
@@ -47,6 +48,8 @@ public class UI {
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
         System.out.println("*_________________________________*");
+
+        G.board.printGrid();
 
         menuSelect();
     }
