@@ -4,7 +4,12 @@ import java.util.Scanner;
 /**
  * Created by travis on 11/13/16.
  */
-public class Player implements Entity {
+public class Player extends Entity {
+
+   void die()
+   {
+
+   }
    /**
     * This {@code Scanner} variable allows the user
     * to input values for their choices in battle
@@ -50,7 +55,6 @@ public class Player implements Entity {
  * and gets user input for the {@code moveChoice}
  *
  */
-   /
    public void move()
    {
       moveChoice movechoice;
@@ -87,7 +91,6 @@ public class Player implements Entity {
     *
     * @return True/False
     */
-   /
    public boolean look()
    {
       if(peekAhead())
@@ -194,7 +197,6 @@ public class Player implements Entity {
     *
     * @return True/False
     */
-   /
    private boolean checkAmmo()
    {
       // total ammo is stored in game engine

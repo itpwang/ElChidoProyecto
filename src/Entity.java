@@ -6,24 +6,24 @@ public interface Entity {
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
-    int taketurn();
+    abstract int taketurn();
     /**
      * This abstract method will allow the
      * {@link Entity} to move on the grid
      */
-    void move();
+    abstract void move();
     /**
      * This abstract method will allow the
      * {@link Entity} to look to an adjacent
      * space
      */
-    boolean look();
+    abstract boolean look();
     /**
      * This abstract method will allow the
      * {@link Entity} to attack an adjacent
      * space
      */
-    void attack();
+    abstract void attack();
 
     /**
      * This abstract method returns {@code true}
@@ -31,9 +31,9 @@ public interface Entity {
      * if not.
      * @return {@code true} if alive {@code false} if not
      */
-    boolean isAlive();
+    abstract boolean isAlive();
     /**
      * This abstract method allows {@link Entity} to die
      */
-    void die();
+    abstract void die();
 }
