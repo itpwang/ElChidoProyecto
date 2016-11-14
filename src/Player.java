@@ -11,6 +11,18 @@ public class Player implements Entity {
     */
    private Scanner input = new Scanner(System.in);
    /**
+    * This field stores {@link Player}'s living state
+    * If alive {@code true}, if dead {@code false}
+    */
+   private boolean alive;
+   /**
+    * This is {@link Player}'s default constructor.
+    * Sets field alive to {@code true}
+    */
+   public Player(){
+      alive=true;
+   }
+   /**
     * This field stores the {@link Player}'s movement choice
     * on the keypad
     */
@@ -188,4 +200,11 @@ public class Player implements Entity {
       // total ammo is stored in game engine
       return true;
    }
+    /**
+     * This method allows checking if {@link Player} is alive
+     * @return {@code true}if alive ;{@code false} if dead
+     */
+    public boolean isAlive(){
+        return alive;
+    }
 }
