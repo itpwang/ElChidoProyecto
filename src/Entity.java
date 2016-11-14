@@ -24,4 +24,16 @@ public interface Entity {
      * space
      */
     void attack();
+
+    /**
+     * This abstract method returns {@code true}
+     * if {@link Entity} is alive and {@code false}
+     * if not.
+     * @return {@code true} if alive {@code false} if not
+     */
+    boolean isAlive();
+    /**
+     * This abstract method allows {@link Entity} to die
+     */
+    void die();
 }
