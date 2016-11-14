@@ -14,7 +14,6 @@ public class UI {
      * creates a scanner variable to input data.
      * Lastly, calls the {@code startMenu} method
      */
-    /
     public UI(GameEngine game)
     {
         this.G = game;
@@ -27,7 +26,6 @@ public class UI {
      * to either start a new game, load a game
      * or quit.
      */
-    /
     public void menuSelect(){
         System.out.println("");
         scan.nextInt();
@@ -36,7 +34,6 @@ public class UI {
     /**
      * This method will print the {@link Grid}
      */
-    /
     public void gameMove()
     {
         G.printMap();
@@ -46,7 +43,6 @@ public class UI {
      * This method outputs the game description
      * to the screen.
      */
-    /
     public void startMenu(){
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
@@ -70,7 +66,6 @@ public class UI {
      * This method outputs the keypad options
      * to the screen
      */
-    /
     public static void displayKeypad()
     {
         System.out.println("Press the following" +
