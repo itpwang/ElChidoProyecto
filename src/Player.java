@@ -6,10 +6,11 @@ import java.util.Scanner;
  */
 public class Player extends Entity {
 
-   void die()
+   final char returnSymbol()
    {
-
+      return 'P';
    }
+
    /**
     * This {@code Scanner} variable allows the user
     * to input values for their choices in battle

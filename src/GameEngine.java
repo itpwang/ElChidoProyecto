@@ -10,6 +10,17 @@ public class GameEngine {
     public void printMap(){
 
     }
+
+    /**
+     * This abstract method will allow the
+     * {@link Entity} to take a turn
+     */
+    int taketurn()
+    {
+
+        return 0;
+    }
+
 //    public boolean gameOver(){
 //
 //    }

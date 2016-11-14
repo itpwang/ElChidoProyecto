@@ -1,12 +1,7 @@
 /**
  * Created by travis on 11/13/16.
  */
-public interface Entity {
-    /**
-     * This abstract method will allow the
-     * {@link Entity} to take a turn
-     */
-    abstract int taketurn();
+public abstract class Entity implements Cell{
     /**
      * This abstract method will allow the
      * {@link Entity} to move on the grid
@@ -35,5 +30,5 @@ public interface Entity {
     /**
      * This abstract method allows {@link Entity} to die
      */
-    abstract void die();
+    abstract char returnSymbol();
 }
