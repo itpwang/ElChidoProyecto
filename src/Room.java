@@ -1,5 +1,5 @@
 /**
- * This class is in charge of returning the location of each room on the grid.
+ * This class is in charge of returning a char representing the location of each room on the grid.
  * 
  * Created by travis on 11/14/16.
  */
