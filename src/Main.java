@@ -1,7 +1,4 @@
 /**
- * Created by Ivan on 11/10/2016.
- */
-/**
  * This class represents the main class in our program. Program
  * is launched here.
  * @author HiThereAndy
@@ -14,6 +11,6 @@ public class Main {
 	 */
     public static void main(String[] args) {
         UI ui= new UI(new GameEngine());
-
+//        ui.gameMove();
     }
 }

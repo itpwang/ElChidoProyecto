@@ -1,6 +1,3 @@
-/**
- * Created by travis on 11/14/16.
- */
 /*
  * This class represents the Grid object, utilized by the GameEngine
  * to create and print the map the game will be played on.
@@ -15,7 +12,7 @@ public class Grid {
     /*
      * Constructor which is called to instantiate the map.
      */
-    Grid()
+    public Grid()
     {
        /*
         * This for loop allows each place in the multidimensional array to be instantiated as a Tile object.
@@ -45,7 +42,7 @@ public class Grid {
      * This method returns a boolean value to determine if the tile the player wishes to be moved onto
      * is empty. If true, the player may move onto it.
      */
-    private boolean isEmpty()
+    public boolean isEmpty()
     {
         return false;
     }

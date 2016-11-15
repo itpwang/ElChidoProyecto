@@ -1,19 +1,18 @@
 /**
- * Created by Ivan on 11/10/2016.
+ * Tbe UI class represents the user interface. Handles all interactions
+ * between user and game.
  */
 import java.util.Scanner;
-
 public class UI {
     private GameEngine G;
     private Grid map;
     private int userinput;
     private Scanner scan;
-
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
      * creates a scanner variable to input data.
-     * Lastly, calls the {@code startMenu} method
+     * Lastly, calls the {@link #startMenu} method
      */
     public UI(GameEngine game)
     {
@@ -62,7 +61,7 @@ public class UI {
         System.out.println("0. Look");
         System.out.println("1. Move");
         System.out.println("2. Shoot");
-        System.out.println("3. quit");
+        System.out.println("3. Quit");
     }
 
     /**

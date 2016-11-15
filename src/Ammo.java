@@ -5,7 +5,6 @@
  * Created by Ivan on 11/10/2016.
  */
 public class Ammo implements Item, Cell{
-
 	/**
 	 * The ammo constructor which allows the ammo item to be randomly spawned in
 	 * the grid where there is a {@code Tile} object.
@@ -13,7 +12,6 @@ public class Ammo implements Item, Cell{
     public Ammo()
     {
     }
-
     /**
      * This method returns a char value of {@code B} on the grid to represent 
      * the location of the ammo item.

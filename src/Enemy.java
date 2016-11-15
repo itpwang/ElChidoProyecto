@@ -28,7 +28,7 @@ public class Enemy extends Entity  {
 
     /**
      * This method firts checks that the {@link Player}
-     * has {@link ammo}. If so, they attack an adjacent square.
+     * has {@link Ammo}. If so, they attack an adjacent square.
      */
     public void attack(/*The argument should be a tile position*/ )
     {

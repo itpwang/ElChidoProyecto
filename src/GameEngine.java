@@ -1,5 +1,4 @@
 import java.util.*;
-
 /**
  * This class is in charge of handling all the game logic in the game.
  */
@@ -23,8 +22,8 @@ public class GameEngine {
 
     /**
      * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
-     * on the grid by using the {@link setPlayer} method, spawns enemies on the map using the {@link generateEnemies} method, and
-     * spawns power-ups on the grid by using the {@link generateItems} method.
+     * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
+     * spawns power-ups on the grid by using the {@link #generateItems} method.
      */
     public GameEngine()
     {
@@ -100,7 +99,7 @@ public class GameEngine {
     }
 
     /**
-     * This method places {@link Ammo}, {@link Invicablity}, and {@link Radar} power ups on the map. Places a power up on
+     * This method places {@link Ammo}, {@link Invincibility}, and {@link Radar} power ups on the map. Places a power up on
      * random locations that are empty on the map denoted by a "/" Symbol and if the space on the map are not empty it will
      * keep generating numbers until a space is empty. Once
      */

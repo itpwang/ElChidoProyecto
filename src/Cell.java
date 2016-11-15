@@ -4,7 +4,6 @@
  * Created by travis on 11/14/16.
  */
 public interface Cell {
-	
 	/**
 	 * Abstract method which returns the char that represents the object occupying a 
 	 * cell on the grid.

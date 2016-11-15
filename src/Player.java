@@ -1,6 +1,5 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 /**
  * Created by travis on 11/13/16.
  */
@@ -10,7 +9,6 @@ public class Player extends Entity {
    {
       return 'P';
    }
-
    /**
     * This {@code Scanner} variable allows the user
     * to input values for their choices in battle
@@ -32,11 +30,10 @@ public class Player extends Entity {
     * This field stores the {@link Player}'s movement choice
     * on the keypad
     */
-   enum moveChoice {UP, DOWN, LEFT, RIGHT};
-
+   public enum moveChoice {UP, DOWN, LEFT, RIGHT};
    /**
     * This method firts checks that the {@link Player}
-    * has {@link ammo}. If so, they attack an adjacent square.
+    * has {@link Ammo}. If so, they attack an adjacent square.
     */
    public void attack(/*The argument should be a tile position*/ )
    {
