@@ -1,11 +1,25 @@
 /**
+ * This class is in charge of creating an Invincibility object which can be randomly 
+ * spawned on a tile in the grid.
+ * 
  * Created by Ivan on 11/10/2016.
  */
 public class Invincibility implements Item, Cell{
-    public Invincibility(){
+   
+	/**
+	 * The Invincibility constructor which allows the Invincibility item to 
+	 * be randomly spawned in the grid where there is a {@code Tile} object.
+	 */
+	public Invincibility(){
 
     }
 
+    /**
+     * This method returns a char value of {@code I} on the grid to represent 
+     * the location of the invincibility item.
+     * 
+     * @return I
+     */
     public char returnSymbol()
     {
         return 'I';
