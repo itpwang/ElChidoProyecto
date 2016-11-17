@@ -13,6 +13,7 @@ public class Player extends Entity {
     * This {@code Scanner} variable allows the user
     * to input values for their choices in battle
     */
+   public char returnSymbol(boolean debug) {return debug?'P':'P';}
    private Scanner input = new Scanner(System.in);
    /**
     * This field stores {@link Player}'s living state

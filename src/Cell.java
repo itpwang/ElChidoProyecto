@@ -9,4 +9,5 @@ public interface Cell {
 	 * cell on the grid.
 	 */
     char returnSymbol();
+	char returnSymbol(boolean debug);
 }

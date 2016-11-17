@@ -34,4 +34,5 @@ public abstract class Entity implements Cell{
     {
         return 'C';
     }
+    public char returnSymbol(boolean debug) {return debug?'C':'/';}
 }

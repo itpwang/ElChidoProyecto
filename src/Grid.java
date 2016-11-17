@@ -45,17 +45,17 @@ public class Grid {
     public boolean isEmpty()
     {
         return false;
-    }
+    } //needs work
 
     /*
      * This method is a void method which prints the map. Uses a for loop to run through the multi-dimensional
      * array and prints out the subsequent tiles.
      */
-    public void printGrid()
+    public void printGrid(boolean debug)
     {
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map.length; j++){
-                System.out.print(map[i][j].returnSymbol());
+                System.out.print(map[i][j].returnSymbol(debug));
                 System.out.print(' ');
             }
             System.out.println();

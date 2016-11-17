@@ -8,9 +8,7 @@ public class Invincibility implements Item, Cell{
 	 * be randomly spawned in the grid where there is a {@code Tile} object.
 	 */
 	public Invincibility(){
-
     }
-
     /**
      * This method returns a char value of {@code I} on the grid to represent 
      * the location of the invincibility item.
@@ -21,4 +19,5 @@ public class Invincibility implements Item, Cell{
     {
         return 'I';
     }
+    public char returnSymbol(boolean debug) {return debug?'I':'/';}
 }

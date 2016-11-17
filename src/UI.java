@@ -47,8 +47,12 @@ public class UI {
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
         System.out.println("*_________________________________*");
-
-        G.board.printGrid();
+        System.out.println("Would you like to run in debug mode?");
+        System.out.println("Press 1 for debug mode, 0 for normal mode.");
+        userinput=scan.nextInt();
+        if(userinput==0) G.changeDebug(false);
+        else G.changeDebug(true);
+        G.printBoard();
 
         menuSelect();
     }

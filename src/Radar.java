@@ -1,8 +1,6 @@
 /**
  * This class is in charge of creating a Radar object which can be randomly spawned
  * on a tile in the grid.
- * 
- * Created by Ivan on 11/10/2016.
  */
 public class Radar implements Item, Cell{
 	
@@ -24,5 +22,6 @@ public class Radar implements Item, Cell{
     {
         return 'O';
     }
+    public char returnSymbol(boolean debug) {return debug?'O':'/';}
 }
 

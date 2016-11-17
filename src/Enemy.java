@@ -7,11 +7,11 @@ public class Enemy extends Entity  {
     {
         return 'E';
     }
-
     /**
      * This field stores {@link Player}'s living state
      * If alive {@code true}, if dead {@code false}
      */
+    public char returnSymbol(boolean debug) {return debug?'E':'/';}
     private boolean alive;
     /**
      * This is {@link Player}'s default constructor.

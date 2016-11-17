@@ -16,5 +16,6 @@ public class Tile implements Cell{
     {
        return '/';
     }
+    public char returnSymbol(boolean debug) {return '/';}
 
 }

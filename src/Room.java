@@ -15,4 +15,5 @@ public class Room implements Cell {
     {
         return 'R';
     }
+    public char returnSymbol(boolean debug) {return debug?'R':'/';}
 }

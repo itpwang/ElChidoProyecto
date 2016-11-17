@@ -22,4 +22,5 @@ public class Ammo implements Item, Cell{
     {
         return 'B';
     }
+    public char returnSymbol(boolean debug) {return debug?'B':'/';}
 }

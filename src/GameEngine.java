@@ -19,7 +19,7 @@ public class GameEngine {
      * This field represents the Random object used to randomly generate numbers.
      */
     Random rand = new Random();
-
+    private boolean debug;
     /**
      * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
      * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
@@ -31,15 +31,17 @@ public class GameEngine {
         setPlayer();
         generateEnemies();
         generateItems();
+        debug = false;
     }
-
+    public void changeDebug(boolean state){
+        debug = state;
+    }
     /**
      * This method calls the grid class to print the maps of the game.
      */
     public void printMap(){
 
     }
-
     /**
      * This abstract method will allow the
      * {@link Entity} to take a turn
@@ -136,5 +138,8 @@ public class GameEngine {
             if(ammoPlace && invPlace && radarPlace)
                 break;
         }
+    }
+    public void printBoard(){
+        this.board.printGrid(debug);
     }
 }
