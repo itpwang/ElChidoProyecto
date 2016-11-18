@@ -4,7 +4,7 @@
  * <p>
  * Created by travis on 11/14/16.
  */
-public class Tile implements Cell {
+public class Tile {
     private Enemy enemy = null;
     private Player player = null;
     private Item item = null;

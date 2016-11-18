@@ -7,7 +7,7 @@ public class Grid {
 	 * An object array of type {@link Cell} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.
 	 */
-    public Cell[][] map = new Cell[9][9];
+    public Tile[][] map = new Tile[9][9];
 
     /*
      * Constructor which is called to instantiate the map.
@@ -68,7 +68,7 @@ public class Grid {
      * @param col
      * @return
      */
-    public Cell getCell(int row, int col){
+    public Tile getTile(int row, int col){
         return map[row][col];
     }
 }

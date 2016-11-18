@@ -3,7 +3,7 @@
  * 
  * Created by travis on 11/14/16.
  */
-public class Room implements Cell {
+public class Room extends Tile {
 	
 	/**
      * This method returns a char value of {@code R} on the grid to represent 

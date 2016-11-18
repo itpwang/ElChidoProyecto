@@ -83,7 +83,7 @@ public class GameEngine {
      */
     public void setPlayer()
     {
-        board.map[8][0] = this.player;
+        board.getTile(8, 0).insertPlayer(this.player);
     }
 
     /**
@@ -93,6 +93,7 @@ public class GameEngine {
     {
         int num1, num2;
         Point enemyloc;
+        Enemy enemyholder;
         for(int i = 0; i < enemies.length; i++)
         {
             num1 = rand.nextInt(8);
@@ -101,7 +102,8 @@ public class GameEngine {
             if(board.map[num1][num2].returnSymbol() == '/')
             {
                 enemyloc = new Point(num1, num2);
-//                board.map[num1][num2].Enemy(enemyloc);
+                enemyholder = new Enemy(enemyloc);
+                board.getTile(num1, num2).insertEnemy(enemyholder);
             }
             else
             {
@@ -129,19 +131,19 @@ public class GameEngine {
             {
                 if(ammoPlace == false)
                 {
-                    board.map[num1][num2]= new Ammo();
+                    board.getTile(num1, num2).insertItem(new Ammo());
                     ammoPlace = true;
                 }
 
                 else if(invPlace == false)
                 {
-                    board.map[num1][num2] = new Invincibility();
+                    board.getTile(num1, num2).insertItem(new Invincibility());
                     invPlace = true;
                 }
 
                 else if(radarPlace == false)
                 {
-                    board.map[num1][num2] = new Radar();
+                    board.getTile(num1, num2).insertItem(new Radar());
                     radarPlace = true;
                 }
             }

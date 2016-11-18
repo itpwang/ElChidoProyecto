@@ -1,7 +1,7 @@
 /**
  * Created by travis on 11/13/16.
  */
-public abstract class Entity implements Cell{
+public abstract class Entity{
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
