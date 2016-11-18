@@ -2,7 +2,7 @@
  * This class is in charge of creating a Radar object which can be randomly spawned
  * on a tile in the grid.
  */
-public class Radar implements Item, Cell{
+public class Radar extends Item{
 	
 	/**
 	 * The Radar constructor which allows the Radar item to be randomly spawned 
@@ -23,5 +23,10 @@ public class Radar implements Item, Cell{
         return 'O';
     }
     public char returnSymbol(boolean debug) {return debug?'O':'/';}
+
+    @Override
+    public void use() {
+        GameEngine.radarOn();
+    }
 }
 
