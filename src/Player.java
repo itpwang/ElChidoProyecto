@@ -1,5 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.awt.Point;
+
 /**
  * Created by travis on 11/13/16.
  */
@@ -28,11 +30,6 @@ public class Player extends Entity {
       alive=true;
    }
    /**
-    * This field stores the {@link Player}'s movement choice
-    * on the keypad
-    */
-   public enum moveChoice {UP, DOWN, LEFT, RIGHT};
-   /**
     * This method firts checks that the {@link Player}
     * has {@link Ammo}. If so, they attack an adjacent square.
     */
@@ -54,33 +51,49 @@ public class Player extends Entity {
  * and gets user input for the {@code moveChoice}
  *
  */
-   public void move()
+   public void move(moveChoice m)
    {
       moveChoice movechoice;
 
       UI.displayKeypad();
       movechoice = getMoveChoice();
 
-      if(movechoice == moveChoice.LEFT)
+      if(m == moveChoice.LEFT)
       {
-         // Move player Left
-         // Done from game engine
+         moveLeft();
       }
-      if(movechoice == moveChoice.RIGHT)
+      else if(m == moveChoice.RIGHT)
       {
-         // Move player Right
-         // Done from game engine
+          moveRight();
       }
-      if(movechoice == moveChoice.UP)
+      else if(m == moveChoice.UP)
       {
-         // Move player Up
-         // Done from game engine
+         moveUp();
       }
-      if(movechoice == moveChoice.DOWN)
+      else if(m == moveChoice.DOWN)
       {
-         // Move player Down
-         // Done from game engine
+         moveDown();
       }
+   }
+
+   public void moveUp()
+   {
+      GameEngine.setPos(new Point(GameEngine.getPos().x - 1,GameEngine.getPos().y));
+   }
+
+   public void moveDown()
+   {
+      GameEngine.setPos(new Point(GameEngine.getPos().x + 1,GameEngine.getPos().y));
+   }
+
+   public void moveLeft()
+   {
+      GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y - 1));
+   }
+
+   public void moveRight()
+   {
+      GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y + 1));
    }
 
    /**

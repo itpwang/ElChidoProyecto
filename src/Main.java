@@ -15,7 +15,11 @@ public class Main {
 
         GameEngine g = new GameEngine();
         Player p = new Player();
+
+        //Print position
         System.out.println(g.getPos());
+
+        //Check movements
 
         System.out.println("Left");
         p.moveLeft();

@@ -11,7 +11,7 @@ public abstract class Entity implements Cell{
      * This abstract method will allow the
      * {@link Entity} to move on the grid
      */
-    abstract void move(moveChoice e);
+//    abstract void move(moveChoice e);
     /**
      * This abstract method will allow the
      * {@link Entity} to look to an adjacent
