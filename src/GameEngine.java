@@ -1,8 +1,12 @@
 import java.util.*;
+import java.awt.Point;
 /**
  * This class is in charge of handling all the game logic in the game.
  */
 public class GameEngine {
+
+    private static Point pos = new Point(Math.toMapX(0), Math.toMapY(0));
+
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
@@ -97,7 +101,6 @@ public class GameEngine {
             }
             else
             {
-                System.out.print("hello");
                 i--;
             }
 
@@ -143,7 +146,9 @@ public class GameEngine {
                 break;
         }
     }
-    public void printBoard(){
+
+    public void printBoard()
+    {
         this.board.printGrid(debug);
     }
     public static void invincibiliyOn(){
@@ -156,5 +161,15 @@ public class GameEngine {
 
     public static void radarOn() {
         radar = true;
+    }
+
+    public static Point getPos()
+    {
+        return pos;
+    }
+
+    public static void setPos(Point position)
+    {
+        pos = position;
     }
 }
