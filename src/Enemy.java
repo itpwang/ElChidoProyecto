@@ -1,8 +1,26 @@
+import java.awt.Point;
 
 /**
  * Created by travis on 11/14/16.
  */
 public class Enemy extends Entity  {
+    Point Epos;
+
+    Enemy(Point p)
+    {
+       Epos = p;
+    }
+
+    public Point getPos()
+    {
+        return Epos;
+    }
+
+    public void setPos(Point p)
+    {
+       this.Epos = p;
+    }
+
     public char returnSymbol()
     {
         return 'E';

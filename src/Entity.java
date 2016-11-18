@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * Created by travis on 11/13/16.
  */
@@ -12,12 +14,6 @@ public abstract class Entity implements Cell{
      * {@link Entity} to move on the grid
      */
 //    abstract void move(moveChoice e);
-    /**
-     * This abstract method will allow the
-     * {@link Entity} to look to an adjacent
-     * space
-     */
-    abstract boolean look();
     /**
      * This abstract method will allow the
      * {@link Entity} to attack an adjacent
@@ -40,4 +36,5 @@ public abstract class Entity implements Cell{
         return 'C';
     }
     public char returnSymbol(boolean debug) {return debug?'C':'/';}
+    abstract Point getPos();
 }

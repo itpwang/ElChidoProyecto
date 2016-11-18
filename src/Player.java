@@ -6,6 +6,7 @@ import java.awt.Point;
  * Created by travis on 11/13/16.
  */
 public class Player extends Entity {
+   private moveChoice lookDirection;
 
    public char returnSymbol()
    {
@@ -103,8 +104,10 @@ public class Player extends Entity {
     *
     * @return True/False
     */
-   public boolean look()
+   public boolean look(moveChoice m)
    {
+      this.lookDirection = m;
+
       if(peekAhead())
       {
          System.out.println("Ninja Ahead!");
@@ -120,7 +123,7 @@ public class Player extends Entity {
     */
    private boolean peekAhead()
    {
-      // Checks the adjacent spaces
+      // Checks the look spaces
       // done from game engine
       return true;
    }
