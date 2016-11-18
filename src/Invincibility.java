@@ -2,9 +2,8 @@
  * This class is in charge of creating an Invincibility object which can be randomly 
  * spawned on a tile in the grid..
  */
-public class Invincibility implements Item{
-
-    /**
+public class Invincibility extends Item{
+	/**
 	 * The Invincibility constructor which allows the Invincibility item to 
 	 * be randomly spawned in the grid where there is a {@code Tile} object.
 	 */
@@ -29,4 +28,8 @@ public class Invincibility implements Item{
      * @return char representing object
      */
     public char returnSymbol(boolean debug) {return debug?'I':'/';}
+
+    public void use() {
+        GameEngine.invincibiliyOn();
+    }
 }
