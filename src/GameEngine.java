@@ -25,6 +25,10 @@ public class GameEngine {
      * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
      * spawns power-ups on the grid by using the {@link #generateItems} method.
      */
+    private static boolean invincibiliy;
+    private static int ammo;
+    private static boolean radar;
+
     public GameEngine()
     {
         this.player = new Player();
@@ -119,7 +123,7 @@ public class GameEngine {
             {
                 if(ammoPlace == false)
                 {
-                    board.map[num1][num2] = new Ammo();
+                    board.map[num1][num2]= new Ammo();
                     ammoPlace = true;
                 }
 
@@ -141,5 +145,16 @@ public class GameEngine {
     }
     public void printBoard(){
         this.board.printGrid(debug);
+    }
+    public static void invincibiliyOn(){
+
+    }
+
+    public static void addAmmo() {
+        ammo = 1;
+    }
+
+    public static void radarOn() {
+        radar = true;
     }
 }
