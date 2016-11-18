@@ -3,10 +3,15 @@
  */
 public abstract class Entity implements Cell{
     /**
+     * This field stores the {@link Player}'s movement choice
+     * on the keypad
+     */
+    public enum moveChoice {UP, DOWN, LEFT, RIGHT};
+    /**
      * This abstract method will allow the
      * {@link Entity} to move on the grid
      */
-    abstract void move();
+    abstract void move(moveChoice e);
     /**
      * This abstract method will allow the
      * {@link Entity} to look to an adjacent
