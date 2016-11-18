@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.*;
 /**
  * This class is in charge of handling all the game logic in the game.
@@ -6,7 +7,7 @@ public class GameEngine {
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
-    public Grid board = new Grid();
+    private Grid board = new Grid();
     /**
      * This field represent a Player object that presents that player in the the game.
      */
@@ -19,6 +20,9 @@ public class GameEngine {
      * This field represents the Random object used to randomly generate numbers.
      */
     Random rand = new Random();
+    /**
+     * This field stores if debug mode is on or off. Modified by {@link #changeDebug(boolean)}
+     */
     private boolean debug;
     /**
      * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
@@ -76,12 +80,11 @@ public class GameEngine {
 
     /**
      * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
-     * on the map is not empty the count is decreased and a random location is choosen again.
      */
     public void generateEnemies()
     {
         int num1, num2;
-
+        Point enemyloc;
         for(int i = 0; i < enemies.length; i++)
         {
             num1 = rand.nextInt(8);
@@ -89,7 +92,8 @@ public class GameEngine {
 
             if(board.map[num1][num2].returnSymbol() == '/')
             {
-                board.map[num1][num2] = new Enemy();
+                enemyloc = new Point(num1, num2);
+                board.map[num1][num2]. Enemy(enemyloc);
             }
             else
             {
@@ -109,7 +113,6 @@ public class GameEngine {
     {
         int num1, num2;
         boolean ammoPlace = false, invPlace = false, radarPlace = false;
-
         while(true)
         {
             num1 = rand.nextInt(8);

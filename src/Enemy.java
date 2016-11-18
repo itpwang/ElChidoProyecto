@@ -1,17 +1,9 @@
-
+import java.awt.Point;
 /**
- * Created by travis on 11/14/16.
+ *
  */
 public class Enemy extends Entity  {
-    public char returnSymbol()
-    {
-        return 'E';
-    }
-    /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
-     */
-    public char returnSymbol(boolean debug) {return debug?'E':'/';}
+    private Point location;
     private boolean alive;
     /**
      * This is {@link Player}'s default constructor.
@@ -19,6 +11,11 @@ public class Enemy extends Entity  {
      */
     public Enemy(){
         alive=true;
+    }
+
+    public Enemy(Point location) {
+        alive = true;
+        this.location = location;
     }
     /**
      * This field stores the {@link Player}'s movement choice
@@ -42,7 +39,15 @@ public class Enemy extends Entity  {
                 System.out.println("You shoot nothing!");
         }
     }
-
+    public char returnSymbol()
+    {
+        return 'E';
+    }
+    /**
+     * This field stores {@link Player}'s living state
+     * If alive {@code true}, if dead {@code false}
+     */
+    public char returnSymbol(boolean debug) {return debug?'E':'/';}
     /**
      * This method outputs the keypad to the screen
      * and gets user input for the {@code moveChoice}
@@ -150,4 +155,11 @@ public class Enemy extends Entity  {
         return alive;
     }
 
+    /**
+     * This method sets {@link #location} to a passed in {@link Point}parameter
+     * @param point
+     */
+    public void setPoint(Point point){
+        location = point;
+    }
 }

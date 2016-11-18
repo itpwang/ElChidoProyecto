@@ -5,17 +5,13 @@
  * Created by travis on 11/14/16.
  */
 public class Tile implements Cell {
-    Enemy enemy = null;
-    Player player = null;
-    Item item = null;
+    private Enemy enemy = null;
+    private Player player = null;
+    private Item item = null;
 
-    /**
-     * This method returns a char value of {@code /} on the grid to represent
-     * the location of an unoccupied tile.
-     *
-     * @return /
-     */
+    public Tile(){
 
+    }
 
     public void insertItem(Item item) {
         this.item = item;
@@ -28,7 +24,12 @@ public class Tile implements Cell {
     public void insertEnemy(Enemy enemy) {
         this.enemy = enemy;
     }
-
+    /**
+     * This method returns a char value of {@code /} on the grid to represent
+     * the location of an unoccupied tile.
+     *
+     * @return /
+     */
     public char returnSymbol() {
         if (isEmpty()) {
             return '/';
@@ -38,7 +39,6 @@ public class Tile implements Cell {
             return 'P';
         }
         return '/';
-
     }
 
     public char returnSymbol(boolean debug) {

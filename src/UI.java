@@ -5,7 +5,6 @@
 import java.util.Scanner;
 public class UI {
     private GameEngine G;
-    private Grid map;
     private int userinput;
     private Scanner scan;
     /**

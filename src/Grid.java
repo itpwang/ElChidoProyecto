@@ -61,4 +61,14 @@ public class Grid {
             System.out.println();
         }
     }
+
+    /**
+     * This method returns the cell at the position row,column on the map
+     * @param row
+     * @param col
+     * @return
+     */
+    public Cell getCell(int row, int col){
+        return map[row][col];
+    }
 }
