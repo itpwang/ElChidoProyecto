@@ -101,7 +101,7 @@ public class GameEngine {
             if(board.map[num1][num2].returnSymbol() == '/')
             {
                 enemyloc = new Point(num1, num2);
-                board.map[num1][num2]. Enemy(enemyloc);
+//                board.map[num1][num2].Enemy(enemyloc);
             }
             else
             {
