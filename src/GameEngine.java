@@ -6,59 +6,95 @@ import java.awt.Point;
  */
 public class GameEngine {
 
-    private static Point pos = new Point(Math.toMapX(0), Math.toMapY(0));
+    private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
     private Grid board = new Grid();
+
     /**
      * This field represent a Player object that presents that player in the the game.
      */
     private Player player;
+
     /**
      * This field represents an array of Enemy objects
      */
     private Enemy[] enemies = new Enemy[6];
+
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
     Random rand = new Random();
+
     /**
      * This field stores if debug mode is on or off. Modified by {@link #changeDebug(boolean)}
      */
     private boolean debug;
+
     /**
      * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
      * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
      * spawns power-ups on the grid by using the {@link #generateItems} method.
      */
-    private static boolean invincibiliy;
-    private static int ammo;
+    private static boolean isInvincible = false;
+
+    /**
+     * This field is the counter that stores the
+     * invincibility for the {@link Player}
+     */
+    private int invCounter = 0;
+
+    /**
+     * This field stores the mmo of the
+     * {@link Player}
+     */
+    private static int playerAmmo;
+
     private static boolean radar;
 
-    public GameEngine()
-    {
+    /**
+     * This is the constructor for the {@link GameEngine}
+     * it instantiates the {@link GameEngine#player},
+     * calls the {@link GameEngine#setPlayer()} method,
+     * the {@link GameEngine#generateEnemies()} method,
+     * and the {@link GameEngine#generateItems()} method.
+     * Finally it sets the value of {@link GameEngine#debug}
+     * to false;
+     *
+     */
+    public GameEngine(){
         this.player = new Player();
         setPlayer();
         generateEnemies();
         generateItems();
         debug = false;
     }
+
+    /**
+     * This method toggles the value of the boolean
+     * field {@link GameEngine#debug} to the value passed
+     * as a parameter, (either True or False).
+     *
+     * @param state
+     */
     public void changeDebug(boolean state){
         debug = state;
     }
+
     /**
      * This method calls the grid class to print the maps of the game.
      */
     public void printMap(){
 
     }
+
     /**
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
-    int taketurn() {
+    int taketurn(){
 
         return 0;
     }
@@ -67,9 +103,21 @@ public class GameEngine {
      * This method returns a boolean value of {@code false} representing the game is over.
      * @return false.
      */
-    boolean gameOver() {
+    boolean gameOver(){
+        if(gameWon()||gameLost())
+            return true;
+        else
+            return false;
+    }
 
-        return false;
+    boolean gameWon(){
+        // TODO
+        return true;
+    }
+
+    boolean gameLost(){
+        // TODO
+        return true;
     }
 
     /**
@@ -89,8 +137,7 @@ public class GameEngine {
     /**
      * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
      */
-    public void generateEnemies()
-    {
+    public void generateEnemies(){
         int num1, num2;
         Point enemyloc;
         Enemy enemyholder;
@@ -118,10 +165,9 @@ public class GameEngine {
      * random locations that are empty on the map denoted by a "/" Symbol and if the space on the map are not empty it will
      * keep generating numbers until a space is empty. Once
      */
-    public void generateItems()
-    {
+    public void generateItems(){
         int num1, num2;
-        boolean ammoPlace = false, invPlace = false, radarPlace = false;
+        boolean playerAmmoPlace = false, invPlace = false, radarPlace = false;
         while(true)
         {
             num1 = rand.nextInt(8);
@@ -129,10 +175,10 @@ public class GameEngine {
 
             if(board.map[num1][num2].returnSymbol() == '/')
             {
-                if(ammoPlace == false)
+                if(playerAmmoPlace == false)
                 {
                     board.getTile(num1, num2).insertItem(new Ammo());
-                    ammoPlace = true;
+                    playerAmmoPlace = true;
                 }
 
                 else if(invPlace == false)
@@ -147,34 +193,79 @@ public class GameEngine {
                     radarPlace = true;
                 }
             }
-            if(ammoPlace && invPlace && radarPlace)
+            if(playerAmmoPlace && invPlace && radarPlace)
                 break;
         }
     }
 
+    /**
+     * This method prints the {@link GameEngine#board}
+     * to the screen (For Debug mode)
+     */
     public void printBoard()
     {
         this.board.printGrid(debug);
     }
-    public static void invincibiliyOn(){
 
+    /**
+     * This method sets the {@link GameEngine#isInvincible}
+      */
+    public void setIsInvincible()
+    {
+        this.isInvincible = true;
     }
 
+    /**
+     * This method increments the {@link GameEngine#playerAmmo}
+     * by 1
+     */
     public static void addAmmo() {
-        ammo = 1;
+        playerAmmo = 1;
     }
 
+    /**
+     * This function checks to see if the
+     * {@link GameEngine#playerAmmo} is empty
+     *
+     * @return ans
+     */
+    public static boolean playerAmmoEmpty(){
+        boolean ans;
+        ans = (playerAmmo <= 0)? true : false;
+        return ans;
+    }
+
+    /**
+     * This method sets the value of
+     * {@link GameEngine#radar} to true;
+     */
     public static void radarOn() {
         radar = true;
     }
 
+    /**
+     * This method gets the {@link Player}'s {@link GameEngine#position}
+     *
+     * @return position
+     */
     public static Point getPos()
     {
-        return pos;
+        return position;
     }
 
-    public static void setPos(Point position)
+    /**
+     * This method sets the {@link Player}'s {@link GameEngine#position}
+     */
+    public static void setPos(Point p)
     {
-        pos = position;
+        position = p;
+    }
+
+    /**
+     *
+     */
+    public static void checkPos()
+    {
+        
     }
 }
