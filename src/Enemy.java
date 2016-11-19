@@ -1,136 +1,127 @@
 import java.awt.Point;
+import java.util.Random;
 
 /**
  *
  */
-public class Enemy extends Entity  {
-    Point Epos;
-
-    Enemy(Point p)
-    {
-       Epos = p;
-    }
-
-    public Point getPos()
-    {
-        return Epos;
-    }
-
-    public void setPos(Point p)
-    {
-       this.Epos = p;
-    }
-
-    public char returnSymbol()
-    {
-        return 'E';
-    }
-    /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
-     */
-    public char returnSymbol(boolean debug) {return debug?'E':'/';}
-    private boolean alive;
-    /**
-     * This is {@link Player}'s default constructor.
-     * Sets field alive to {@code true}
-     */
-    public Enemy(){
-        alive=true;
-    }
+public class Enemy extends Entity {
 
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
      */
-    enum moveChoice {UP, DOWN, LEFT, RIGHT};
+    enum moveChoice {
+        UP, DOWN, LEFT, RIGHT
+    }
+
+    ;
+
+    Point Epos;
+
+    Enemy(Point p) {
+        Epos = p;
+    }
+
+    public char returnSymbol() {
+        return 'E';
+    }
+
+    /**
+     * This field stores {@link Player}'s living state
+     * If alive {@code true}, if dead {@code false}
+     */
+    public char returnSymbol(boolean debug) {
+        return debug ? 'E' : '/';
+    }
+
+    private boolean alive;
+
+    /**
+     * This is {@link Player}'s default constructor.
+     * Sets field alive to {@code true}
+     */
+    public Enemy() {
+        alive = true;
+    }
 
     /**
      * This method firts checks that the {@link Player}
      * has {@link Ammo}. If so, they attack an adjacent square.
      */
-    public void attack(/*The argument should be a tile position*/ )
+    public void attack(/*The argument should be a tile position*/)
     {
-        if(checkAmmo())
-        {
-            if(peekAhead())
-            {
-                // kill enemy
-            }
-            else
-                System.out.println("You shoot nothing!");
-        }
-    }
-    public char returnSymbol()
-    {
-        return 'E';
+
     }
     /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
+     * * This method rolls the move for the {@link Enemy}
+     *
+     * @return int
      */
-    public char returnSymbol(boolean debug) {return debug?'E':'/';}
+    public moveChoice rollMove () {
+        int enemyMove;
+        Random rand = new Random();
+        enemyMove = rand.nextInt(3);
+
+        switch (enemyMove) {
+            case 0:
+                return moveChoice.UP;
+            case 1:
+                return moveChoice.DOWN;
+            case 2:
+                return moveChoice.LEFT;
+            case 3:
+                return moveChoice.RIGHT;
+        }
+            return moveChoice.UP;
+    }
+
+
     /**
      * This method outputs the keypad to the screen
      * and gets user input for the {@code moveChoice}
      *
      */
-    public void move()
-    {
-        moveChoice movechoice;
+    public void move(moveChoice m){
 
-        UI.displayKeypad();
-        movechoice = getMoveChoice();
 
-        if(movechoice == moveChoice.LEFT)
+        switch(m)
         {
-            // Move player Left
-            // Done from game engine
-        }
-        if(movechoice == moveChoice.RIGHT)
-        {
-            // Move player Right
-            // Done from game engine
-        }
-        if(movechoice == moveChoice.UP)
-        {
-            // Move player Up
-            // Done from game engine
-        }
-        if(movechoice == moveChoice.DOWN)
-        {
-            // Move player Down
-            // Done from game engine
+            case UP:
+                moveUp();
+                break;
+
+            case DOWN:
+                moveDown();
+                break;
+
+            case LEFT:
+                moveLeft();
+                break;
+
+            case RIGHT:
+                moveRight();
+                break;
         }
     }
 
-    /**
-     * This method returns a boolean value based
-     * on whether the spaces they are looking at
-     * are empty or not.
-     *
-     * @return True/False
-     */
-    public boolean look()
+    public void moveUp()
     {
-        if(peekAhead())
-        {
-            System.out.println("Ninja Ahead!");
-            return true;
-        }
-        else
-            System.out.println("All clear!");
-        return false;
+        setPos(new Point(getPos().x - 1,getPos().y));
     }
 
-    /**
-     * This method checks the adjacent space
-     */
-    private boolean peekAhead()
+    public void moveDown()
     {
-        // Checks the adjacent spaces
-        // done from game engine
-        return true;
+        setPos(new Point(getPos().x + 1,GameEngine.getPos().y));
+    }
+
+    public void moveLeft()
+    {
+        setPos(new Point(getPos().x,GameEngine.getPos().y - 1));
+    }
+
+    public void moveRight()
+    {
+        setPos(new Point(getPos().x,GameEngine.getPos().y + 1));
     }
 
     /**
@@ -140,35 +131,11 @@ public class Enemy extends Entity  {
      *
      * @return answer
      */
-    public int taketurn()
-    {
+    public int taketurn(){
         return 0;
         // Design to work with Enemy
     }
 
-    /**
-     * This method prompts the user to imput a
-     * {@code moveChoice} for the {@link Player}'s
-     * Handles exceptions for invalid input
-     *
-     * @return moveChoice
-     */
-    private moveChoice getMoveChoice()
-    {
-        // Make move random
-        return moveChoice.RIGHT;
-    }
-
-    /**
-     * This method checks to see if the player has ammo
-     *
-     * @return True/False
-     */
-    private boolean checkAmmo()
-    {
-        // total ammo is stored in game engine
-        return true;
-    }
     /**
      * This method allows checking if {@link Player} is alive
      * @return {@code true}if alive ;{@code false} if dead
@@ -184,4 +151,15 @@ public class Enemy extends Entity  {
     public void setPoint(Point point){
         Epos = point;
     }
+
+    public Point getPos()
+    {
+        return Epos;
+    }
+
+    public void setPos(Point p)
+    {
+        this.Epos = p;
+    }
+
 }
