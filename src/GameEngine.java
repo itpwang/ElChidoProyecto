@@ -209,10 +209,11 @@ public class GameEngine {
 
     /**
      * This method sets the {@link GameEngine#isInvincible}
-      */
-    public void setIsInvincible()
+     */
+    public static boolean invincibiliyOn()
     {
-        this.isInvincible = true;
+        isInvincible = true;
+        return isInvincible;
     }
 
     /**
@@ -264,8 +265,7 @@ public class GameEngine {
     /**
      *
      */
-    public static void checkPos()
-    {
+    public static void checkPos(){
         
     }
 }

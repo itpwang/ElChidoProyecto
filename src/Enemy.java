@@ -6,6 +6,7 @@ import java.util.Random;
  */
 public class Enemy extends Entity {
 
+
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
@@ -75,13 +76,12 @@ public class Enemy extends Entity {
             return moveChoice.UP;
     }
 
-
     /**
      * This method outputs the keypad to the screen
      * and gets user input for the {@code moveChoice}
      *
      */
-    public void move(moveChoice m){
+    public void move(Entity.moveChoice m){
 
 
         switch(m)

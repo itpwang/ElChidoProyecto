@@ -9,11 +9,13 @@ public abstract class Entity{
      * on the keypad
      */
     public enum moveChoice {UP, DOWN, LEFT, RIGHT};
+
     /**
      * This abstract method will allow the
      * {@link Entity} to move on the grid
      */
-//    abstract void move(moveChoice e);
+    abstract void move(moveChoice e);
+
     /**
      * This abstract method will allow the
      * {@link Entity} to attack an adjacent
@@ -28,13 +30,24 @@ public abstract class Entity{
      * @return {@code true} if alive {@code false} if not
      */
     abstract boolean isAlive();
+
     /**
-     * This abstract method allows {@link Entity} to die
+     * This method returns the character
+     * string that represents the {@link Entity}
+     *
+     * @return
      */
     public char returnSymbol()
     {
         return 'C';
     }
+    /**
+     * This method returns the character
+     * string that represents the {@link Entity}
+     * (Debug mode)
+     *
+     * @return
+     */
     public char returnSymbol(boolean debug) {return debug?'C':'/';}
     abstract Point getPos();
 }
