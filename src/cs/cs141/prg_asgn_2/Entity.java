@@ -1,3 +1,5 @@
+package cs.cs141.prg_asgn_2;
+
 import java.awt.*;
 
 /**
@@ -13,7 +15,9 @@ public abstract class Entity{
      * This abstract method will allow the
      * {@link Entity} to move on the grid
      */
-//    abstract void move(moveChoice e);
+
+    abstract void move(moveChoice e);
+
     /**
      * This abstract method will allow the
      * {@link Entity} to attack an adjacent
@@ -28,13 +32,28 @@ public abstract class Entity{
      * @return {@code true} if alive {@code false} if not
      */
     abstract boolean isAlive();
+
     /**
-     * This abstract method allows {@link Entity} to die
+     * This method returns the Symbol which represents
+     * the {@link Entity}
+     *
+     * @return char
      */
-    public char returnSymbol()
-    {
-        return 'C';
-    }
-    public char returnSymbol(boolean debug) {return debug?'C':'/';}
+    abstract char returnSymbol();
+
+    /**
+     * This method returns the Symbol which represents
+     * the {@link Entity}
+     *
+     * @return char
+     */
+    abstract char returnSymbol(boolean debug);
+
+    /**
+     * This method gets the {@link Entity}'s
+     * position
+     *
+     * @return Point
+     */
     abstract Point getPos();
 }

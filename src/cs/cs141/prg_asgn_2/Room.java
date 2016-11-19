@@ -1,3 +1,5 @@
+package cs.cs141.prg_asgn_2;
+
 /**
  * This class is in charge of returning a char representing the location of each room on the grid.
  * 

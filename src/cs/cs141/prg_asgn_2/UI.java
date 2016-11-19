@@ -1,14 +1,16 @@
-/**
- * Tbe UI class represents the user interface. Handles all interactions
+package cs.cs141.prg_asgn_2; /**
+ * Tbe cs.cs141.prg_asgn_2.UI class represents the user interface. Handles all interactions
  * between user and game.
  */
 import java.util.Scanner;
+
 public class UI {
     private GameEngine G;
     private int userinput;
     private Scanner scan;
+
     /**
-     * Constructor for UI takes a {@link GameEngine}
+     * Constructor for cs.cs141.prg_asgn_2.UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
      * creates a scanner variable to input data.
      * Lastly, calls the {@link #startMenu} method
@@ -36,6 +38,18 @@ public class UI {
     public void gameMove()
     {
         G.printMap();
+    }
+
+    public Entity.moveChoice askDirection()
+    {
+       Entity.moveChoice move;
+
+        System.out.println("Please choose a direction to Attack: ");
+        System.out.println("1: UP");
+        System.out.println("2: DOWN");
+        System.out.println("3: LEFT");
+        System.out.println("4: RIGHT");
+
     }
 
     /**

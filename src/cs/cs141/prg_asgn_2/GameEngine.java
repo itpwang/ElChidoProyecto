@@ -1,6 +1,8 @@
-import java.awt.*;
+package cs.cs141.prg_asgn_2;
+
 import java.util.*;
 import java.awt.Point;
+
 /**
  * This class is in charge of handling all the game logic in the game.
  */
@@ -9,17 +11,17 @@ public class GameEngine {
     private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
     /**
-     * This field represents the grid of the game. Instantiates a new object of type Grid.
+     * This field represents the grid of the game. Instantiates a new object of type  Grid.
      */
     private Grid board = new Grid();
 
     /**
-     * This field represent a Player object that presents that player in the the game.
+     * This field represent a  Player object that presents that player in the the game.
      */
     private Player player;
 
     /**
-     * This field represents an array of Enemy objects
+     * This field represents an array of  Enemy objects
      */
     private Enemy[] enemies = new Enemy[6];
 
@@ -34,7 +36,7 @@ public class GameEngine {
     private boolean debug;
 
     /**
-     * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
+     * This is the main constructor of the  GameEngine class which instantiates a new cs.cs141.prg_asgn_2.Player object, Spawns a player object
      * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
      * spawns power-ups on the grid by using the {@link #generateItems} method.
      */
@@ -216,6 +218,19 @@ public class GameEngine {
     }
 
     /**
+     * This method checks to see if the {@link Player}
+     * {@link GameEngine#isInvincible}
+     *
+     * @return True/False
+     */
+    public boolean isIsInvincible()
+    {
+        if(isInvincible)
+            return true;
+        return false;
+    }
+
+    /**
      * This method increments the {@link GameEngine#playerAmmo}
      * by 1
      */
@@ -266,6 +281,7 @@ public class GameEngine {
      */
     public static void checkPos()
     {
-        
+
+
     }
 }

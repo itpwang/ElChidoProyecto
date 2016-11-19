@@ -1,10 +1,12 @@
+package cs.cs141.prg_asgn_2;
+
 /*
- * This class represents the Grid object, utilized by the GameEngine
+ * This class represents the cs.cs141.prg_asgn_2.Grid object, utilized by the cs.cs141.prg_asgn_2.GameEngine
  * to create and print the map the game will be played on.
  */
 public class Grid {
 	/*
-	 * An object array of type {@link Cell} is created. The multidimensional
+	 * An object array of type {@link cs.cs141.prg_asgn_2.Cell} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.
 	 */
     public Tile[][] map = new Tile[9][9];
@@ -15,7 +17,7 @@ public class Grid {
     public Grid()
     {
        /*
-        * This for loop allows each place in the multidimensional array to be instantiated as a Tile object.
+        * This for loop allows each place in the multidimensional array to be instantiated as a cs.cs141.prg_asgn_2.Tile object.
         */
     	for(int i = 0; i < map.length; i++)
             for(int j = 0; j < map.length; j++)

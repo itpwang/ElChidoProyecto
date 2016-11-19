@@ -1,11 +1,13 @@
+package cs.cs141.prg_asgn_2;
+
 /**
- * This class is in charge of creating an Ammo object which can be randomly spawned
+ * This class is in charge of creating an cs.cs141.prg_asgn_2.Ammo object which can be randomly spawned
  * on a tile in the grid.
  */
 public class Ammo extends Item{
 	/**
 	 * The ammo constructor which allows the ammo item to be randomly spawned in
-	 * the grid where there is a {@code Tile} object.
+	 * the grid where there is a {@code cs.cs141.prg_asgn_2.Tile} object.
 	 */
     public Ammo()
     {

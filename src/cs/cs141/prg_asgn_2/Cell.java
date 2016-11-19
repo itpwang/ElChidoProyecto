@@ -1,5 +1,7 @@
+package cs.cs141.prg_asgn_2;
+
 /**
- * Interface implemented by Ammo, Invincibility, Radar, Room, Tile, and Entity classes.
+ * Interface implemented by cs.cs141.prg_asgn_2.Ammo, cs.cs141.prg_asgn_2.Invincibility, cs.cs141.prg_asgn_2.Radar, cs.cs141.prg_asgn_2.Room, cs.cs141.prg_asgn_2.Tile, and cs.cs141.prg_asgn_2.Entity classes.
  * 
  * Created by travis on 11/14/16.
  */

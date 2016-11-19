@@ -1,3 +1,5 @@
+package cs.cs141.prg_asgn_2;
+
 /**
  * This class is in charge of returning the location of a tile not already occupied by
  * another object.

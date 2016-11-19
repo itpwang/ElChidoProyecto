@@ -1,4 +1,4 @@
-import java.awt.Point;
+package cs.cs141.prg_asgn_2;
 
 /**
  * This class represents the main class in our program. Program
@@ -9,7 +9,7 @@ import java.awt.Point;
 public class Main {
 	/*
 	 * This method creates a new UserInterface object, and calls to it's
-	 * constructor with the GameEngine parameter.
+	 * constructor with the cs.cs141.prg_asgn_2.GameEngine parameter.
 	 */
     public static void main(String[] args) {
 

@@ -1,38 +1,74 @@
+package cs.cs141.prg_asgn_2;
+
 import java.awt.Point;
 
 /**
  *
  */
-public class Enemy extends Entity  {
+public class Enemy extends Enemy  {
+
+    /**
+     * This field holds the {@link Enemy}'s
+     * position
+     */
     Point Epos;
 
+    /**
+     * This constructor sets the {@link Enemy#Epos}
+     * to the {@code Point} passed as an parameter
+     *
+     * @param p
+     */
     Enemy(Point p)
     {
        Epos = p;
     }
 
+    /**
+     * This method gets the {@link Enemy}'s
+     * position
+     *
+     * @return Point
+     */
     public Point getPos()
     {
         return Epos;
     }
 
+    /**
+     * This method sets the {@link Enemy}'s
+     * position
+     */
     public void setPos(Point p)
     {
        this.Epos = p;
     }
 
+    /**
+     * This method returns the respective
+     * {@link Enemy}'s character
+     *
+     * @return char
+     */
     public char returnSymbol()
     {
         return 'E';
     }
+
     /**
-     * This field stores {@link Player}'s living state
+     * This field stores {@link Enemy}'s living state
      * If alive {@code true}, if dead {@code false}
      */
     public char returnSymbol(boolean debug) {return debug?'E':'/';}
-    private boolean alive;
+
     /**
-     * This is {@link Player}'s default constructor.
+     * This field represents if the {@link Enemy}
+     * is alive
+     */
+    private boolean alive;
+
+    /**
+     * This is {@link }'s default constructor.
      * Sets field alive to {@code true}
      */
     public Enemy(){
@@ -40,13 +76,13 @@ public class Enemy extends Entity  {
     }
 
     /**
-     * This field stores the {@link Player}'s movement choice
+     * This field stores the {@link Enemy}'s movement choice
      * on the keypad
      */
     enum moveChoice {UP, DOWN, LEFT, RIGHT};
 
     /**
-     * This method firts checks that the {@link Player}
+     * This method firts checks that the {@link Enemy}
      * has {@link Ammo}. If so, they attack an adjacent square.
      */
     public void attack(/*The argument should be a tile position*/ )
@@ -61,15 +97,7 @@ public class Enemy extends Entity  {
                 System.out.println("You shoot nothing!");
         }
     }
-    public char returnSymbol()
-    {
-        return 'E';
-    }
-    /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
-     */
-    public char returnSymbol(boolean debug) {return debug?'E':'/';}
+
     /**
      * This method outputs the keypad to the screen
      * and gets user input for the {@code moveChoice}
@@ -77,33 +105,64 @@ public class Enemy extends Entity  {
      */
     public void move()
     {
-        moveChoice movechoice;
+        moveChoice m;
 
         UI.displayKeypad();
-        movechoice = getMoveChoice();
+        m = getMoveChoice();
 
-        if(movechoice == moveChoice.LEFT)
+        if(m == moveChoice.LEFT)
         {
-            // Move player Left
-            // Done from game engine
+            moveLeft();
         }
-        if(movechoice == moveChoice.RIGHT)
+        else if(m == moveChoice.RIGHT)
         {
-            // Move player Right
-            // Done from game engine
+            moveRight();
         }
-        if(movechoice == moveChoice.UP)
+        else if(m == moveChoice.UP)
         {
-            // Move player Up
-            // Done from game engine
+            moveUp();
         }
-        if(movechoice == moveChoice.DOWN)
+        else if(m == moveChoice.DOWN)
         {
-            // Move player Down
-            // Done from game engine
+            moveDown();
         }
     }
 
+    /**
+     * Moves the {@link Enemy} Up on
+     * {@link Grid} by one tile
+     */
+    public void moveUp()
+    {
+        GameEngine.setPos(new Point(GameEngine.getPos().x - 1,GameEngine.getPos().y));
+    }
+
+    /**
+     * Moves the {@link Enemy} Down on
+     * {@link Grid} by one tile
+     */
+    public void moveDown()
+    {
+        GameEngine.setPos(new Point(GameEngine.getPos().x + 1,GameEngine.getPos().y));
+    }
+
+    /**
+     * Moves the {@link Enemy} Left on
+     * {@link Grid} by one tile
+     */
+    public void moveLeft()
+    {
+        GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y - 1));
+    }
+
+    /**
+     * Moves the {@link Enemy} Right on
+     * {@link Grid} by one tile
+     */
+    public void moveRight()
+    {
+        GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y + 1));
+    }
     /**
      * This method returns a boolean value based
      * on whether the spaces they are looking at
@@ -143,12 +202,12 @@ public class Enemy extends Entity  {
     public int taketurn()
     {
         return 0;
-        // Design to work with Enemy
+        // Design to work with cs.cs141.prg_asgn_2.Enemy
     }
 
     /**
      * This method prompts the user to imput a
-     * {@code moveChoice} for the {@link Player}'s
+     * {@code moveChoice} for the {@link Enemy}'s
      * Handles exceptions for invalid input
      *
      * @return moveChoice
@@ -169,8 +228,9 @@ public class Enemy extends Entity  {
         // total ammo is stored in game engine
         return true;
     }
+
     /**
-     * This method allows checking if {@link Player} is alive
+     * This method allows checking if {@link Enemy} is alive
      * @return {@code true}if alive ;{@code false} if dead
      */
     public boolean isAlive(){
@@ -184,4 +244,5 @@ public class Enemy extends Entity  {
     public void setPoint(Point point){
         Epos = point;
     }
+
 }

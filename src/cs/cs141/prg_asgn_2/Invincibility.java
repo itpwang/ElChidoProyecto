@@ -1,11 +1,13 @@
+package cs.cs141.prg_asgn_2;
+
 /**
- * This class is in charge of creating an Invincibility object which can be randomly 
+ * This class is in charge of creating an cs.cs141.prg_asgn_2.Invincibility object which can be randomly
  * spawned on a tile in the grid..
  */
 public class Invincibility extends Item{
 	/**
-	 * The Invincibility constructor which allows the Invincibility item to 
-	 * be randomly spawned in the grid where there is a {@code Tile} object.
+	 * The cs.cs141.prg_asgn_2.Invincibility constructor which allows the cs.cs141.prg_asgn_2.Invincibility item to
+	 * be randomly spawned in the grid where there is a {@code cs.cs141.prg_asgn_2.Tile} object.
 	 */
 	public Invincibility(){
     }
@@ -30,6 +32,6 @@ public class Invincibility extends Item{
     public char returnSymbol(boolean debug) {return debug?'I':'/';}
 
     public void use() {
-        GameEngine.invincibiliyOn();
+        GameEngine.isIsInvicible();
     }
 }
