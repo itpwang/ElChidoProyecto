@@ -62,16 +62,16 @@ public class Player extends Entity {
         * has {@link Ammo}. If so, they attack an adjacent square.
         */
     public void attack(/*The argument should be a tile position*/ ){
-                                                                       if(checkAmmo())
-                                                                       {
-                                                                       if(peekAhead())
-                                                                       {
-                                                                       // kill enemy
-                                                                       }
-                                                                       else
-                                                                       System.out.println("You shoot nothing!");
-                                                                       }
-                                                                       }
+        if(checkAmmo())
+        {
+            if(peekAhead())
+            {
+                // kill enemy
+            }
+            else
+                System.out.println("You shoot nothing!");
+        }
+    }
 
     /**
         * This method outputs the keypad to the screen

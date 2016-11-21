@@ -15,8 +15,6 @@ public class Enemy extends Entity {
         UP, DOWN, LEFT, RIGHT
     }
 
-    ;
-
     Point Epos;
 
     Enemy(Point p) {
@@ -83,7 +81,6 @@ public class Enemy extends Entity {
      */
     public void move(Entity.moveChoice m){
 
-
         switch(m)
         {
             case UP:
@@ -145,7 +142,7 @@ public class Enemy extends Entity {
     }
 
     /**
-     * This method sets {@link #location} to a passed in {@link Point}parameter
+     * This method sets {@link #Epos to a passed in {@link Point}parameter
      * @param point
      */
     public void setPoint(Point point){

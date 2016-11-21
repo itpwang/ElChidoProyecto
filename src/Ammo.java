@@ -5,7 +5,7 @@
 public class Ammo extends Item{
 	/**
 	 * The ammo constructor which allows the ammo item to be randomly spawned in
-	 * the grid where there is a {@code Tile} object.
+	 * the grid where there is a {@link Tile} object.
 	 */
     public Ammo()
     {
