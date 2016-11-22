@@ -4,6 +4,14 @@ import java.awt.Point;
  * This class is in charge of handling all the game logic in the game.
  */
 public class GameEngine {
+    //0,1
+    // 0,3
+    // 0,5
+    // 3,1
+    //  3,3 3,5
+    //6,1 6,3 6,5
+    public static Point [] enterRoom = {new Point(0,1),new Point(0,3), new Point(0,5), new Point(3,1), new Point(3,3),
+            new Point(3,5), new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
     private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
