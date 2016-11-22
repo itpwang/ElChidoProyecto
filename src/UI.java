@@ -2,7 +2,9 @@
  * Tbe UI class represents the user interface. Handles all interactions
  * between user and game.
  */
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class UI {
     private GameEngine G;
     private int userinput;
@@ -11,11 +13,10 @@ public class UI {
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
-     * creates a scanner variable to input data.
+     * creates a scan variable to input data.
      * Lastly, calls the {@link #startMenu} method
      */
-    public UI(GameEngine game)
-    {
+    public UI(GameEngine game) {
         this.G = game;
         scan = new Scanner(System.in);
         startMenu();
@@ -57,12 +58,12 @@ public class UI {
         G.printBoard();
         menuSelect();
     }
+
     /**
      * This method outputs the choices for actions during
      * the game
      */
-    public static void displayChoice()
-    {
+    public static void displayChoice() {
         System.out.println("0. Look");
         System.out.println("1. Move");
         System.out.println("2. Shoot");
@@ -73,8 +74,7 @@ public class UI {
      * This method outputs the keypad options
      * to the screen
      */
-    public static void displayKeypad()
-    {
+    public static void displayKeypad() {
         System.out.println("Press the following" +
                 " Keys to choose a direction:");
         System.out.println("  Up  : W ");
@@ -82,10 +82,11 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
+
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
         System.out.println("Which direction would you like to look?");
         displayKeypad();
-        String direction = scan.nextLine().toUpperCase();
+        String direction = scan.nextLine();
         //GameEngine.Direction choice;
 
         if (direction.equals("W"))
@@ -107,35 +108,84 @@ public class UI {
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
 
-        int moveShoot = scan.nextInt();
+        int moveShoot = takeInput();
         scan.nextLine();
 
         return moveShoot;
     }
+
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
-        System.out.println("  Up  : W ");
-        System.out.println(" Left : A ");
-        System.out.println("Right : D ");
-        System.out.println(" Down : S ");
+        displayKeypad();
 
 
-        String direction = scan.nextLine().toUpperCase();
+        char direction = takeInput('W','A','D','S','w','a','s','d');
 
 
         GameEngine.Direction mchoice;
 
-        if (direction.equals("W"))
+        if (direction == 'W' || direction == 'w')
             mchoice = GameEngine.Direction.UP;
-        else if (direction.equals("A"))
+        else if (direction == 'A' || direction == 'a')
             mchoice = GameEngine.Direction.LEFT;
-        else if(direction.equals("D"))
+        else if(direction == 'D' || direction == 'd')
             mchoice = GameEngine.Direction.RIGHT;
-        else if(direction.equals("S"))
+        else if(direction == 'S' || direction == 's')
             mchoice = GameEngine.Direction.DOWN;
+
         else mchoice = GameEngine.Direction.UP;
 
         return mchoice;
     }
+
+    private static int takeInput(int...validInputs) {
+        int choice = 0;
+        try
+        {
+            choice = scan.nextInt();
+            if(!isInputValid(validInputs, choice))
+                throw new InputMismatchException();
+        } catch(InputMismatchException e) {
+            System.out.println("Error: Invalid input");
+            scan.nextLine();
+            choice = -1;
+        }
+        return choice;
+    }
+
+    private static boolean isInputValid(int inputs[], int c) {
+        for(int i : inputs)
+        {
+            if(c == i)
+                return true;
+        }
+        return false;
+    }
+
+    private static char takeInput(char...validInputs) {
+        char choice;
+
+        try
+        {
+            choice = scan.next().charAt(0);
+            if(!isInputValid(validInputs, choice))
+                throw new InputMismatchException();
+        } catch(InputMismatchException e) {
+            System.out.println("Error: Invalid input");
+            scan.nextLine();
+            choice = 'X';
+        }
+        return choice;
+    }
+
+    private static boolean isInputValid(char inputs[], char c) {
+        for(char i : inputs)
+        {
+            if(c == i)
+                return true;
+        }
+        return false;
+    }
+
 
 }

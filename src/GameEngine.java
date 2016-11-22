@@ -103,13 +103,13 @@ public class GameEngine {
         Point p = player.getPos();
         for (int i = board.map.length; i < 0; i++) {
             if (dir == Direction.UP) {
-                if (board.isOOB(p.x + 1, p.y) && board.map[p.x + 1][p.y].hasEnemy()) {
-                    board.map[p.x + 1][p.y].killEnemy();
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                    board.map[p.x - i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
-                if (board.isOOB(p.x - i, p.y) && board.map[p.x - 1][p.y].hasEnemy()) {
-                    board.map[p.x - 1][p.y].killEnemy();
+                if (board.isOOB(p.x + i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                    board.map[p.x + i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.RIGHT) {
@@ -157,7 +157,8 @@ public class GameEngine {
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
             direction=UI.movePrompt();
-            switch(direction) //
+
+            switch(direction)
             {
                 case UP:
 //                    if(board.getTile(player.getPos()).isRoom())
@@ -195,17 +196,10 @@ public class GameEngine {
     public void enemyTurn(Point ePos){
         Direction m;
         //check player
-
-        do{
-            m = rollMove();
-        }while(!board.isOOB(ePos.x,ePos.y));
-
+        m = rollMove();
         switch(m)
         {
             case UP:
-                if (!board.isOOB(ePos.x,ePos.y)){
-                    m = rollMove()
-                }
                 board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
                 moveUp(ePos);
                 break;
@@ -225,28 +219,28 @@ public class GameEngine {
     }
 
     public void moveUp(Point pt){
-        if(board.isOOB(pt.x-1,pt.y)) {
+        if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
         }
     }
 
     public void moveDown(Point pt){
-        if(board.isOOB(pt.x+1,pt.y)) {
+        if(!board.isOOB(pt.x+1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
         }
     }
 
     public void moveLeft(Point pt){
-        if(board.isOOB(pt.x,pt.y-1)) {
+        if(!board.isOOB(pt.x,pt.y-1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
         }
     }
 
     public void moveRight(Point pt){
-        if(board.isOOB(pt.x,pt.y+1)) {
+        if(!board.isOOB(pt.x,pt.y+1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
         }
@@ -255,7 +249,7 @@ public class GameEngine {
     public Direction rollMove() {
         int enemyMove;
         Random rand = new Random();
-        enemyMove = rand.nextInt(8);
+        enemyMove = rand.nextInt(3);
 
         switch (enemyMove) {
             case 0:
