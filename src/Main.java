@@ -14,11 +14,11 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g = new GameEngine();
-        g.printMap();
+        g.printBoard();
 
 
 
-        g.playerTurn();
+        g.taketurn();
 
     }
 }

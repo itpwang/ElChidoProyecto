@@ -38,7 +38,7 @@ public class UI {
      */
     public void gameMove()
     {
-        G.printMap();
+        G.printBoard();
     }
 
     /**
@@ -106,9 +106,29 @@ public class UI {
         System.out.println("Would you like to move or shoot?");
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
+
         int moveShoot = scan.nextInt();
 
         return moveShoot;
     }
+    public static GameEngine.Direction movePrompt() {
+        System.out.println("What direction would you like to move?");
+        System.out.println("  Up  : W ");
+        System.out.println(" Left : A ");
+        System.out.println("Right : D ");
+        System.out.println(" Down : S ");
+        String direction = scan.nextLine();
+        //GameEngine.Direction choice;
 
+        if (direction.equals("W"))
+            choice = GameEngine.Direction.UP;
+        else if (direction.equals("A"))
+            choice = GameEngine.Direction.LEFT;
+        else if(direction.equals("D"))
+            choice = GameEngine.Direction.RIGHT;
+        else if(direction.equals("S"))
+            choice = GameEngine.Direction.DOWN;
+
+        return choice;
+    }
 }

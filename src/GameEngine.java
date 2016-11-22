@@ -22,6 +22,7 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
+    private Point[] listOfEnemyLoc = new Point[6];
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -54,6 +55,7 @@ public class GameEngine {
     private static boolean radar;
 
     private static boolean gameWon =  false;
+
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
@@ -89,23 +91,12 @@ public class GameEngine {
     }
 
     /**
-     * This method calls the grid class to print the maps of the game.
-     */
-    public void printMap(){
-
-    }
-
-    /**
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
     public void taketurn(){
-        //lookPrompt();
-        //look(direction)
-        //ui.shot or move prompt
-        //if shoot
-
-
+        playerTurn();
+        allEnemiesTurn();
     }
      //
     public void shoot(Direction dir) {
@@ -134,9 +125,6 @@ public class GameEngine {
             }
         }
     }
-
-
-
 
     /**
      * This method returns a boolean value of {@code false} representing the game is over.
@@ -167,13 +155,97 @@ public class GameEngine {
         look(UI.lookPrompt());
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
-            board.swapTile(board.map[player.getPos().x][player.getPos().y], board.map[player.getPos().x - 1][player.getPos().y]);
-        }
+            direction=UI.movePrompt();
+            switch(direction)
+            {
+                case UP:
+                    moveUp(player.getPos());
+                    break;
+                case DOWN:
+                    moveDown(player.getPos());
+                    break;
+                case LEFT:
+                    moveLeft(player.getPos());
+                    break;
+                case RIGHT:
+                    moveRight(player.getPos());
+                    break;
+            }
+            }
         else if(entry == 2){
-
         }
-        //temp
+            //temp
         board.printGrid(false);
+    }
+    public void allEnemiesTurn(){
+        for(Point i: listOfEnemyLoc){
+            enemyTurn(i);
+        }
+    }
+    public void enemyTurn(Point ePos){
+        Direction m;
+        m = rollMove();
+        switch(m)
+        {
+            case UP:
+                moveUp(ePos);
+                break;
+            case DOWN:
+                moveDown(ePos);
+                break;
+            case LEFT:
+                moveLeft(ePos);
+                break;
+            case RIGHT:
+                moveRight(ePos);
+                break;
+        }
+    }
+
+    public void moveUp(Point pt){
+        if(!board.isOOB(pt.x-1,pt.y)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
+            pt.translate(-1,0);
+        }
+    }
+
+    public void moveDown(Point pt){
+        if(!board.isOOB(pt.x+1,pt.y)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
+            pt.translate(1,0);
+        }
+    }
+
+    public void moveLeft(Point pt){
+        if(!board.isOOB(pt.x,pt.y-1)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
+            pt.translate(0,-1);
+        }
+    }
+
+    public void moveRight(Point pt){
+        if(!board.isOOB(pt.x,pt.y+1)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
+            pt.translate(0,1);
+        }
+    }
+
+    public Direction rollMove() {
+        int enemyMove;
+        Random rand = new Random();
+        enemyMove = rand.nextInt(3);
+
+        switch (enemyMove) {
+            case 0:
+                return Direction.UP;
+            case 1:
+                return Direction.DOWN;
+            case 2:
+                return Direction.LEFT;
+            case 3:
+                return Direction.RIGHT;
+        }
+        return Direction.UP;
     }
 
     public void look(Direction direction){
@@ -220,6 +292,7 @@ public class GameEngine {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
                 board.getTile(num1, num2).insertEnemy(enemyholder);
+                listOfEnemyLoc[i]=enemyloc;
             }
             else
             {
