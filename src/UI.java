@@ -21,6 +21,10 @@ public class UI {
         startMenu();
     }
 
+    public enum moveChoice {UP, DOWN, LEFT, RIGHT};
+
+    public moveChoice choice;
+
     /**
      * This method allows the user to choose
      * to either start a new game, load a game
@@ -80,10 +84,38 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-    public boolean running(){
-        if(!G.gameOver()){
-            return true;
-        }
-        else return true;
+    public moveChoice lookPrompt() {
+        System.out.println("Which direction would you like to look?");
+        displayKeypad();
+        String direction = scan.nextLine();
+
+        if (direction == "W")
+            choice = moveChoice.UP;
+        else if (direction == "A")
+            choice = moveChoice.LEFT;
+        else if(direction == "D")
+            choice = moveChoice.RIGHT;
+        else if(direction == "S")
+            choice = moveChoice.DOWN;
+
+
+        return choice;
+
     }
+
+    public void moveOrShootPrompt() {
+        System.out.println("Would you like to move or shoot?");
+        System.out.println("1. Move" );
+        System.out.println("2. Shoot");
+        int moveShoot = scan.nextInt();
+
+        if(moveShoot == 1){
+            //call move() method
+        }
+        else if(moveShoot==2){
+            //call shoot() method
+        }
+
+    }
+
 }
