@@ -6,7 +6,7 @@ import java.awt.Point;
  * Created by travis on 11/13/16.
  */
 public class Player extends Entity {
-
+    private boolean validMove;
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
@@ -106,22 +106,81 @@ public class Player extends Entity {
 
 
     public void moveUp() {
-        pPos.translate(-1, 0);
+        Point moveTo = pPos;
+        moveTo.translate(-1, 0);
+        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
+            if (GameEngine.enterRoom[i].equals(moveTo)) {
+                validMove = true;
+
+                pPos.translate(-1, 0);
+                break;
+            }
+        }
+
+        if (!validMove) {
+            UI.roomMoveError();
+        }
+            validMove = false;
     }
 
 
     public void moveDown() {
-        pPos.translate(1, 0);
+        Point moveTo = pPos;
+        moveTo.translate(1, 0);
+        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
+            if (GameEngine.enterRoom[i].equals(moveTo)) {
+                validMove = true;
+
+                pPos.translate(-1, 0);
+                break;
+            }
+        }
+
+        if (!validMove) {
+            UI.roomMoveError();
+        }
+        validMove = false;
+        //pPos.translate(1, 0);
     }
 
 
     public void moveLeft() {
-        pPos.translate(0, -1);
+        Point moveTo = pPos;
+        moveTo.translate(-1, 0);
+        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
+            if (GameEngine.enterRoom[i].equals(moveTo)) {
+                validMove = true;
+
+                pPos.translate(0, -1);
+                break;
+            }
+        }
+
+        if (!validMove) {
+            UI.roomMoveError();
+        }
+        validMove = false;
+        ///pPos.translate(0, -1);
     }
 
 
     public void moveRight() {
-        pPos.translate(0, 1);
+        Point moveTo = pPos;
+        moveTo.translate(-1, 0);
+        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
+            if (GameEngine.enterRoom[i].equals(moveTo)) {
+                validMove = true;
+
+                pPos.translate(0, 1);
+                break;
+            }
+        }
+
+        if (!validMove) {
+            UI.roomMoveError();
+        }
+        validMove = false;
+        //pPos.translate(0, 1);
     }
 
 
