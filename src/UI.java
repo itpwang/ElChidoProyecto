@@ -7,6 +7,7 @@ public class UI {
     private GameEngine G;
     private int userinput;
     private Scanner scan;
+
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
@@ -23,8 +24,6 @@ public class UI {
     public enum moveChoice {UP, DOWN, LEFT, RIGHT};
 
     public moveChoice choice;
-
-
 
     /**
      * This method allows the user to choose
@@ -58,7 +57,6 @@ public class UI {
         if(userinput==0) G.changeDebug(false);
         else G.changeDebug(true);
         G.printBoard();
-
         menuSelect();
     }
     /**

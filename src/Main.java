@@ -39,6 +39,9 @@ public class Main {
         System.out.println(g.getPos());
 
         UI ui= new UI(new GameEngine());
-//        ui.gameMove();
+        while(ui.running()){
+            ui.gameMove();
+        }
+
     }
 }

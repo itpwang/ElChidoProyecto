@@ -30,6 +30,6 @@ public class Invincibility extends Item{
     public char returnSymbol(boolean debug) {return debug?'I':'/';}
 
     public void use() {
-        GameEngine.invincibiliyOn();
+        GameEngine.invincibilityOn();
     }
 }
