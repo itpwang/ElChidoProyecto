@@ -98,7 +98,7 @@ public class GameEngine {
         playerTurn();
         allEnemiesTurn();
     }
-     //
+
     public void shoot(Direction dir) {
         Point p = player.getPos();
         for (int i = board.map.length; i < 0; i++) {
