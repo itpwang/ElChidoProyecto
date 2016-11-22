@@ -123,10 +123,7 @@ public class UI {
 
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
-        System.out.println("  Up  : W ");
-        System.out.println(" Left : A ");
-        System.out.println("Right : D ");
-        System.out.println(" Down : S ");
+        displayKeypad();
 
 
         char direction = takeInput('W','A','D','S','w','a','s','d');
