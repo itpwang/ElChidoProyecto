@@ -2,7 +2,9 @@
  * Tbe UI class represents the user interface. Handles all interactions
  * between user and game.
  */
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class UI {
     private GameEngine G;
     private int userinput;
@@ -11,11 +13,10 @@ public class UI {
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
-     * creates a scanner variable to input data.
+     * creates a scan variable to input data.
      * Lastly, calls the {@link #startMenu} method
      */
-    public UI(GameEngine game)
-    {
+    public UI(GameEngine game) {
         this.G = game;
         scan = new Scanner(System.in);
         startMenu();
@@ -51,18 +52,23 @@ public class UI {
         System.out.println("*_________________________________*");
         System.out.println("Would you like to run in debug mode?");
         System.out.println("Press 1 for debug mode, 0 for normal mode.");
-        userinput=scan.nextInt();
-        if(userinput==0) G.changeDebug(false);
-        else G.changeDebug(true);
+
+        userinput = takeInput(0,1);
+
+        if(userinput==0)
+            G.changeDebug(false);
+        else
+            G.changeDebug(true);
+
         G.printBoard();
         menuSelect();
     }
+
     /**
      * This method outputs the choices for actions during
      * the game
      */
-    public static void displayChoice()
-    {
+    public static void displayChoice() {
         System.out.println("0. Look");
         System.out.println("1. Move");
         System.out.println("2. Shoot");
@@ -73,8 +79,7 @@ public class UI {
      * This method outputs the keypad options
      * to the screen
      */
-    public static void displayKeypad()
-    {
+    public static void displayKeypad() {
         System.out.println("Press the following" +
                 " Keys to choose a direction:");
         System.out.println("  Up  : W ");
@@ -82,19 +87,22 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-    public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
-        System.out.println("Which direction would you like to look?");
-        displayKeypad();
-        String direction = scan.nextLine();
-        //GameEngine.Direction choice;
 
-        if (direction.equals("W"))
+    public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
+
+        System.out.println("Which direction would you like to look?");
+
+        displayKeypad();
+
+        char direction = takeInput('W','A','S','D','w','a','s','d');
+
+        if (direction == 'W' || direction == 'w')
             choice = GameEngine.Direction.UP;
-        else if (direction.equals("A"))
+        else if (direction == 'A' || direction == 'a')
             choice = GameEngine.Direction.LEFT;
-        else if(direction.equals("D"))
+        else if(direction == 'D' || direction == 'd')
             choice = GameEngine.Direction.RIGHT;
-        else if(direction.equals("S"))
+        else if(direction == 'S' || direction == 's')
             choice = GameEngine.Direction.DOWN;
 
 
@@ -107,33 +115,84 @@ public class UI {
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
 
-        int moveShoot = scan.nextInt();
+        int moveShoot = takeInput(1,2);
         scan.nextLine();
 
         return moveShoot;
     }
+
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
-        System.out.println("  Up  : W ");
-        System.out.println(" Left : A ");
-        System.out.println("Right : D ");
-        System.out.println(" Down : S ");
-        String direction = scan.nextLine();
+        displayKeypad();
+
+
+        char direction = takeInput('W','A','D','S','w','a','s','d');
 
 
         GameEngine.Direction mchoice;
 
-        if (direction.equals("W"))
+        if (direction == 'W' || direction == 'w')
             mchoice = GameEngine.Direction.UP;
-        else if (direction.equals("A"))
+        else if (direction == 'A' || direction == 'a')
             mchoice = GameEngine.Direction.LEFT;
-        else if(direction.equals("D"))
+        else if(direction == 'D' || direction == 'd')
             mchoice = GameEngine.Direction.RIGHT;
-        else if(direction.equals("S"))
+        else if(direction == 'S' || direction == 's')
             mchoice = GameEngine.Direction.DOWN;
+
         else mchoice = GameEngine.Direction.UP;
 
         return mchoice;
     }
+
+    private static int takeInput(int...validInputs) {
+        int choice = 0;
+        try
+        {
+            choice = scan.nextInt();
+            if(!isInputValid(validInputs, choice))
+                throw new InputMismatchException();
+        } catch(InputMismatchException e) {
+            System.out.println("Error: Invalid input");
+            scan.nextLine();
+            choice = -1;
+        }
+        return choice;
+    }
+
+    private static boolean isInputValid(int inputs[], int c) {
+        for(int i : inputs)
+        {
+            if(c == i)
+                return true;
+        }
+        return false;
+    }
+
+    private static char takeInput(char...validInputs) {
+        char choice;
+
+        try
+        {
+            choice = scan.next().charAt(0);
+            if(!isInputValid(validInputs, choice))
+                throw new InputMismatchException();
+        } catch(InputMismatchException e) {
+            System.out.println("Error: Invalid input");
+            scan.nextLine();
+            choice = 'X';
+        }
+        return choice;
+    }
+
+    private static boolean isInputValid(char inputs[], char c) {
+        for(char i : inputs)
+        {
+            if(c == i)
+                return true;
+        }
+        return false;
+    }
+
 
 }
