@@ -18,25 +18,6 @@ public class Player extends Entity {
      * {@link Player}
      */
     private Point pPos;
-
-    /**
-     * This method returns the character
-     * string that represents the {@link Player}
-     * @return
-     */
-    public char returnSymbol()
-                                  {
-                                     return 'P';
-                                                }
-
-    /**
-     * This method returns the character
-     * string that represents the {@link Player}
-     * (Debug mode)
-     * @return
-     */
-    public char returnSymbol(boolean debug) {return debug?'P':'P';}
-
     /**
      * This {@code Scanner} variable allows the user
      * to input values for their choices in battle
@@ -56,6 +37,23 @@ public class Player extends Entity {
     public Player(){
       alive=true;
     }
+    /**
+     * This method returns the character
+     * string that represents the {@link Player}
+     * @return
+     */
+    public char returnSymbol()
+    {
+        return 'P';
+    }
+
+    /**
+     * This method returns the character
+     * string that represents the {@link Player}
+     * (Debug mode)
+     * @return
+     */
+    public char returnSymbol(boolean debug) {return debug?'P':'P';}
 
     /**
         * This method firts checks that the {@link Player}
@@ -190,43 +188,43 @@ public class Player extends Entity {
         * @return moveChoice
         */
     private moveChoice getMoveChoice(){
-                                          String answer;
-                                          char movechoice;
+        String answer;
+        char movechoice;
 
-                                          UI.displayKeypad();
-                                          answer = input.next();
-                                          movechoice = answer.charAt(0);
+        UI.displayKeypad();
+        answer = input.next();
+        movechoice = answer.charAt(0);
 
-                                          try {
-                                          if (movechoice == 'A' )
-                                          {
-                                          return moveChoice.LEFT;
-                                          }
-                                          else if(movechoice == 'D')
-                                          {
-                                          return moveChoice.RIGHT;
-                                          }
-                                          else if(movechoice == 'W')
-                                          {
-                                          return moveChoice.UP;
-                                          }
-                                          else if(movechoice == 'S')
-                                          {
-                                          return moveChoice.DOWN;
+        try {
+            if (movechoice == 'A' )
+            {
+                return moveChoice.LEFT;
+            }
+            else if(movechoice == 'D')
+            {
+                return moveChoice.RIGHT;
+            }
+            else if(movechoice == 'W')
+            {
+                return moveChoice.UP;
+            }
+            else if(movechoice == 'S')
+            {
+                return moveChoice.DOWN;
 
-                                          } else {
-                                          System.out.println("Invalid Choice");
-                                          UI.displayKeypad();
-                                          }
-                                          } catch (InputMismatchException e)
-                                          {
-                                          System.out.println("Input must be an integer.");
-                                          while(input.hasNext() && input.hasNextInt())
-                                          input.next();
-                                          }
+            } else {
+                System.out.println("Invalid Choice");
+                UI.displayKeypad();
+            }
+        } catch (InputMismatchException e)
+        {
+            System.out.println("Input must be an integer.");
+            while(input.hasNext() && input.hasNextInt())
+                input.next();
+        }
 
-                                          return moveChoice.RIGHT;
-                                          }
+        return moveChoice.RIGHT;
+    }
 
     /**
         * This method checks to see if the player has ammo
@@ -234,9 +232,9 @@ public class Player extends Entity {
         * @return True/False
         */
     private boolean checkAmmo(){
-                                   // total ammo is stored in game engine
-                                   return true;
-                                   }
+        // total ammo is stored in game engine
+        return true;
+    }
 
     /**
         * This method allows checking if {@link Player} is alive

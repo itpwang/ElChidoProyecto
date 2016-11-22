@@ -7,6 +7,7 @@ public class UI {
     private GameEngine G;
     private int userinput;
     private Scanner scan;
+
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
@@ -52,7 +53,6 @@ public class UI {
         if(userinput==0) G.changeDebug(false);
         else G.changeDebug(true);
         G.printBoard();
-
         menuSelect();
     }
     /**
@@ -80,5 +80,10 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-
+    public boolean running(){
+        if(!G.gameOver()){
+            return true;
+        }
+        else return true;
+    }
 }

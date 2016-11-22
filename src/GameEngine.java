@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.*;
 import java.awt.Point;
 /**
@@ -53,6 +52,12 @@ public class GameEngine {
     private static int playerAmmo;
 
     private static boolean radar;
+
+    private static boolean gameWon =  false;
+
+    enum moveChoice {
+        UP, DOWN, LEFT, RIGHT
+    }
 
     /**
      * This is the constructor for the {@link GameEngine}
@@ -111,21 +116,37 @@ public class GameEngine {
     }
 
     boolean gameWon(){
-        // TODO
-        return true;
+        return gameWon;
     }
 
     boolean gameLost(){
-        // TODO
+        if(!player.isAlive()&&)
         return true;
     }
 
     /**
      * This method represents the turn of the main player of the game.
      */
-    public void turn() {
+    public void playerTurn() {
+        look();
+
     }
 
+    public void look(moveChoice direction){
+        Point A, B = player.getPos();
+        A = B;
+        switch(direction){
+            case UP: A.translate(0,1);
+                B.translate(0,2);
+            case DOWN:  A.translate(0, -1);
+                B.translate(0, -2);
+            case LEFT:  A.translate(-1, 0);
+                B.translate(-2, 0);
+            case RIGHT:  A.translate(1,0);
+                B.translate(2,0);
+        }
+        board.printlookGrid(A,B);
+    }
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
      */
@@ -210,7 +231,7 @@ public class GameEngine {
     /**
      * This method sets the {@link GameEngine#isInvincible}
      */
-    public static boolean invincibiliyOn()
+    public static boolean invincibilityOn()
     {
         isInvincible = true;
         return isInvincible;
@@ -267,5 +288,8 @@ public class GameEngine {
      */
     public static void checkPos(){
         
+    }
+    public void setGameWon(){
+        gameWon=true;
     }
 }

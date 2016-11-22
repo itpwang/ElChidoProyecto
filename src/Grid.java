@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 /*
  * This class represents the Grid object, utilized by the GameEngine
  * to create and print the map the game will be played on.
@@ -63,6 +65,27 @@ public class Grid {
     }
 
     /**
+     * This method takes in two {@link Point}s and prints them in debug mode(visible {@link Tile}
+     * Functions as 2 tiles ahead of player in direction looked.
+     * @param {@link Point}
+     * @param {@link Point}
+     */
+    public void printlookGrid(Point a, Point b){
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map.length; j++){
+                if((i==a.getX()&&j==a.getY())||(i==b.getX()&&j==b.getY())) {
+                    System.out.print(map[i][j].returnSymbol(true));
+                    System.out.print(' ');
+                }
+                else {
+                    System.out.print(map[i][j].returnSymbol());
+                    System.out.print(' ');
+                }
+            }
+            System.out.println();
+        }
+    }
+    /**
      * This method returns the cell at the position row,column on the map
      * @param row
      * @param col
@@ -70,5 +93,15 @@ public class Grid {
      */
     public Tile getTile(int row, int col){
         return map[row][col];
+    }
+    public boolean enemiesAlive(){
+        boolean alive = true;
+        for(Tile[] tilearray:map){
+            for(Tile t: tilearray){
+                if(t.hasEnemy()) alive = true;
+                else alive = false;
+            }
+        }
+        return alive;
     }
 }
