@@ -55,7 +55,7 @@ public class GameEngine {
 
     private static boolean gameWon =  false;
 
-    enum moveChoice {
+    public enum moveChoice {
         UP, DOWN, LEFT, RIGHT
     }
 
@@ -120,15 +120,18 @@ public class GameEngine {
     }
 
     boolean gameLost(){
-        if(!player.isAlive()&&)
+        if(!player.isAlive())
         return true;
+        else return false;
     }
 
     /**
      * This method represents the turn of the main player of the game.
      */
     public void playerTurn() {
-        look();
+        moveChoice direction;
+        direction = UI.lookPrompt();
+        look(UI.lookPrompt());
 
     }
 
