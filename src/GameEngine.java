@@ -151,6 +151,7 @@ public class GameEngine {
      */
     public void playerTurn() {
         Direction direction;
+        Point pPos = player.getPos();
         //direction = UI.lookPrompt();
         look(UI.lookPrompt());
         int entry = UI.moveOrShootPrompt();
@@ -161,22 +162,22 @@ public class GameEngine {
                 case UP:
 //                    if(board.getTile(player.getPos()).isRoom())
                     player.moveUp();
-                    moveUp(player.getPos());
+                    moveUp(pPos);
                     break;
                 case DOWN:
                     if(board.getTile(player.getPos()).isRoom()) gameWon=true;
                     else {
                         player.moveDown();
-                        moveDown(player.getPos());
+                        moveDown(pPos);
                     }
                     break;
                 case LEFT:
                     player.moveLeft();
-                    moveLeft(player.getPos());
+                    moveLeft(pPos);
                     break;
                 case RIGHT:
                     player.moveRight();
-                    moveRight(player.getPos());
+                    moveRight(pPos);
                     break;
             }
             }
