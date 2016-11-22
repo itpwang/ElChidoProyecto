@@ -188,15 +188,19 @@ public class GameEngine {
         switch(m)
         {
             case UP:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
                 moveUp(ePos);
                 break;
             case DOWN:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
                 moveDown(ePos);
                 break;
             case LEFT:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
                 moveLeft(ePos);
                 break;
             case RIGHT:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
                 moveRight(ePos);
                 break;
         }

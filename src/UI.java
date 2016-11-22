@@ -118,17 +118,17 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
         String direction = scan.nextLine();
-        //GameEngine.Direction choice;
+        GameEngine.Direction mchoice = GameEngine.Direction.UP;
 
         if (direction.equals("W"))
-            choice = GameEngine.Direction.UP;
+            mchoice = GameEngine.Direction.UP;
         else if (direction.equals("A"))
-            choice = GameEngine.Direction.LEFT;
+            mchoice = GameEngine.Direction.LEFT;
         else if(direction.equals("D"))
-            choice = GameEngine.Direction.RIGHT;
+            mchoice = GameEngine.Direction.RIGHT;
         else if(direction.equals("S"))
-            choice = GameEngine.Direction.DOWN;
+            mchoice = GameEngine.Direction.DOWN;
 
-        return choice;
+        return mchoice;
     }
 }
