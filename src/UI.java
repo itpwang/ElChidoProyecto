@@ -85,7 +85,7 @@ public class UI {
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
         System.out.println("Which direction would you like to look?");
         displayKeypad();
-        String direction = scan.nextLine();
+        String direction = scan.nextLine().toUpperCase();
         //GameEngine.Direction choice;
 
         if (direction.equals("W"))
@@ -118,7 +118,9 @@ public class UI {
         System.out.println(" Left : A ");
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
-        String direction = scan.nextLine();
+
+
+        String direction = scan.nextLine().toUpperCase();
 
 
         GameEngine.Direction mchoice;
