@@ -105,7 +105,7 @@ public class Tile {
     public Player getPlayer(){
         return player;
     }
-
+    public boolean isRoom(){return false;}
     public Item getItem(){
         return item;
     }

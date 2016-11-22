@@ -17,8 +17,8 @@ public class Main {
         g.printBoard();
 
 
-
-        g.taketurn();
-
+        while(g.gameOver()) {
+            g.taketurn();
+        }
     }
 }

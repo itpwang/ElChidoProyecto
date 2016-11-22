@@ -93,6 +93,9 @@ public class Grid {
         return map[row][col];
     }
 
+    public Tile getTile(Point pt){
+        return map[pt.x][pt.y];
+    }
 
     public boolean isOOB(int x, int y) {
         return x < 0 || x > map.length || y < 0 || y > map.length;

@@ -131,7 +131,7 @@ public class GameEngine {
      * @return false.
      */
     boolean gameOver(){
-        if(gameWon()||gameLost())
+        if(gameWon()||!gameLost())
             return true;
         else
             return false;
@@ -143,7 +143,7 @@ public class GameEngine {
 
     boolean gameLost(){
         // TODO
-        return true;
+        return false;
     }
 
     /**
@@ -159,15 +159,23 @@ public class GameEngine {
             switch(direction)
             {
                 case UP:
+//                    if(board.getTile(player.getPos()).isRoom())
+                    player.moveUp();
                     moveUp(player.getPos());
                     break;
                 case DOWN:
-                    moveDown(player.getPos());
+                    if(board.getTile(player.getPos()).isRoom()) gameWon=true;
+                    else {
+                        player.moveDown();
+                        moveDown(player.getPos());
+                    }
                     break;
                 case LEFT:
+                    player.moveLeft();
                     moveLeft(player.getPos());
                     break;
                 case RIGHT:
+                    player.moveRight();
                     moveRight(player.getPos());
                     break;
             }
@@ -184,6 +192,7 @@ public class GameEngine {
     }
     public void enemyTurn(Point ePos){
         Direction m;
+        //check player
         m = rollMove();
         switch(m)
         {
