@@ -157,6 +157,7 @@ public class GameEngine {
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
             direction=UI.movePrompt();
+
             switch(direction)
             {
                 case UP:
