@@ -95,5 +95,5 @@ public class Tile {
         return player == null && item == null;
     }
 
-
+    public void killEnemy(){this.enemy = null;}
 }

@@ -99,10 +99,44 @@ public class GameEngine {
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
-    int taketurn(){
+    public void taketurn(){
+        //lookPrompt();
+        //look(direction)
+        //ui.shot or move prompt
+        //if shoot
 
-        return 0;
+
     }
+     //
+    public void shoot(Direction dir) {
+        Point p = player.getPos();
+        for (int i = board.map.length; i < 0; i++) {
+            if (dir == Direction.UP) {
+                if (board.isOOB(p.x + 1, p.y) && board.map[p.x + 1][p.y].hasEnemy()) {
+                    board.map[p.x + 1][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.DOWN) {
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x - 1][p.y].hasEnemy()) {
+                    board.map[p.x - 1][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.RIGHT) {
+                if (board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+                    board.map[p.x][p.y + i].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.LEFT) {
+                if (board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+                    board.map[p.x][p.y - i].killEnemy();
+                    break;
+                }
+            }
+        }
+    }
+
+
+
 
     /**
      * This method returns a boolean value of {@code false} representing the game is over.
@@ -120,9 +154,8 @@ public class GameEngine {
     }
 
     boolean gameLost(){
-        if(!player.isAlive())
+        // TODO
         return true;
-        else return false;
     }
 
     /**
