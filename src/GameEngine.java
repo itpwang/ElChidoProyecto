@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.*;
 import java.awt.Point;
 /**
@@ -23,6 +22,7 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
+    private Point[] listOfEnemyLoc = new Point[6];
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -54,6 +54,13 @@ public class GameEngine {
 
     private static boolean radar;
 
+    private static boolean gameWon =  false;
+
+
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    }
+
     /**
      * This is the constructor for the {@link GameEngine}
      * it instantiates the {@link GameEngine#player},
@@ -65,7 +72,7 @@ public class GameEngine {
      *
      */
     public GameEngine(){
-        this.player = new Player();
+        this.player = new Player(new Point(8, 0));
         setPlayer();
         generateEnemies();
         generateItems();
@@ -84,19 +91,39 @@ public class GameEngine {
     }
 
     /**
-     * This method calls the grid class to print the maps of the game.
-     */
-    public void printMap(){
-
-    }
-
-    /**
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
-    int taketurn(){
+    public void taketurn(){
+        playerTurn();
+        allEnemiesTurn();
+    }
 
-        return 0;
+    public void shoot(Direction dir) {
+        Point p = player.getPos();
+        for (int i = board.map.length; i < 0; i++) {
+            if (dir == Direction.UP) {
+                if (board.isOOB(p.x + 1, p.y) && board.map[p.x + 1][p.y].hasEnemy()) {
+                    board.map[p.x + 1][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.DOWN) {
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x - 1][p.y].hasEnemy()) {
+                    board.map[p.x - 1][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.RIGHT) {
+                if (board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+                    board.map[p.x][p.y + i].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.LEFT) {
+                if (board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+                    board.map[p.x][p.y - i].killEnemy();
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -104,28 +131,157 @@ public class GameEngine {
      * @return false.
      */
     boolean gameOver(){
-        if(gameWon()||gameLost())
+        if(gameWon()||!gameLost())
             return true;
         else
             return false;
     }
 
     boolean gameWon(){
-        // TODO
-        return true;
+        return gameWon;
     }
 
     boolean gameLost(){
         // TODO
-        return true;
+        return false;
     }
 
     /**
      * This method represents the turn of the main player of the game.
      */
-    public void turn() {
+    public void playerTurn() {
+        Direction direction;
+        Point pPos = player.getPos();
+        //direction = UI.lookPrompt();
+        look(UI.lookPrompt());
+        int entry = UI.moveOrShootPrompt();
+        if(entry==1){
+            direction=UI.movePrompt();
+            switch(direction)
+            {
+                case UP:
+//                    if(board.getTile(player.getPos()).isRoom())
+                    player.moveUp();
+                    moveUp(pPos);
+                    break;
+                case DOWN:
+                    if(board.getTile(player.getPos()).isRoom()) gameWon=true;
+                    else {
+                        player.moveDown();
+                        moveDown(pPos);
+                    }
+                    break;
+                case LEFT:
+                    player.moveLeft();
+                    moveLeft(pPos);
+                    break;
+                case RIGHT:
+                    player.moveRight();
+                    moveRight(pPos);
+                    break;
+            }
+            }
+        else if(entry == 2){
+            shoot(Direction.UP);
+        }
+            //temp
+        board.printGrid(false);
+    }
+    public void allEnemiesTurn(){
+        for(Point i: listOfEnemyLoc){
+            enemyTurn(i);
+        }
+    }
+    public void enemyTurn(Point ePos){
+        Direction m;
+        //check player
+        m = rollMove();
+        switch(m)
+        {
+            case UP:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
+                moveUp(ePos);
+                break;
+            case DOWN:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
+                moveDown(ePos);
+                break;
+            case LEFT:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
+                moveLeft(ePos);
+                break;
+            case RIGHT:
+                board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
+                moveRight(ePos);
+                break;
+        }
     }
 
+    public void moveUp(Point pt){
+        if(!board.isOOB(pt.x-1,pt.y)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
+            pt.translate(-1,0);
+        }
+    }
+
+    public void moveDown(Point pt){
+        if(!board.isOOB(pt.x+1,pt.y)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
+            pt.translate(1,0);
+        }
+    }
+
+    public void moveLeft(Point pt){
+        if(!board.isOOB(pt.x,pt.y-1)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
+            pt.translate(0,-1);
+        }
+    }
+
+    public void moveRight(Point pt){
+        if(!board.isOOB(pt.x,pt.y+1)) {
+            board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
+            pt.translate(0,1);
+        }
+    }
+
+    public Direction rollMove() {
+        int enemyMove;
+        Random rand = new Random();
+        enemyMove = rand.nextInt(3);
+
+        switch (enemyMove) {
+            case 0:
+                return Direction.UP;
+            case 1:
+                return Direction.DOWN;
+            case 2:
+                return Direction.LEFT;
+            case 3:
+                return Direction.RIGHT;
+        }
+        return Direction.UP;
+    }
+
+    public void look(Direction direction){
+        Point A  = player.getPos();
+        Point B = player.getPos();
+        switch(direction){
+            case UP: A.translate(-1,0);
+                B.translate(-2,0);
+                break;
+            case DOWN:  A.translate(1, 0);
+                B.translate(2, 0);
+                break;
+            case LEFT:  A.translate(0, -1);
+                B.translate(0, -2);
+                break;
+            case RIGHT:  A.translate(0,1);
+                B.translate(0,2);
+                break;
+        }
+        board.printlookGrid(A,B);
+    }
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
      */
@@ -151,6 +307,7 @@ public class GameEngine {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
                 board.getTile(num1, num2).insertEnemy(enemyholder);
+                listOfEnemyLoc[i]=enemyloc;
             }
             else
             {
@@ -210,7 +367,7 @@ public class GameEngine {
     /**
      * This method sets the {@link GameEngine#isInvincible}
      */
-    public static boolean invincibiliyOn()
+    public static boolean invincibilityOn()
     {
         isInvincible = true;
         return isInvincible;
@@ -257,9 +414,12 @@ public class GameEngine {
     /**
      * This method sets the {@link Player}'s {@link GameEngine#position}
      */
-    public static void setPos(Point p)
+    public void setPos(Point p)
     {
-        position = p;
+        if(!board.isOOB(p.x, p.y)) {
+            position = p;
+        }
+
     }
 
     /**
@@ -267,5 +427,8 @@ public class GameEngine {
      */
     public static void checkPos(){
         
+    }
+    public void setGameWon(){
+        gameWon=true;
     }
 }

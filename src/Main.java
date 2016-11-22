@@ -14,31 +14,11 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g = new GameEngine();
-        g.printMap();
-        Player p = new Player();
+        g.printBoard();
 
-        //Print position
-        System.out.println(g.getPos());
 
-        //Check movements
-
-        System.out.println("Left");
-        p.moveLeft();
-        System.out.println(g.getPos());
-
-        System.out.println("Right");
-        p.moveRight();
-        System.out.println(g.getPos());
-
-        System.out.println("Up");
-        p.moveUp();
-        System.out.println(g.getPos());
-
-        System.out.println("Down");
-        p.moveDown();
-        System.out.println(g.getPos());
-
-        UI ui= new UI(new GameEngine());
-//        ui.gameMove();
+        while(g.gameOver()) {
+            g.taketurn();
+        }
     }
 }

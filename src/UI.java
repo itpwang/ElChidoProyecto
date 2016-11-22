@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class UI {
     private GameEngine G;
     private int userinput;
-    private Scanner scan;
+    private static Scanner scan = new Scanner(System.in);
+
     /**
      * Constructor for UI takes a {@link GameEngine}
      * for an argument. instantiates the game, and
@@ -20,11 +21,7 @@ public class UI {
         startMenu();
     }
 
-    public enum moveChoice {UP, DOWN, LEFT, RIGHT};
-
-    public moveChoice choice;
-
-
+    public static GameEngine.Direction choice;
 
     /**
      * This method allows the user to choose
@@ -41,7 +38,7 @@ public class UI {
      */
     public void gameMove()
     {
-        G.printMap();
+        G.printBoard();
     }
 
     /**
@@ -58,7 +55,6 @@ public class UI {
         if(userinput==0) G.changeDebug(false);
         else G.changeDebug(true);
         G.printBoard();
-
         menuSelect();
     }
     /**
@@ -86,38 +82,58 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-    public moveChoice lookPrompt() {
+    public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
         System.out.println("Which direction would you like to look?");
         displayKeypad();
         String direction = scan.nextLine();
+        //GameEngine.Direction choice;
 
-        if (direction == "W")
-            choice = moveChoice.UP;
-        else if (direction == "A")
-            choice = moveChoice.LEFT;
-        else if(direction == "D")
-            choice = moveChoice.RIGHT;
-        else if(direction == "S")
-            choice = moveChoice.DOWN;
+        if (direction.equals("W"))
+            choice = GameEngine.Direction.UP;
+        else if (direction.equals("A"))
+            choice = GameEngine.Direction.LEFT;
+        else if(direction.equals("D"))
+            choice = GameEngine.Direction.RIGHT;
+        else if(direction.equals("S"))
+            choice = GameEngine.Direction.DOWN;
 
 
         return choice;
 
     }
 
-    public void moveOrShootPrompt() {
+    public static int moveOrShootPrompt() {
         System.out.println("Would you like to move or shoot?");
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
+
         int moveShoot = scan.nextInt();
+        scan.nextLine();
 
-        if(moveShoot == 1){
-            //call move() method
-        }
-        else if(moveShoot==2){
-            //call shoot() method
-        }
+        return moveShoot;
+    }
+    public static GameEngine.Direction movePrompt() {
+        System.out.println("What direction would you like to move?");
+        System.out.println("  Up  : W ");
+        System.out.println(" Left : A ");
+        System.out.println("Right : D ");
+        System.out.println(" Down : S ");
+        String direction = scan.nextLine();
 
+
+        GameEngine.Direction mchoice;
+
+        if (direction.equals("W"))
+            mchoice = GameEngine.Direction.UP;
+        else if (direction.equals("A"))
+            mchoice = GameEngine.Direction.LEFT;
+        else if(direction.equals("D"))
+            mchoice = GameEngine.Direction.RIGHT;
+        else if(direction.equals("S"))
+            mchoice = GameEngine.Direction.DOWN;
+        else mchoice = GameEngine.Direction.UP;
+
+        return mchoice;
     }
 
 }

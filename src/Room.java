@@ -25,4 +25,5 @@ public class Room extends Tile {
      * @return char representing object
      */
     public char returnSymbol(boolean debug) {return debug?'R':'/';}
+    public boolean isRoom(){return true;}
 }

@@ -159,5 +159,18 @@ public class Tile {
         return player == null && item == null;
     }
 
-
+    public void killEnemy(){this.enemy = null;}
+    public Enemy getEnemy(){
+        return enemy;
+    }
+    public void setEnemy(Enemy e){
+        enemy = e;
+    }
+    public Player getPlayer(){
+        return player;
+    }
+    public boolean isRoom(){return false;}
+    public Item getItem(){
+        return item;
+    }
 }

@@ -17,28 +17,6 @@ public class Enemy extends Entity {
 
     Point Epos;
 
-    Enemy(Point p) {
-        Epos = p;
-    }
-
-    public char returnSymbol() {
-        return 'E';
-    }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code E} if it is {@code true} and {@code /} if {@code false}
-     * @param debug
-     * @return char representing object
-     */
-    public char returnSymbol(boolean debug) {
-        return debug ? 'E' : '/';
-    }
-
-    /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
-     */
     private boolean alive;
 
     /**
@@ -53,6 +31,21 @@ public class Enemy extends Entity {
      * This method firts checks that the {@link Player}
      * has {@link Ammo}. If so, they attack an adjacent square.
      */
+    public Enemy(Point p) {
+        Epos = p;
+    }
+
+    public char returnSymbol() {
+        return 'E';
+    }
+
+    /**
+     * This field stores {@link Player}'s living state
+     * If alive {@code true}, if dead {@code false}
+     */
+    public char returnSymbol(boolean debug) {
+        return debug ? 'E' : '/';
+    }
     public void attack(/*The argument should be a tile position*/)
     {
 
