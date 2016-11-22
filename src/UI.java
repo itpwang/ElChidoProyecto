@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class UI {
     private GameEngine G;
     private int userinput;
-    private static Scanner scan;
+    private static Scanner scan = new Scanner(System.in);
 
     /**
      * Constructor for UI takes a {@link GameEngine}
@@ -21,7 +21,7 @@ public class UI {
         startMenu();
     }
 
-    public static GameEngine.moveChoice choice;
+    public static GameEngine.Direction choice;
 
     /**
      * This method allows the user to choose
@@ -82,38 +82,33 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-    public static GameEngine.moveChoice lookPrompt() {
+    public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
         System.out.println("Which direction would you like to look?");
         displayKeypad();
         String direction = scan.nextLine();
+        //GameEngine.Direction choice;
 
-        if (direction == "W")
-            choice = GameEngine.moveChoice.UP;
-        else if (direction == "A")
-            choice = GameEngine.moveChoice.LEFT;
-        else if(direction == "D")
-            choice = GameEngine.moveChoice.RIGHT;
-        else if(direction == "S")
-            choice = GameEngine.moveChoice.DOWN;
+        if (direction.equals("W"))
+            choice = GameEngine.Direction.UP;
+        else if (direction.equals("A"))
+            choice = GameEngine.Direction.LEFT;
+        else if(direction.equals("D"))
+            choice = GameEngine.Direction.RIGHT;
+        else if(direction.equals("S"))
+            choice = GameEngine.Direction.DOWN;
 
 
         return choice;
 
     }
 
-    public void moveOrShootPrompt() {
+    public static int moveOrShootPrompt() {
         System.out.println("Would you like to move or shoot?");
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
         int moveShoot = scan.nextInt();
 
-        if(moveShoot == 1){
-            //call move() method
-        }
-        else if(moveShoot==2){
-            //call shoot() method
-        }
-
+        return moveShoot;
     }
 
 }

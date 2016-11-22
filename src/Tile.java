@@ -96,4 +96,17 @@ public class Tile {
     }
 
     public void killEnemy(){this.enemy = null;}
+    public Enemy getEnemy(){
+        return enemy;
+    }
+    public void setEnemy(Enemy e){
+        enemy = e;
+    }
+    public Player getPlayer(){
+        return player;
+    }
+
+    public Item getItem(){
+        return item;
+    }
 }

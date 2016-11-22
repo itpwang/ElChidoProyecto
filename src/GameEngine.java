@@ -55,7 +55,7 @@ public class GameEngine {
 
     private static boolean gameWon =  false;
 
-    public enum moveChoice {
+    public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
 
@@ -70,7 +70,7 @@ public class GameEngine {
      *
      */
     public GameEngine(){
-        this.player = new Player();
+        this.player = new Player(new Point(8, 0));
         setPlayer();
         generateEnemies();
         generateItems();
@@ -162,24 +162,36 @@ public class GameEngine {
      * This method represents the turn of the main player of the game.
      */
     public void playerTurn() {
-        moveChoice direction;
-        direction = UI.lookPrompt();
+        Direction direction;
+        //direction = UI.lookPrompt();
         look(UI.lookPrompt());
+        int entry = UI.moveOrShootPrompt();
+        if(entry==1){
+            board.swapTile(board.map[player.getPos().x][player.getPos().y], board.map[player.getPos().x - 1][player.getPos().y]);
+        }
+        else if(entry == 2){
 
+        }
+        //temp
+        board.printGrid(false);
     }
 
-    public void look(moveChoice direction){
-        Point A, B = player.getPos();
-        A = B;
+    public void look(Direction direction){
+        Point A  = player.getPos();
+        Point B = player.getPos();
         switch(direction){
-            case UP: A.translate(0,1);
-                B.translate(0,2);
-            case DOWN:  A.translate(0, -1);
+            case UP: A.translate(-1,0);
+                B.translate(-2,0);
+                break;
+            case DOWN:  A.translate(1, 0);
+                B.translate(2, 0);
+                break;
+            case LEFT:  A.translate(0, -1);
                 B.translate(0, -2);
-            case LEFT:  A.translate(-1, 0);
-                B.translate(-2, 0);
-            case RIGHT:  A.translate(1,0);
-                B.translate(2,0);
+                break;
+            case RIGHT:  A.translate(0,1);
+                B.translate(0,2);
+                break;
         }
         board.printlookGrid(A,B);
     }
@@ -314,9 +326,12 @@ public class GameEngine {
     /**
      * This method sets the {@link Player}'s {@link GameEngine#position}
      */
-    public static void setPos(Point p)
+    public void setPos(Point p)
     {
-        position = p;
+        if(!board.isOOB(p.x, p.y)) {
+            position = p;
+        }
+
     }
 
     /**

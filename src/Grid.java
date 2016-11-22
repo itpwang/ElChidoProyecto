@@ -97,5 +97,20 @@ public class Grid {
     public boolean isOOB(int x, int y) {
         return x < 0 || x > map.length || y < 0 || y > map.length;
     }
+
+    public void swapTile(Tile A, Tile B){ //Ghetto AF
+        Tile temp = new Tile();
+        temp.insertPlayer(A.getPlayer());
+        temp.insertEnemy(A.getEnemy());
+        temp.insertItem(A.getItem());
+
+        A.insertEnemy(B.getEnemy());
+        A.insertItem(B.getItem());
+        A.insertPlayer(B.getPlayer());
+
+        B.insertEnemy(temp.getEnemy());
+        B.insertItem(temp.getItem());
+        B.insertPlayer(temp.getPlayer());
+    }
 }
 

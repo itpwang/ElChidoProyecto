@@ -37,6 +37,10 @@ public class Player extends Entity {
     public Player(){
       alive=true;
     }
+
+    public Player(Point p) {
+        pPos = p;
+    }
     /**
      * This method returns the character
      * string that represents the {@link Player}
@@ -77,48 +81,49 @@ public class Player extends Entity {
         *
         */
     public void move(moveChoice m){
-        moveChoice movechoice;
+            moveChoice movechoice;
 
-        UI.displayKeypad();
-        movechoice = getMoveChoice();
+            UI.displayKeypad();
+            movechoice = getMoveChoice();
 
-        if(m == moveChoice.LEFT)
-        {
-        moveLeft();
+            if(m == moveChoice.LEFT)
+            {
+                moveLeft();
+                }
+                else if(m == moveChoice.RIGHT)
+                {
+                moveRight();
+                }
+                else if(m == moveChoice.UP)
+                {
+                moveUp();
+                }
+                else if(m == moveChoice.DOWN)
+                {
+                moveDown();
+            }
         }
-        else if(m == moveChoice.RIGHT)
-        {
-        moveRight();
-        }
-        else if(m == moveChoice.UP)
-        {
-        moveUp();
-        }
-        else if(m == moveChoice.DOWN)
-        {
-        moveDown();
-        }
-        }
 
-    public void moveUp()
-                            {
-                               GameEngine.setPos(new Point(GameEngine.getPos().x - 1,GameEngine.getPos().y));
-                                                                                                             }
 
-    public void moveDown()
-                              {
-                                 GameEngine.setPos(new Point(GameEngine.getPos().x + 1,GameEngine.getPos().y));
-                                                                                                               }
+    public void moveUp() {
+        pPos.translate(-1, 0);
+    }
 
-    public void moveLeft()
-                              {
-                                 GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y - 1));
-                                                                                                               }
 
-    public void moveRight()
-                               {
-                                  GameEngine.setPos(new Point(GameEngine.getPos().x,GameEngine.getPos().y + 1));
-                                                                                                                }
+    public void moveDown() {
+        pPos.translate(1, 0);
+    }
+
+
+    public void moveLeft() {
+        pPos.translate(0, -1);
+    }
+
+
+    public void moveRight() {
+        pPos.translate(0, 1);
+    }
+
 
     /**
         * This method returns a boolean value based
@@ -156,29 +161,29 @@ public class Player extends Entity {
         *
         * @return answer
         */
-    public int taketurn(){
-        int answer;
-
-        UI.displayChoice();
-
-        answer = input.nextInt();
-
-        try {
-        if (answer == 0 || answer == 1 || answer == 2 || answer == 3)
-        {
-        return answer;
-        } else {
-        System.out.println("Invalid Choice");
-        UI.displayChoice();
-        }
-        } catch (InputMismatchException e)
-        {
-        System.out.println("Input must be an integer.");
-        while(input.hasNext() && input.hasNextInt())
-        input.next();
-        }
-        return answer;
-        }
+//    public int taketurn(){
+//        int answer;
+//
+//        UI.displayChoice();
+//
+//        answer = input.nextInt();
+//
+//        try {
+//        if (answer == 0 || answer == 1 || answer == 2 || answer == 3)
+//        {
+//        return answer;
+//        } else {
+//        System.out.println("Invalid Choice");
+//        UI.displayChoice();
+//        }
+//        } catch (InputMismatchException e)
+//        {
+//        System.out.println("Input must be an integer.");
+//        while(input.hasNext() && input.hasNextInt())
+//        input.next();
+//        }
+//        return answer;
+//        }
 
     /**
         * This method prompts the user to imput a
@@ -246,6 +251,6 @@ public class Player extends Entity {
 
     public Point getPos()
     {
-        return pPos;
+        return new Point(pPos);
     }
 }
