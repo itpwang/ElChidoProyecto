@@ -109,14 +109,14 @@ public class GameEngine {
 
     public void shoot(Direction dir) {
         Point p = player.getPos();
-        for (int i = board.map.length; i < 0; i++) {
+        for (int i = 0; i < board.map.length; i++) {
             if (dir == Direction.UP) {
-                if (board.isOOB(p.x - i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
                     board.map[p.x - i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
-                if (board.isOOB(p.x + i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                if (board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
                     board.map[p.x + i][p.y].killEnemy();
                     break;
                 }
@@ -165,7 +165,6 @@ public class GameEngine {
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
             direction=UI.movePrompt();
-
             switch(direction)
             {
                 case UP:
@@ -191,7 +190,8 @@ public class GameEngine {
             }
             }
         else if(entry == 2){
-            shoot(Direction.UP);
+            direction=UI.shootPrompt();
+            shoot(direction);
         }
             //temp
         board.printGrid(false);
@@ -202,10 +202,10 @@ public class GameEngine {
         }
     }
     public void enemyTurn(Point ePos){
-        Direction m;
+        Direction movement;
         //check player
-        m = rollMove();
-        switch(m)
+        movement = rollMove();
+        switch(movement)
         {
             case UP:
                 board.getTile(ePos.x, ePos.y).getEnemy().moveUp();

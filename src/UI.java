@@ -52,9 +52,14 @@ public class UI {
         System.out.println("*_________________________________*");
         System.out.println("Would you like to run in debug mode?");
         System.out.println("Press 1 for debug mode, 0 for normal mode.");
-        userinput=scan.nextInt();
-        if(userinput==0) G.changeDebug(false);
-        else G.changeDebug(true);
+
+        userinput = takeInput(0,1);
+
+        if(userinput==0)
+            G.changeDebug(false);
+        else
+            G.changeDebug(true);
+
         G.printBoard();
         menuSelect();
     }
@@ -84,18 +89,20 @@ public class UI {
     }
 
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
-        System.out.println("Which direction would you like to look?");
-        displayKeypad();
-        String direction = scan.nextLine();
-        //GameEngine.Direction choice;
 
-        if (direction.equals("W"))
+        System.out.println("Which direction would you like to look?");
+
+        displayKeypad();
+
+        char direction = takeInput('W','A','S','D','w','a','s','d');
+
+        if (direction == 'W' || direction == 'w')
             choice = GameEngine.Direction.UP;
-        else if (direction.equals("A"))
+        else if (direction == 'A' || direction == 'a')
             choice = GameEngine.Direction.LEFT;
-        else if(direction.equals("D"))
+        else if(direction == 'D' || direction == 'd')
             choice = GameEngine.Direction.RIGHT;
-        else if(direction.equals("S"))
+        else if(direction == 'S' || direction == 's')
             choice = GameEngine.Direction.DOWN;
 
 
@@ -108,19 +115,36 @@ public class UI {
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
 
-        int moveShoot = takeInput();
+        int moveShoot = takeInput(1,2);
         scan.nextLine();
 
         return moveShoot;
     }
 
+    public static  GameEngine.Direction shootPrompt() {
+        System.out.println("Shoot what direction?");
+        displayKeypad();
+        char direction = takeInput('W','A','D','S','w','a','s','d');
+        GameEngine.Direction shootchoice;
+
+        if (direction == 'W' || direction == 'w')
+            shootchoice = GameEngine.Direction.UP;
+        else if (direction == 'A' || direction == 'a')
+            shootchoice = GameEngine.Direction.LEFT;
+        else if(direction == 'D' || direction == 'd')
+            shootchoice = GameEngine.Direction.RIGHT;
+        else if(direction == 'S' || direction == 's')
+            shootchoice = GameEngine.Direction.DOWN;
+
+        else shootchoice = GameEngine.Direction.UP;
+
+        return shootchoice;
+    }
+
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
         displayKeypad();
-
-
         char direction = takeInput('W','A','D','S','w','a','s','d');
-
 
         GameEngine.Direction mchoice;
 
