@@ -108,7 +108,7 @@ public class UI {
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
 
-        int moveShoot = scan.nextInt();
+        int moveShoot = takeInput();
         scan.nextLine();
 
         return moveShoot;
@@ -122,19 +122,20 @@ public class UI {
         System.out.println(" Down : S ");
 
 
-        char direction = takeInput();
+        char direction = takeInput('W','A','D','S','w','a','s','d');
 
 
         GameEngine.Direction mchoice;
 
-        if (direction == 'W')
+        if (direction == 'W' || direction == 'w')
             mchoice = GameEngine.Direction.UP;
-        else if (direction.equals("A"))
+        else if (direction == 'A' || direction == 'a')
             mchoice = GameEngine.Direction.LEFT;
-        else if(direction.equals("D"))
+        else if(direction == 'D' || direction == 'd')
             mchoice = GameEngine.Direction.RIGHT;
-        else if(direction.equals("S"))
+        else if(direction == 'S' || direction == 's')
             mchoice = GameEngine.Direction.DOWN;
+
         else mchoice = GameEngine.Direction.UP;
 
         return mchoice;
