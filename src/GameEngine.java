@@ -103,13 +103,13 @@ public class GameEngine {
         Point p = player.getPos();
         for (int i = board.map.length; i < 0; i++) {
             if (dir == Direction.UP) {
-                if (board.isOOB(p.x + 1, p.y) && board.map[p.x + 1][p.y].hasEnemy()) {
-                    board.map[p.x + 1][p.y].killEnemy();
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                    board.map[p.x - i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
-                if (board.isOOB(p.x - i, p.y) && board.map[p.x - 1][p.y].hasEnemy()) {
-                    board.map[p.x - 1][p.y].killEnemy();
+                if (board.isOOB(p.x + i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                    board.map[p.x + i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.RIGHT) {
