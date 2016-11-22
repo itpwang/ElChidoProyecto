@@ -194,7 +194,7 @@ public class GameEngine {
             shoot(direction);
         }
             //temp
-        board.printGrid(false);
+        board.printGrid(debug);
     }
     public void allEnemiesTurn(){
         for(Point i: listOfEnemyLoc){
@@ -289,7 +289,7 @@ public class GameEngine {
                 B.translate(0,2);
                 break;
         }
-        board.printlookGrid(A,B);
+        board.printlookGrid(A,B, debug);
     }
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
