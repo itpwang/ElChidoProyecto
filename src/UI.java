@@ -102,6 +102,22 @@ public class UI {
 
 
         return choice;
+
+    }
+
+    public void moveOrShootPrompt() {
+        System.out.println("Would you like to move or shoot?");
+        System.out.println("1. Move" );
+        System.out.println("2. Shoot");
+        int moveShoot = scan.nextInt();
+
+        if(moveShoot == 1){
+            //call move() method
+        }
+        else if(moveShoot==2){
+            //call shoot() method
+        }
+
     }
 
 }
