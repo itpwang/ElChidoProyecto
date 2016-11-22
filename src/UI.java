@@ -108,19 +108,36 @@ public class UI {
         System.out.println("1. Move" );
         System.out.println("2. Shoot");
 
-        int moveShoot = takeInput();
+        int moveShoot = takeInput(1, 2);
         scan.nextLine();
 
         return moveShoot;
     }
 
+    public static  GameEngine.Direction shootPrompt() {
+        System.out.println("Shoot what direction?");
+        displayKeypad();
+        char direction = takeInput('W','A','D','S','w','a','s','d');
+        GameEngine.Direction shootchoice;
+
+        if (direction == 'W' || direction == 'w')
+            shootchoice = GameEngine.Direction.UP;
+        else if (direction == 'A' || direction == 'a')
+            shootchoice = GameEngine.Direction.LEFT;
+        else if(direction == 'D' || direction == 'd')
+            shootchoice = GameEngine.Direction.RIGHT;
+        else if(direction == 'S' || direction == 's')
+            shootchoice = GameEngine.Direction.DOWN;
+
+        else shootchoice = GameEngine.Direction.UP;
+
+        return shootchoice;
+    }
+
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
         displayKeypad();
-
-
         char direction = takeInput('W','A','D','S','w','a','s','d');
-
 
         GameEngine.Direction mchoice;
 

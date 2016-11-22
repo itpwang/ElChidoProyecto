@@ -75,7 +75,7 @@ public class Grid {
                     System.out.print(' ');
                 }
                 else {
-                    System.out.print(map[i][j].returnSymbol());
+                    System.out.print(map[i][j].returnSymbol(false));
                     System.out.print(' ');
                 }
             }
@@ -98,7 +98,7 @@ public class Grid {
     }
 
     public boolean isOOB(int x, int y) {
-        return x < 0 || x > map.length || y < 0 || y > map.length;
+        return !(x < 0 || x > map.length || y < 0 || y > map.length);
     }
 
     public void swapTile(Tile A, Tile B){ //Ghetto AF
