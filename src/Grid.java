@@ -4,7 +4,7 @@
  */
 public class Grid {
 	/*
-	 * An object array of type {@link Cell} is created. The multidimensional
+	 * An object array of type {@link Tile} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.
 	 */
     public Tile[][] map = new Tile[9][9];

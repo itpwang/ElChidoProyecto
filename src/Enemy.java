@@ -26,13 +26,19 @@ public class Enemy extends Entity {
     }
 
     /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
+     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
+     * returns {@code E} if it is {@code true} and {@code /} if {@code false}
+     * @param debug
+     * @return char representing object
      */
     public char returnSymbol(boolean debug) {
         return debug ? 'E' : '/';
     }
 
+    /**
+     * This field stores {@link Player}'s living state
+     * If alive {@code true}, if dead {@code false}
+     */
     private boolean alive;
 
     /**
