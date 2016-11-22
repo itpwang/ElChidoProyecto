@@ -108,6 +108,7 @@ public class UI {
         System.out.println("2. Shoot");
 
         int moveShoot = scan.nextInt();
+        scan.nextLine();
 
         return moveShoot;
     }
@@ -118,6 +119,8 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
         String direction = scan.nextLine();
+
+
         GameEngine.Direction mchoice;
 
         if (direction.equals("W"))
@@ -132,4 +135,5 @@ public class UI {
 
         return mchoice;
     }
+
 }
