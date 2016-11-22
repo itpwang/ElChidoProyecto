@@ -183,7 +183,7 @@ public class GameEngine {
             }
             }
         else if(entry == 2){
-
+            shoot(Direction.UP);
         }
             //temp
         board.printGrid(false);
