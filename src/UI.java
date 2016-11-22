@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class UI {
     private GameEngine G;
     private int userinput;
-    private Scanner scan;
+    private static Scanner scan;
 
     /**
      * Constructor for UI takes a {@link GameEngine}
@@ -21,9 +21,7 @@ public class UI {
         startMenu();
     }
 
-    public enum moveChoice {UP, DOWN, LEFT, RIGHT};
-
-    public moveChoice choice;
+    public static GameEngine.moveChoice choice;
 
     /**
      * This method allows the user to choose
@@ -84,19 +82,19 @@ public class UI {
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
     }
-    public moveChoice lookPrompt() {
+    public static GameEngine.moveChoice lookPrompt() {
         System.out.println("Which direction would you like to look?");
         displayKeypad();
         String direction = scan.nextLine();
 
         if (direction == "W")
-            choice = moveChoice.UP;
+            choice = GameEngine.moveChoice.UP;
         else if (direction == "A")
-            choice = moveChoice.LEFT;
+            choice = GameEngine.moveChoice.LEFT;
         else if(direction == "D")
-            choice = moveChoice.RIGHT;
+            choice = GameEngine.moveChoice.RIGHT;
         else if(direction == "S")
-            choice = moveChoice.DOWN;
+            choice = GameEngine.moveChoice.DOWN;
 
 
         return choice;
