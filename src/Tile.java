@@ -34,7 +34,7 @@ public class Tile {
         if (isEmpty()) {
             return '/';
         } else if (hasEnemy()) {
-            return 'E';
+            return '/';
         } else if (hasPlayer()) {
             return 'P';
         }
@@ -92,7 +92,7 @@ public class Tile {
     }
 
     public boolean hasEnemy() {
-        return player == null && item == null;
+        return player == null && item == null && enemy != null;
     }
 
     public void killEnemy(){this.enemy = null;}

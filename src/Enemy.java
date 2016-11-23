@@ -35,17 +35,18 @@ public class Enemy extends Entity {
         Epos = p;
     }
 
-    public char returnSymbol() {
-        return 'E';
-    }
+//    public char returnSymbol() {
+//        return 'E';
+//    }
 
     /**
      * This field stores {@link Player}'s living state
      * If alive {@code true}, if dead {@code false}
      */
-    public char returnSymbol(boolean debug) {
-        return debug ? 'E' : '/';
-    }
+//    public char returnSymbol(boolean debug) {
+//        return '/';
+////        return debug ? 'E' : '/';
+//    }
     public void attack(/*The argument should be a tile position*/)
     {
 
@@ -118,18 +119,6 @@ public class Enemy extends Entity {
     public void moveRight()
     {
         setPos(new Point(getPos().x,GameEngine.getPos().y + 1));
-    }
-
-    /**
-     * This method calls the {@code displayChoice} method
-     * and returns the respective integer from the
-     * users decision
-     *
-     * @return answer
-     */
-    public int taketurn(){
-        return 0;
-        // Design to work with Enemy
     }
 
     /**

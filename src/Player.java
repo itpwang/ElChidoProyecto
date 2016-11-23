@@ -6,7 +6,7 @@ import java.awt.Point;
  * Created by travis on 11/13/16.
  */
 public class Player extends Entity {
-
+    private boolean validMove;
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
@@ -80,25 +80,25 @@ public class Player extends Entity {
         * and gets user input for the {@code moveChoice}
         *
         */
-    public void move(moveChoice m){
+    public void move(moveChoice direction){
             moveChoice movechoice;
 
             UI.displayKeypad();
             movechoice = getMoveChoice();
 
-            if(m == moveChoice.LEFT)
+            if(direction == moveChoice.LEFT)
             {
                 moveLeft();
                 }
-                else if(m == moveChoice.RIGHT)
+                else if(direction == moveChoice.RIGHT)
                 {
                 moveRight();
                 }
-                else if(m == moveChoice.UP)
+                else if(direction == moveChoice.UP)
                 {
                 moveUp();
                 }
-                else if(m == moveChoice.DOWN)
+                else if(direction == moveChoice.DOWN)
                 {
                 moveDown();
             }
@@ -120,6 +120,7 @@ public class Player extends Entity {
     public void moveRight() {
         pPos.translate(0, 1);
     }
+
 
 
     /**
