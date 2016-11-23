@@ -98,6 +98,63 @@ public class GameEngine {
     }
 
     /**
+     * This abstract method will allow the
+     * {@link Entity} to take a turn
+     */
+    public void taketurn(){
+        playerTurn();
+        allEnemiesTurn();
+        board.printGrid(debug);
+    }
+
+    public void shoot(Direction dir) {
+        Point p = player.getPos();
+        for (int i = 0; i < board.map.length; i++) {
+            if (dir == Direction.UP) {
+                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                    board.map[p.x - i][p.y].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].noEnemy()){
+                    UI.shootMiss();
+                    break;
+                }
+            } else if (dir == Direction.DOWN) {
+                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                    board.map[p.x + i][p.y].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].noEnemy()){
+                    UI.shootMiss();
+                    break;
+                }
+            } else if (dir == Direction.RIGHT) {
+                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+                    board.map[p.x][p.y + i].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].noEnemy()){
+                    UI.shootMiss();
+                    break;
+                }
+            } else if (dir == Direction.LEFT) {
+                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+                    board.map[p.x][p.y - i].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].noEnemy()) {
+                    UI.shootMiss();
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
      * This method represents the turn of the main player of the game.
      */
     public void playerTurn() {
@@ -140,14 +197,10 @@ public class GameEngine {
         }
     }
 
-    /**
-     * This abstract method will allow the
-     * {@link Entity} to take a turn
-     */
-    public void taketurn(){
-        playerTurn();
-        allEnemiesTurn();
-        board.printGrid(debug);
+    public void allEnemiesTurn(){
+        for(int i = 0; i>listOfEnemyLoc.length; i++){
+            enemyTurn(listOfEnemyLoc[i]);
+        }
     }
 
     public void enemyTurn(Point ePos){
@@ -443,5 +496,26 @@ public class GameEngine {
 
     public void setGameWon(){
         gameWon=true;
+    }
+
+    /**
+     * This method returns a boolean value of {@code false} representing the game is over.
+     * @return false.
+     */
+    public boolean gameOver(){
+       if(player.getNumOfLives() == 0) {
+           return true;
+       }
+       else if(player.getNumOfLives() != 0){
+           return false;
+       }
+       else if (gameWon()) {
+           return true;
+       }
+       else return false;
+    }
+
+    public boolean gameWon() {
+        return gameWon;
     }
 }

@@ -197,4 +197,13 @@ public class UI {
 
 
     }
+
+    public static void shootHit() {
+        System.out.println("Congratulations! You have hit an ninja! " +
+                " You are now a murderer.");
+    }
+
+    public static void shootMiss() {
+        System.out.println("Congratulations! You have missed your shot.");
+    }
 }

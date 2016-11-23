@@ -16,7 +16,7 @@ public class Main {
         GameEngine g = new GameEngine();
         g.changeDebug(UI.startMenu());
         g.printBoard();
-        while(g.gameOver()) {
+        while(!g.gameOver()) {
             g.taketurn();
         }
     }
