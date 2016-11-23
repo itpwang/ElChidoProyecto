@@ -4,13 +4,11 @@ import java.awt.Point;
  * This class is in charge of handling all the game logic in the game.
  */
 public class GameEngine {
-    //0,1
-    // 0,3
-    // 0,5
-    // 3,1
-    //  3,3 3,5 ; ;6,1 ;6,3; 6,5
-    public static Point [] enterRoom = {new Point(0,1),new Point(0,3), new Point(0,5), new Point(3,1), new Point(3,3),
-            new Point(3,5), new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
+
+    private static Point [] enterRoom = {
+            new Point(0,1), new Point(0,3), new Point(0,5),
+            new Point(3,1), new Point(3,3), new Point(3,5),
+            new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
     private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
@@ -138,26 +136,6 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false} representing the game is over.
-     * @return false.
-     */
-    boolean gameOver(){
-        if(gameWon()||!gameLost())
-            return true;
-        else
-            return false;
-    }
-
-    boolean gameWon(){
-        return gameWon;
-    }
-
-    boolean gameLost(){
-        // TODO
-        return false;
-    }
-
-    /**
      * This method represents the turn of the main player of the game.
      */
     public void playerTurn() {
@@ -197,11 +175,13 @@ public class GameEngine {
             shoot(direction);
         }
     }
+
     public void allEnemiesTurn(){
         for(int i = 0; i>listOfEnemyLoc.length; i++){
             enemyTurn(listOfEnemyLoc[i]);
         }
     }
+
     public void enemyTurn(Point ePos){
         Direction movement;
         while(board.validMove(ePos,movement = rollMove())) {
@@ -292,6 +272,7 @@ public class GameEngine {
         }
         board.printlookGrid(A,B, debug);
     }
+
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
      */
@@ -377,8 +358,7 @@ public class GameEngine {
     /**
      * This method sets the {@link GameEngine#isInvincible}
      */
-    public static boolean invincibilityOn()
-    {
+    public static boolean invincibilityOn() {
         isInvincible = true;
         return isInvincible;
     }
@@ -424,8 +404,7 @@ public class GameEngine {
     /**
      * This method sets the {@link Player}'s {@link GameEngine#position}
      */
-    public void setPos(Point p)
-    {
+    public void setPos(Point p) {
         if(!board.isOOB(p.x, p.y)) {
             position = p;
         }
@@ -438,7 +417,29 @@ public class GameEngine {
     public static void checkPos(){
         
     }
+
     public void setGameWon(){
         gameWon=true;
+    }
+
+    /**
+     * This method returns a boolean value of {@code false} representing the game is over.
+     * @return false.
+     */
+    public boolean gameOver(){
+       if(player.getNumOfLives() == 0) {
+           return true;
+       }
+       else if(player.getNumOfLives() != 0){
+           return false;
+       }
+       else if (gameWon()) {
+           return true;
+       }
+       else return false;
+    }
+
+    public boolean gameWon() {
+        return gameWon;
     }
 }
