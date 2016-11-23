@@ -114,21 +114,41 @@ public class GameEngine {
             if (dir == Direction.UP) {
                 if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
                     board.map[p.x - i][p.y].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].noEnemy()){
+                    UI.shootMiss();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
                 if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
                     board.map[p.x + i][p.y].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].noEnemy()){
+                    UI.shootMiss();
                     break;
                 }
             } else if (dir == Direction.RIGHT) {
                 if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
                     board.map[p.x][p.y + i].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].noEnemy()){
+                    UI.shootMiss();
                     break;
                 }
             } else if (dir == Direction.LEFT) {
                 if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
                     board.map[p.x][p.y - i].killEnemy();
+                    UI.shootHit();
+                    break;
+                }
+                else if(!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].noEnemy()) {
+                    UI.shootMiss();
                     break;
                 }
             }
