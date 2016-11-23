@@ -223,6 +223,7 @@ public class GameEngine {
                     moveRight(ePos);
                     break;
             }
+            break;
         }
     }
 
