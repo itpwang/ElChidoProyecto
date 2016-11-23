@@ -61,7 +61,6 @@ public class GameEngine {
 
     private static boolean gameWon =  false;
 
-
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -99,6 +98,49 @@ public class GameEngine {
     }
 
     /**
+     * This method represents the turn of the main player of the game.
+     */
+    public void playerTurn() {
+        Direction direction;
+        Point pPos = player.getPos();
+
+        look(UI.lookPrompt());
+        int entry = UI.moveOrShootPrompt();
+
+        if(entry == 1)
+        {
+            while(board.validMove(pPos, direction=UI.movePrompt())){
+                switch (direction) {
+                    case UP:
+                        player.moveUp();
+                        moveUp(pPos);
+                        break;
+                    case DOWN:
+                        if (board.getTile(player.getPos()).isRoom()) gameWon = true;
+                        else {
+                            player.moveDown();
+                            moveDown(pPos);
+                        }
+                        break;
+                    case LEFT:
+                        player.moveLeft();
+                        moveLeft(pPos);
+                        break;
+                    case RIGHT:
+                        player.moveRight();
+                        moveRight(pPos);
+                        break;
+                }
+                break;
+            }
+        }
+        else if(entry == 2){
+            direction=UI.shootPrompt();
+            shoot(direction);
+        }
+    }
+
+    /**
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
@@ -106,6 +148,39 @@ public class GameEngine {
         playerTurn();
         allEnemiesTurn();
         board.printGrid(debug);
+    }
+
+    public void enemyTurn(Point ePos){
+
+        Direction movement;
+
+        while(board.validMove(ePos,movement = rollMove())) {
+            switch (movement) {
+                case UP:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
+                    moveUp(ePos);
+                    break;
+                case DOWN:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
+                    moveDown(ePos);
+                    break;
+                case LEFT:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
+                    moveLeft(ePos);
+                    break;
+                case RIGHT:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
+                    moveRight(ePos);
+                    break;
+            }
+            break;
+        }
+    }
+
+    public void allEnemiesTurn(){
+        for(Point i: listOfEnemyLoc){
+            enemyTurn(i);
+        }
     }
 
     public void shoot(Direction dir) {
@@ -153,78 +228,6 @@ public class GameEngine {
     boolean gameLost(){
         // TODO
         return false;
-    }
-
-    /**
-     * This method represents the turn of the main player of the game.
-     */
-    public void playerTurn() {
-        Direction direction;
-        Point pPos = player.getPos();
-        //direction = UI.lookPrompt();
-        look(UI.lookPrompt());
-        int entry = UI.moveOrShootPrompt();
-        if(entry==1){
-            while(board.validMove(pPos,direction=UI.movePrompt())){
-                switch (direction) {
-                    case UP:
-                        player.moveUp();
-                        moveUp(pPos);
-                        break;
-                    case DOWN:
-                        if (board.getTile(player.getPos()).isRoom()) gameWon = true;
-                        else {
-                            player.moveDown();
-                            moveDown(pPos);
-                        }
-                        break;
-                    case LEFT:
-                        player.moveLeft();
-                        moveLeft(pPos);
-                        break;
-                    case RIGHT:
-                        player.moveRight();
-                        moveRight(pPos);
-                        break;
-                }
-                break;
-            }
-            }
-        else if(entry == 2){
-            direction=UI.shootPrompt();
-            shoot(direction);
-        }
-    }
-
-    public void allEnemiesTurn(){
-        for(Point i: listOfEnemyLoc){
-            enemyTurn(i);
-        }
-    }
-
-    public void enemyTurn(Point ePos){
-        Direction movement;
-        while(board.validMove(ePos,movement = rollMove())) {
-            switch (movement) {
-                case UP:
-                    board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
-                    moveUp(ePos);
-                    break;
-                case DOWN:
-                    board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
-                    moveDown(ePos);
-                    break;
-                case LEFT:
-                    board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
-                    moveLeft(ePos);
-                    break;
-                case RIGHT:
-                    board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
-                    moveRight(ePos);
-                    break;
-            }
-            break;
-        }
     }
 
     public void moveUp(Point pt){
