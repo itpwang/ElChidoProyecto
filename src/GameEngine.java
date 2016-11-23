@@ -79,6 +79,9 @@ public class GameEngine {
      *
      */
     public GameEngine(){
+
+        Point roomplace = new Point();
+
         this.player = new Player(new Point(8, 0));
         setPlayer();
         generateEnemies();
