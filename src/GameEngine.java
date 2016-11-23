@@ -197,8 +197,8 @@ public class GameEngine {
     }
 
     public void allEnemiesTurn(){
-        for(Point i: listOfEnemyLoc){
-            enemyTurn(i);
+        for(int i = 0; i>listOfEnemyLoc.length; i++){
+            enemyTurn(listOfEnemyLoc[i]);
         }
     }
 

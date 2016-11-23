@@ -43,14 +43,14 @@ public class Tile {
 
     public char returnSymbol(boolean debug) {
         if(debug) {
-            if (isEmpty()) {
-                return ' ';
+            if (hasItem()) {
+                displayTypeOfItem();
             } else if (hasEnemy()) {
                 return 'E';
             } else if (hasPlayer()) {
                 return 'P';
-            } else if (hasItem()) {
-                displayTypeOfItem();
+            } else if (isEmpty()) {
+                return ' ';
             }
             return ' '; //??
         }
@@ -80,11 +80,11 @@ public class Tile {
 //    }
 
     public boolean hasItem() {
-        return enemy == null && player == null;
+        return enemy == null && player == null && item !=null;
     }
 
     public boolean hasPlayer() {
-        return enemy == null && item == null;
+        return enemy == null && item == null && player !=null;
     }
 
     public boolean isEmpty() {
@@ -112,4 +112,5 @@ public class Tile {
     public Item getItem(){
         return item;
     }
+
 }
