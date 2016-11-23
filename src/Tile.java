@@ -68,16 +68,16 @@ public class Tile {
         return ' ';
     }
 
-    private int typeOfPowerUp() {
-        if (item instanceof Radar) {
-            return 1;
-        } else if (item instanceof Invincibility) {
-            return 0;
-        } else if (item instanceof Ammo) {
-            return -1;
-        }
-        return -999;//?
-    }
+//    private int typeOfPowerUp() {
+//        if (item instanceof Radar) {
+//            return 1;
+//        } else if (item instanceof Invincibility) {
+//            return 0;
+//        } else if (item instanceof Ammo) {
+//            return -1;
+//        }
+//        return -999;//?
+//    }
 
     public boolean hasItem() {
         return enemy == null && player == null;
