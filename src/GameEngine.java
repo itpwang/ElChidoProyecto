@@ -4,6 +4,14 @@ import java.awt.Point;
  * This class is in charge of handling all the game logic in the game.
  */
 public class GameEngine {
+    //0,1
+    // 0,3
+    // 0,5
+    // 3,1
+    //  3,3 3,5
+    //6,1 6,3 6,5
+    public static Point [] enterRoom = {new Point(0,1),new Point(0,3), new Point(0,5), new Point(3,1), new Point(3,3),
+            new Point(3,5), new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
     private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
@@ -101,14 +109,14 @@ public class GameEngine {
 
     public void shoot(Direction dir) {
         Point p = player.getPos();
-        for (int i = board.map.length; i < 0; i++) {
+        for (int i = 0; i < board.map.length; i++) {
             if (dir == Direction.UP) {
-                if (board.isOOB(p.x - i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                if (board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
                     board.map[p.x - i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
-                if (board.isOOB(p.x + i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                if (board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
                     board.map[p.x + i][p.y].killEnemy();
                     break;
                 }
@@ -157,7 +165,6 @@ public class GameEngine {
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
             direction=UI.movePrompt();
-
             switch(direction)
             {
                 case UP:
@@ -183,10 +190,11 @@ public class GameEngine {
             }
             }
         else if(entry == 2){
-            shoot(Direction.UP);
+            direction=UI.shootPrompt();
+            shoot(direction);
         }
             //temp
-        board.printGrid(false);
+        board.printGrid(debug);
     }
     public void allEnemiesTurn(){
         for(Point i: listOfEnemyLoc){
@@ -194,10 +202,10 @@ public class GameEngine {
         }
     }
     public void enemyTurn(Point ePos){
-        Direction m;
+        Direction movement;
         //check player
-        m = rollMove();
-        switch(m)
+        movement = rollMove();
+        switch(movement)
         {
             case UP:
                 board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
@@ -281,7 +289,7 @@ public class GameEngine {
                 B.translate(0,2);
                 break;
         }
-        board.printlookGrid(A,B);
+        board.printlookGrid(A,B, debug);
     }
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).

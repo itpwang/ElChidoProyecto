@@ -156,7 +156,7 @@ public class Tile {
      * @return {@code null} for {@code player} and {@code item} fields
      */
     public boolean hasEnemy() {
-        return player == null && item == null;
+        return player == null && item == null && enemy != null;
     }
 
     public void killEnemy(){this.enemy = null;}

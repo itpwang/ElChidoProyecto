@@ -67,15 +67,15 @@ public class Grid {
      * @param {@link Point}
      * @param {@link Point}
      */
-    public void printlookGrid(Point a, Point b){
+    public void printlookGrid(Point a, Point b, boolean debug){
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map.length; j++){
                 if((i==a.getX()&&j==a.getY())||(i==b.getX()&&j==b.getY())) {
-                    System.out.print(map[i][j].returnSymbol(true));
+                    System.out.print(map[i][j].returnSymbol(debug));
                     System.out.print(' ');
                 }
                 else {
-                    System.out.print(map[i][j].returnSymbol());
+                    System.out.print(map[i][j].returnSymbol(debug));
                     System.out.print(' ');
                 }
             }
@@ -98,7 +98,7 @@ public class Grid {
     }
 
     public boolean isOOB(int x, int y) {
-        return x < 0 || x > map.length || y < 0 || y > map.length;
+        return !(x < 0 || x > map.length || y < 0 || y > map.length);
     }
 
     public void swapTile(Tile A, Tile B){ //Ghetto AF

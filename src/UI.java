@@ -6,8 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
-    private GameEngine G;
-    private int userinput;
+    private static int userinput;
     private static Scanner scan = new Scanner(System.in);
 
     /**
@@ -16,11 +15,6 @@ public class UI {
      * creates a scan variable to input data.
      * Lastly, calls the {@link #startMenu} method
      */
-    public UI(GameEngine game) {
-        this.G = game;
-        scan = new Scanner(System.in);
-        startMenu();
-    }
 
     public static GameEngine.Direction choice;
 
@@ -35,18 +29,10 @@ public class UI {
     }
 
     /**
-     * This method will print the {@link Grid}
-     */
-    public void gameMove()
-    {
-        G.printBoard();
-    }
-
-    /**
      * This method outputs the game description
      * to the screen.
      */
-    public void startMenu(){
+    public static boolean startMenu(){
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
         System.out.println("*_________________________________*");
@@ -54,14 +40,8 @@ public class UI {
         System.out.println("Press 1 for debug mode, 0 for normal mode.");
 
         userinput = takeInput(0,1);
-
-        if(userinput==0)
-            G.changeDebug(false);
-        else
-            G.changeDebug(true);
-
-        G.printBoard();
-        menuSelect();
+        if(userinput==1) return true;
+        else return false;
     }
 
     /**
@@ -121,13 +101,30 @@ public class UI {
         return moveShoot;
     }
 
+    public static  GameEngine.Direction shootPrompt() {
+        System.out.println("Shoot what direction?");
+        displayKeypad();
+        char direction = takeInput('W','A','D','S','w','a','s','d');
+        GameEngine.Direction shootchoice;
+
+        if (direction == 'W' || direction == 'w')
+            shootchoice = GameEngine.Direction.UP;
+        else if (direction == 'A' || direction == 'a')
+            shootchoice = GameEngine.Direction.LEFT;
+        else if(direction == 'D' || direction == 'd')
+            shootchoice = GameEngine.Direction.RIGHT;
+        else if(direction == 'S' || direction == 's')
+            shootchoice = GameEngine.Direction.DOWN;
+
+        else shootchoice = GameEngine.Direction.UP;
+
+        return shootchoice;
+    }
+
     public static GameEngine.Direction movePrompt() {
         System.out.println("What direction would you like to move?");
         displayKeypad();
-
-
         char direction = takeInput('W','A','D','S','w','a','s','d');
-
 
         GameEngine.Direction mchoice;
 
@@ -195,4 +192,9 @@ public class UI {
     }
 
 
+    public static void roomMoveError() {
+        System.out.println("Entering from the wrong side of the room");
+
+
+    }
 }
