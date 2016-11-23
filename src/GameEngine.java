@@ -107,53 +107,6 @@ public class GameEngine {
         board.printGrid(debug);
     }
 
-    public void shoot(Direction dir) {
-        Point p = player.getPos();
-        for (int i = 0; i < board.map.length; i++) {
-            if (dir == Direction.UP) {
-                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-                    board.map[p.x - i][p.y].killEnemy();
-                    UI.shootHit();
-                    break;
-                }
-                else if(!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].noEnemy()){
-                    UI.shootMiss();
-                    break;
-                }
-            } else if (dir == Direction.DOWN) {
-                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-                    board.map[p.x + i][p.y].killEnemy();
-                    UI.shootHit();
-                    break;
-                }
-                else if(!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].noEnemy()){
-                    UI.shootMiss();
-                    break;
-                }
-            } else if (dir == Direction.RIGHT) {
-                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-                    board.map[p.x][p.y + i].killEnemy();
-                    UI.shootHit();
-                    break;
-                }
-                else if(!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].noEnemy()){
-                    UI.shootMiss();
-                    break;
-                }
-            } else if (dir == Direction.LEFT) {
-                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-                    board.map[p.x][p.y - i].killEnemy();
-                    UI.shootHit();
-                    break;
-                }
-                else if(!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].noEnemy()) {
-                    UI.shootMiss();
-                    break;
-                }
-            }
-        }
-    }
-
     /**
      * This method represents the turn of the main player of the game.
      */
@@ -194,12 +147,6 @@ public class GameEngine {
         else if(entry == 2){
             direction=UI.shootPrompt();
             shoot(direction);
-        }
-    }
-
-    public void allEnemiesTurn(){
-        for(int i = 0; i>listOfEnemyLoc.length; i++){
-            enemyTurn(listOfEnemyLoc[i]);
         }
     }
 
@@ -261,17 +208,6 @@ public class GameEngine {
                 }
             }
         }
-    }
-
-    /**
-     * This method returns a boolean value of {@code false} representing the game is over.
-     * @return false.
-     */
-    boolean gameOver(){
-        if(gameWon()||!gameLost())
-            return true;
-        else
-            return false;
     }
 
     boolean gameWon(){
@@ -513,9 +449,5 @@ public class GameEngine {
            return true;
        }
        else return false;
-    }
-
-    public boolean gameWon() {
-        return gameWon;
     }
 }
