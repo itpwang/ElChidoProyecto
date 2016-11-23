@@ -6,6 +6,8 @@ import java.awt.Point;
  * Created by travis on 11/13/16.
  */
 public class Player extends Entity {
+
+    private int numOfLives = 3;
     private boolean validMove;
     /**
      * This field stores the {@link Player}'s movement choice
@@ -36,6 +38,15 @@ public class Player extends Entity {
         */
     public Player(){
       alive=true;
+    }
+
+    public int getNumOfLives(){
+        return numOfLives;
+    }
+
+    public void setNumOfLives(int numOfLives) {
+        this.numOfLives = numOfLives;
+
     }
 
     public Player(Point p) {

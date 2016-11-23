@@ -138,26 +138,6 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false} representing the game is over.
-     * @return false.
-     */
-    boolean gameOver(){
-        if(gameWon()||!gameLost())
-            return true;
-        else
-            return false;
-    }
-
-    boolean gameWon(){
-        return gameWon;
-    }
-
-    boolean gameLost(){
-        // TODO
-        return false;
-    }
-
-    /**
      * This method represents the turn of the main player of the game.
      */
     public void playerTurn() {
@@ -440,5 +420,26 @@ public class GameEngine {
     }
     public void setGameWon(){
         gameWon=true;
+    }
+
+    /**
+     * This method returns a boolean value of {@code false} representing the game is over.
+     * @return false.
+     */
+    public boolean gameOver(){
+       if(player.getNumOfLives() == 0) {
+           return true;
+       }
+       else if(player.getNumOfLives() != 0){
+           return false;
+       }
+       else if (gameWon()) {
+           return true;
+       }
+       else return false;
+    }
+
+    public boolean gameWon() {
+        return gameWon;
     }
 }
