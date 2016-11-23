@@ -293,7 +293,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol() == '/')
+            if(board.map[num1][num2].returnSymbol(debug) == '/')
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
@@ -321,7 +321,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol() == '/')
+            if(board.map[num1][num2].returnSymbol(debug) == '/')
             {
                 if(playerAmmoPlace == false)
                 {

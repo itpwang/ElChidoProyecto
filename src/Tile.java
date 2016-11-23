@@ -33,7 +33,10 @@ public class Tile {
     public char returnSymbol() {
         if (isEmpty()) {
             return '/';
-        } else if (hasEnemy()) {
+        } else if(hasEnemy()) {
+            return displayTypeOfItem();
+        }
+        else if (hasEnemy()) {
             return '/';
         } else if (hasPlayer()) {
             return 'P';
@@ -44,7 +47,7 @@ public class Tile {
     public char returnSymbol(boolean debug) {
         if(debug) {
             if (hasItem()) {
-                displayTypeOfItem();
+                return displayTypeOfItem();
             } else if (hasEnemy()) {
                 return 'E';
             } else if (hasPlayer()) {
@@ -59,7 +62,7 @@ public class Tile {
 
     private char displayTypeOfItem() {
         if (item instanceof Radar) {
-            return 'R';
+            return 'O';
         } else if (item instanceof Invincibility) {
             return 'I';
         } else if (item instanceof Ammo) {
