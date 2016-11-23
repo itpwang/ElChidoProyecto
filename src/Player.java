@@ -104,10 +104,7 @@ public class Player extends Entity {
             }
         }
 
-
-    public void moveUp() {
-        pPos.translate(-1, 0);
-    }
+    public void moveUp() {pPos.translate(-1, 0);}
 
 
     public void moveDown() {
