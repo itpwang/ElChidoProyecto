@@ -80,25 +80,25 @@ public class Player extends Entity {
         * and gets user input for the {@code moveChoice}
         *
         */
-    public void move(moveChoice m){
+    public void move(moveChoice direction){
             moveChoice movechoice;
 
             UI.displayKeypad();
             movechoice = getMoveChoice();
 
-            if(m == moveChoice.LEFT)
+            if(direction == moveChoice.LEFT)
             {
                 moveLeft();
                 }
-                else if(m == moveChoice.RIGHT)
+                else if(direction == moveChoice.RIGHT)
                 {
                 moveRight();
                 }
-                else if(m == moveChoice.UP)
+                else if(direction == moveChoice.UP)
                 {
                 moveUp();
                 }
-                else if(m == moveChoice.DOWN)
+                else if(direction == moveChoice.DOWN)
                 {
                 moveDown();
             }
@@ -106,82 +106,24 @@ public class Player extends Entity {
 
 
     public void moveUp() {
-        Point moveTo = pPos;
-        moveTo.translate(-1, 0);
-        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
-            if (GameEngine.enterRoom[i].equals(moveTo)) {
-                validMove = true;
-
-                pPos.translate(-1, 0);
-                break;
-            }
-        }
-
-        if (!validMove) {
-            UI.roomMoveError();
-        }
-            validMove = false;
+        pPos.translate(-1, 0);
     }
 
 
     public void moveDown() {
-        Point moveTo = pPos;
-        moveTo.translate(1, 0);
-        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
-            if (GameEngine.enterRoom[i].equals(moveTo)) {
-                validMove = true;
-
-                pPos.translate(-1, 0);
-                break;
-            }
-        }
-
-        if (!validMove) {
-            UI.roomMoveError();
-        }
-        validMove = false;
-        //pPos.translate(1, 0);
+        pPos.translate(1, 0);
     }
 
 
     public void moveLeft() {
-        Point moveTo = pPos;
-        moveTo.translate(-1, 0);
-        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
-            if (GameEngine.enterRoom[i].equals(moveTo)) {
-                validMove = true;
-
-                pPos.translate(0, -1);
-                break;
-            }
-        }
-
-        if (!validMove) {
-            UI.roomMoveError();
-        }
-        validMove = false;
-        ///pPos.translate(0, -1);
+        pPos.translate(0, -1);
     }
 
 
     public void moveRight() {
-        Point moveTo = pPos;
-        moveTo.translate(-1, 0);
-        for (int i = 0; i < GameEngine.enterRoom.length; i++) {
-            if (GameEngine.enterRoom[i].equals(moveTo)) {
-                validMove = true;
-
-                pPos.translate(0, 1);
-                break;
-            }
-        }
-
-        if (!validMove) {
-            UI.roomMoveError();
-        }
-        validMove = false;
-        //pPos.translate(0, 1);
+        pPos.translate(0, 1);
     }
+
 
 
     /**
