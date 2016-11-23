@@ -97,6 +97,9 @@ public class Tile {
     public boolean hasEnemy() {
         return player == null && item == null && enemy != null;
     }
+    public boolean noEnemy() {
+        return enemy == null;
+    }
 
     public void killEnemy(){this.enemy = null;}
     public Enemy getEnemy(){
