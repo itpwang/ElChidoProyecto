@@ -8,8 +8,7 @@ public class GameEngine {
     // 0,3
     // 0,5
     // 3,1
-    //  3,3 3,5
-    //6,1 6,3 6,5
+    //  3,3 3,5 ; ;6,1 ;6,3; 6,5
     public static Point [] enterRoom = {new Point(0,1),new Point(0,3), new Point(0,5), new Point(3,1), new Point(3,3),
             new Point(3,5), new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
@@ -39,7 +38,7 @@ public class GameEngine {
     /**
      * This field stores if debug mode is on or off. Modified by {@link #changeDebug(boolean)}
      */
-    private boolean debug;
+    public static boolean debug;
 
     /**
      * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
@@ -80,6 +79,9 @@ public class GameEngine {
      *
      */
     public GameEngine(){
+
+        Point roomplace = new Point();
+
         this.player = new Player(new Point(8, 0));
         setPlayer();
         generateEnemies();
@@ -105,28 +107,29 @@ public class GameEngine {
     public void taketurn(){
         playerTurn();
         allEnemiesTurn();
+        board.printGrid(debug);
     }
 
     public void shoot(Direction dir) {
         Point p = player.getPos();
         for (int i = 0; i < board.map.length; i++) {
             if (dir == Direction.UP) {
-                if (board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
                     board.map[p.x - i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.DOWN) {
-                if (board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
                     board.map[p.x + i][p.y].killEnemy();
                     break;
                 }
             } else if (dir == Direction.RIGHT) {
-                if (board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
                     board.map[p.x][p.y + i].killEnemy();
                     break;
                 }
             } else if (dir == Direction.LEFT) {
-                if (board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
                     board.map[p.x][p.y - i].killEnemy();
                     break;
                 }
@@ -164,37 +167,35 @@ public class GameEngine {
         look(UI.lookPrompt());
         int entry = UI.moveOrShootPrompt();
         if(entry==1){
-            direction=UI.movePrompt();
-            switch(direction)
-            {
-                case UP:
-//                    if(board.getTile(player.getPos()).isRoom())
-                    player.moveUp();
-                    moveUp(pPos);
-                    break;
-                case DOWN:
-                    if(board.getTile(player.getPos()).isRoom()) gameWon=true;
-                    else {
-                        player.moveDown();
-                        moveDown(pPos);
-                    }
-                    break;
-                case LEFT:
-                    player.moveLeft();
-                    moveLeft(pPos);
-                    break;
-                case RIGHT:
-                    player.moveRight();
-                    moveRight(pPos);
-                    break;
+            while(board.validMove(pPos,direction=UI.movePrompt())){
+                switch (direction) {
+                    case UP:
+                        player.moveUp();
+                        moveUp(pPos);
+                        break;
+                    case DOWN:
+                        if (board.getTile(player.getPos()).isRoom()) gameWon = true;
+                        else {
+                            player.moveDown();
+                            moveDown(pPos);
+                        }
+                        break;
+                    case LEFT:
+                        player.moveLeft();
+                        moveLeft(pPos);
+                        break;
+                    case RIGHT:
+                        player.moveRight();
+                        moveRight(pPos);
+                        break;
+                }
+                break;
             }
             }
         else if(entry == 2){
             direction=UI.shootPrompt();
             shoot(direction);
         }
-            //temp
-        board.printGrid(debug);
     }
     public void allEnemiesTurn(){
         for(Point i: listOfEnemyLoc){
@@ -203,26 +204,26 @@ public class GameEngine {
     }
     public void enemyTurn(Point ePos){
         Direction movement;
-        //check player
-        movement = rollMove();
-        switch(movement)
-        {
-            case UP:
-                board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
-                moveUp(ePos);
-                break;
-            case DOWN:
-                board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
-                moveDown(ePos);
-                break;
-            case LEFT:
-                board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
-                moveLeft(ePos);
-                break;
-            case RIGHT:
-                board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
-                moveRight(ePos);
-                break;
+        while(board.validMove(ePos,movement = rollMove())) {
+            switch (movement) {
+                case UP:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
+                    moveUp(ePos);
+                    break;
+                case DOWN:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
+                    moveDown(ePos);
+                    break;
+                case LEFT:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
+                    moveLeft(ePos);
+                    break;
+                case RIGHT:
+                    board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
+                    moveRight(ePos);
+                    break;
+            }
+            break;
         }
     }
 

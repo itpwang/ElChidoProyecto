@@ -56,7 +56,7 @@ public class Tile {
         if (isEmpty()) {
             return '/';
         } else if (hasEnemy()) {
-            return 'E';
+            return '/';
         } else if (hasPlayer()) {
             return 'P';
         }
