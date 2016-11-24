@@ -146,12 +146,12 @@ public class GameEngine {
      * This method returns a boolean value of {@code false} representing the game is over.
      * @return false.
      */
-    boolean gameOver(){
-        if(gameWon()||!gameLost())
-            return true;
-        else
-            return false;
-    }
+//    boolean gameOver(){
+//        if(gameWon()||!gameLost())
+//            return true;
+//        else
+//            return false;
+//    }
 
     boolean gameWon(){
         return gameWon;
@@ -237,43 +237,34 @@ public class GameEngine {
             enemyTurn(listOfEnemyLoc[i]);
         }
     }
-
-    public void shoot(Direction dir) {
-        Point p = player.getPos();
-        for (int i = 0; i < board.map.length; i++) {
-            if (dir == Direction.UP) {
-                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-                    board.map[p.x - i][p.y].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.DOWN) {
-                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-                    board.map[p.x + i][p.y].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.RIGHT) {
-                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-                    board.map[p.x][p.y + i].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.LEFT) {
-                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-                    board.map[p.x][p.y - i].killEnemy();
-                    break;
-                }
-            }
-        }
-    }
-
-    boolean gameWon(){
-        return gameWon;
-    }
-
-    boolean gameLost(){
-        // TODO
-        return false;
-    }
-
+//
+//    public void shoot(Direction dir) {
+//        Point p = player.getPos();
+//        for (int i = 0; i < board.map.length; i++) {
+//            if (dir == Direction.UP) {
+//                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+//                    board.map[p.x - i][p.y].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.DOWN) {
+//                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+//                    board.map[p.x + i][p.y].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.RIGHT) {
+//                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+//                    board.map[p.x][p.y + i].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.LEFT) {
+//                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+//                    board.map[p.x][p.y - i].killEnemy();
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
