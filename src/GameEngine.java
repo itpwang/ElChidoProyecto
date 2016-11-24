@@ -28,6 +28,12 @@ public class GameEngine {
     private Enemy[] enemies = new Enemy[6];
 
     private Point[] listOfEnemyLoc = new Point[6];
+
+    private Point[] rooms = {
+            new Point(1, 1), new Point(1, 4), new Point(1, 7),
+            new Point(4, 1), new Point(4, 4), new Point(4, 7),
+            new Point(7, 1), new Point(7, 4), new Point(7, 7)
+    };
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -83,6 +89,7 @@ public class GameEngine {
         setPlayer();
         generateEnemies();
         generateItems();
+        generateBriefcase();
         debug = false;
     }
 
@@ -178,8 +185,8 @@ public class GameEngine {
     }
 
     public void allEnemiesTurn(){
-        for(Point i: listOfEnemyLoc){
-            enemyTurn(i);
+        for(int i = 0; i>listOfEnemyLoc.length;i++){
+            enemyTurn(listOfEnemyLoc[i]);
         }
     }
 
@@ -356,6 +363,13 @@ public class GameEngine {
             if(playerAmmoPlace && invPlace && radarPlace)
                 break;
         }
+    }
+
+    private void generateBriefcase() {
+        int r = rand.nextInt(9);
+        board.getRoom(rooms[r]).setBriefcase(true);
+        System.out.print("Placed at " + rooms[r]);
+
     }
 
     /**

@@ -25,18 +25,14 @@ public class Grid {
     	 * Certain predisclosed tiles are set up as the Rooms in which the briefcase could potentially be
     	 * located in.
     	 */
-        map[1][1] = new Room();
-        map[4][1] = new Room();
-        map[7][1] = new Room();
+    	for(int i = 1; i <= 7; i += 3)
+        {
+            map[1][i] = new Room(new Point(1,i));
+            map[4][i] = new Room(new Point(4,i));
+            map[7][i] = new Room(new Point(7, i));
+            System.out.print("Dumbshit");
+        }
 
-
-        map[1][4] = new Room();
-        map[4][4] = new Room();
-        map[7][4] = new Room();
-
-        map[1][7] = new Room();
-        map[4][7] = new Room();
-        map[7][7] = new Room();
     }
 
     /*
@@ -97,11 +93,13 @@ public class Grid {
         return map[pt.x][pt.y];
     }
 
+    public Room getRoom(Point p) { return (Room)map[p.x][p.y]; }
+
     public boolean isOOB(int x, int y) {
         return (x < 0 || x >= map.length || y < 0 || y >= map.length);
     }
 
-    public void swapTile(Tile A, Tile B){ 
+    public void swapTile(Tile A, Tile B){
         Tile temp = new Tile();
         temp.insertPlayer(A.getPlayer());
         temp.insertEnemy(A.getEnemy());

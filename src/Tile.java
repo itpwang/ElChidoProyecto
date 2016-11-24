@@ -24,6 +24,7 @@ public class Tile {
     public void insertEnemy(Enemy enemy) {
         this.enemy = enemy;
     }
+
     /**
      * This method returns a char value of {@code /} on the grid to represent
      * the location of an unoccupied tile.
@@ -80,7 +81,7 @@ public class Tile {
 //            return -1;
 //        }
 //        return -999;//?
-//    }
+//
 
     public boolean hasItem() {
         return enemy == null && player == null && item !=null;
