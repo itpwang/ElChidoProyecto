@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.awt.Point;
@@ -5,7 +6,7 @@ import java.awt.Point;
 /**
  * Created by travis on 11/13/16.
  */
-public class Player extends Entity {
+public class Player extends Entity implements Serializable {
     private boolean validMove;
     /**
      * This field stores the {@link Player}'s movement choice
@@ -219,7 +220,7 @@ public class Player extends Entity {
                 System.out.println("Invalid Choice");
                 UI.displayKeypad();
             }
-        } catch (InputMismatchException e)
+        } catch (InputMismatchException e) //move to UI
         {
             System.out.println("Input must be an integer.");
             while(input.hasNext() && input.hasNextInt())

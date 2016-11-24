@@ -14,10 +14,31 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g = new GameEngine();
-        g.changeDebug(UI.startMenu());
-        g.printBoard();
-        while(g.gameOver()) {
-            g.taketurn();
+        SaveEngine s = new SaveEngine();
+        switch(UI.menuSelect())
+        {
+            // NEW Game
+            case 1:
+            {
+                g.changeDebug(UI.startMenu());
+                g.printBoard();
+                while (g.gameOver()) {
+                    g.taketurn();
+                }
+            }
+            // LOAD game
+            case 2:
+            {
+                s.readSave(g.getPlayer());
+                g.changeDebug(UI.startMenu());
+                g.printBoard();
+                while (g.gameOver()) {
+                    g.taketurn();
+                }
+            }
+            default:
+                break;
+        }
+
         }
     }
-}

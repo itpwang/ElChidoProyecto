@@ -8,6 +8,9 @@ public class Tile {
     private Enemy enemy = null;
     private Player player = null;
     private Item item = null;
+    private Radar radar = new Radar();
+    private Invincibility invincibility = new Invincibility();
+    private Ammo ammo = new Ammo();
 
     /**
      * The Tile class constructor. Called by {@link Grid}
@@ -118,6 +121,8 @@ public class Tile {
         }
         return -999;//?
     }
+
+
 
     /**
      * This method sets the fields of {@code enemy} and {@code player}

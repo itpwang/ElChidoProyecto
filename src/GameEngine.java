@@ -1,9 +1,10 @@
+import java.io.*;
 import java.util.*;
 import java.awt.Point;
 /**
  * This class is in charge of handling all the game logic in the game.
  */
-public class GameEngine {
+public class GameEngine{
     //0,1
     // 0,3
     // 0,5
@@ -63,9 +64,8 @@ public class GameEngine {
 
     private static boolean gameWon =  false;
 
-
     public enum Direction {
-        UP, DOWN, LEFT, RIGHT
+        UP, DOWN, LEFT, RIGHT, SAVE
     }
 
     /**
@@ -192,11 +192,12 @@ public class GameEngine {
                 break;
             }
             }
-        else if(entry == 2){
-            direction=UI.shootPrompt();
+        else if(entry == 2) {
+            direction = UI.shootPrompt();
             shoot(direction);
         }
     }
+
     public void allEnemiesTurn(){
         for(Point i: listOfEnemyLoc){
             enemyTurn(i);
@@ -288,6 +289,8 @@ public class GameEngine {
                 break;
             case RIGHT:  A.translate(0,1);
                 B.translate(0,2);
+                break;
+            case SAVE: //SaveEngine.writeSave(player); uncomment to save
                 break;
         }
         board.printlookGrid(A,B, debug);
@@ -430,6 +433,10 @@ public class GameEngine {
             position = p;
         }
 
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     /**

@@ -1,9 +1,10 @@
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by travis on 11/13/16.
  */
-public abstract class Entity{
+public abstract class Entity implements Serializable{
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
