@@ -8,9 +8,6 @@ public class Tile {
     private Enemy enemy = null;
     private Player player = null;
     private Item item = null;
-    private Radar radar = new Radar();
-    private Invincibility invincibility = new Invincibility();
-    private Ammo ammo = new Ammo();
 
     /**
      * The Tile class constructor. Called by {@link Grid}
@@ -58,7 +55,10 @@ public class Tile {
     public char returnSymbol() {
         if (isEmpty()) {
             return '/';
-        } else if (hasEnemy()) {
+        } else if(hasEnemy()) {
+            return displayTypeOfItem();
+        }
+        else if (hasEnemy()) {
             return '/';
         } else if (hasPlayer()) {
             return 'P';
@@ -76,14 +76,14 @@ public class Tile {
      */
     public char returnSymbol(boolean debug) {
         if(debug) {
-            if (isEmpty()) {
-                return ' ';
+            if (hasItem()) {
+                return displayTypeOfItem();
             } else if (hasEnemy()) {
                 return 'E';
             } else if (hasPlayer()) {
                 return 'P';
-            } else if (hasItem()) {
-                displayTypeOfItem();
+            } else if (isEmpty()) {
+                return ' ';
             }
             return ' '; //??
         }
@@ -102,25 +102,21 @@ public class Tile {
         } else if (item instanceof Invincibility) {
             return 'I';
         } else if (item instanceof Ammo) {
-            return 'B';
+            return 'A';
         }
         return ' ';
     }
 
-    /**
-     *
-     * @return
-     */
-    private int typeOfPowerUp() {
-        if (item instanceof Radar) {
-            return 1;
-        } else if (item instanceof Invincibility) {
-            return 0;
-        } else if (item instanceof Ammo) {
-            return -1;
-        }
-        return -999;//?
-    }
+//    private int typeOfPowerUp() {
+//        if (item instanceof Radar) {
+//            return 1;
+//        } else if (item instanceof Invincibility) {
+//            return 0;
+//        } else if (item instanceof Ammo) {
+//            return -1;
+//        }
+//        return -999;//?
+//
 
 
 
@@ -131,7 +127,7 @@ public class Tile {
      * @return {@code null} for {@code enemy} and {@code player} fields
      */
     public boolean hasItem() {
-        return enemy == null && player == null;
+        return enemy == null && player == null && item !=null;
     }
 
     /**
@@ -141,7 +137,7 @@ public class Tile {
      * @return {@code null} for {@code enemy} and {@code item} fields
      */
     public boolean hasPlayer() {
-        return enemy == null && item == null;
+        return enemy == null && item == null && player !=null;
     }
 
     /**
@@ -163,6 +159,9 @@ public class Tile {
     public boolean hasEnemy() {
         return player == null && item == null && enemy != null;
     }
+    public boolean noEnemy() {
+        return enemy == null;
+    }
 
     public void killEnemy(){this.enemy = null;}
     public Enemy getEnemy(){
@@ -178,4 +177,5 @@ public class Tile {
     public Item getItem(){
         return item;
     }
+
 }
