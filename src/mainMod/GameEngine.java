@@ -272,7 +272,7 @@ public class GameEngine {
 //            enemyTurn(listOfEnemyLoc[i]);
 //        }
         for(int i= 0; i<board.getRowLen();i++){
-            for(int j=0;i<board.getColLen();j++){
+            for(int j=0;j<board.getColLen();j++){
                 if(board.getTile(i,j).hasEnemy()){
                     enemyTurn(new Point(i,j));
                 }

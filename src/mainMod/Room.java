@@ -1,3 +1,4 @@
+package mainMod;
 import java.awt.*;
 
 /**
@@ -9,7 +10,6 @@ import java.awt.*;
 public class Room extends Tile {
 	private boolean briefcase;
     private Point roomPos;
-
 	/**
      * This method returns a char value of
      * {@code R} on the grid to represent
