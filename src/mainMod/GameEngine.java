@@ -532,13 +532,8 @@ public class GameEngine {
      */
     public void checkPos(Point playerposition)
     {
-        for(int i = 0; i < listOfItemLoc.length; i++)
-        {
-            if(player.getPos() == listOfItemLoc[i])
-                if(items[i].exists)
-                {
-                    useItem(items[i]);
-                }
+        if(board.getTile(playerposition.x,playerposition.y).hasItem()){
+            useItem(board.getTile(playerposition.x,playerposition.y).getItem());
         }
     }
 
