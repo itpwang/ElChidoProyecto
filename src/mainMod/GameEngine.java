@@ -1,4 +1,5 @@
-import java.io.*;
+package mainMod;
+import java.lang.*;
 import java.util.*;
 import java.awt.Point;
 
@@ -20,7 +21,7 @@ public class GameEngine {
     /**
      * this field represents the location of the {@link Player}
      */
-    private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
+    private static Point position = new Point(java.lang.Math.toMapX(0), java.lang.Math.toMapY(0));
 
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.

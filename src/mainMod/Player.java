@@ -1,11 +1,9 @@
+package mainMod;
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.awt.Point;
 
-/**
- * Created by travis on 11/13/16.
- */
 public class Player extends Entity implements Serializable{
 
     private int numOfLives = 3;

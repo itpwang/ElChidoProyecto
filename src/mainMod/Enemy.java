@@ -1,3 +1,4 @@
+package mainMod;
 import java.awt.Point;
 import java.util.Random;
 

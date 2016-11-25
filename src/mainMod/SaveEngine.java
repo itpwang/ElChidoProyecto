@@ -1,8 +1,6 @@
+package mainMod;
 import java.io.*;
 
-/**
- * Created by Zach on 11/23/2016.
- */
 public class SaveEngine {
 
     public static void writeSave(Player p){

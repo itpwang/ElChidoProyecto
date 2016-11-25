@@ -1,6 +1,4 @@
-/**
- * Created by travis on 11/18/16.
- */
+package mainMod;
 
 import java.awt.Point;
 
@@ -50,7 +48,7 @@ public class Math {
      * This method translates a cartesian coordinate to
      * the grid coordinate
      * @param x
-     * @return
+     * @return int y
      */
     static public int toMapX(int x) {
             return (8 - x);
