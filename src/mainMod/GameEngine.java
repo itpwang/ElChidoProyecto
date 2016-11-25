@@ -154,24 +154,51 @@ public class GameEngine {
         for (int i = 0; i < board.map.length; i++) {
 
             if (dir == Direction.UP) {
-                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-                    board.map[p.x - i][p.y].killEnemy();
-                    break;
+                if (!board.isOOB(p.x - i, p.y)) {
+                	if(board.map[p.x - i][p.y].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x - i][p.y].hasEnemy()) {
+                        board.map[p.x - i][p.y].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.DOWN) {
-                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-                    board.map[p.x + i][p.y].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.DOWN) {
+                if (!board.isOOB(p.x + i, p.y)) {
+                	if(board.map[p.x + i][p.y].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x + i][p.y].hasEnemy()) {
+                        board.map[p.x + i][p.y].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.RIGHT) {
-                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-                    board.map[p.x][p.y + i].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.RIGHT) {
+                if (!board.isOOB(p.x, p.y + i)) {
+                	if(board.map[p.x][p.y + i].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x][p.y + i].hasEnemy()) {
+                        board.map[p.x][p.y + i].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.LEFT) {
-                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-                    board.map[p.x][p.y - i].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.LEFT) {
+                if (!board.isOOB(p.x, p.y - i)) {
+                	if(board.map[p.x][p.y - i].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x][p.y - i].hasEnemy()) {
+                        board.map[p.x][p.y - i].killEnemy();
+                        break;
+                	}
                 }
             }
         }
@@ -532,8 +559,13 @@ public class GameEngine {
      */
     public void checkPos(Point playerposition)
     {
-        if(board.getTile(playerposition.x,playerposition.y).hasItem()){
-            useItem(board.getTile(playerposition.x,playerposition.y).getItem());
+        for(int i = 0; i < listOfItemLoc.length; i++)
+        {
+            if(player.getPos() == listOfItemLoc[i])
+                if(items[i].exists)
+                {
+                    useItem(items[i]);
+                }
         }
     }
 
