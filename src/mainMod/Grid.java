@@ -94,6 +94,12 @@ public class Grid {
         return map[row][col];
     }
 
+    /**
+     * This method returns the cell at the {@link Point} on the map
+     *
+     * @param pt
+     * @return  {@link Tile}
+     */
     public Tile getTile(Point pt){
         return map[pt.x][pt.y];
     }
@@ -107,7 +113,7 @@ public class Grid {
     public int getColLen(){return map[0].length;}
 
     /**
-     * Swaps two tiles.
+     * Swaps two tiles. Items stay in original tile.
      * @param {@link Tile} A
      * @param {@link Tile} B
      */
