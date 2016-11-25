@@ -108,17 +108,17 @@ public class Enemy extends Entity {
 
     public void moveDown()
     {
-        setPos(new Point(getPos().x + 1,GameEngine.getPos().y));
+        setPos(new Point(getPos().x + 1,getPos().y));
     }
 
     public void moveLeft()
     {
-        setPos(new Point(getPos().x,GameEngine.getPos().y - 1));
+        setPos(new Point(getPos().x,getPos().y - 1));
     }
 
     public void moveRight()
     {
-        setPos(new Point(getPos().x,GameEngine.getPos().y + 1));
+        setPos(new Point(getPos().x,getPos().y + 1));
     }
 
     /**

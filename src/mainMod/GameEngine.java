@@ -1,5 +1,4 @@
 package mainMod;
-import java.lang.*;
 import java.util.*;
 import java.awt.Point;
 
@@ -21,7 +20,7 @@ public class GameEngine {
     /**
      * this field represents the location of the {@link Player}
      */
-    private static Point position = new Point(java.lang.Math.toMapX(0), java.lang.Math.toMapY(0));
+    private static Point position = new Point(mainMod.Math.toMapX(0), mainMod.Math.toMapY(0));
 
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
@@ -240,9 +239,7 @@ public class GameEngine {
     }
 
     public void enemyTurn(Point ePos){
-
         Direction movement;
-
         while(board.validMove(ePos,movement = rollMove())) {
             switch (movement) {
                 case UP:
@@ -266,12 +263,29 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method causes the enemies at each {@link Point} in the array {@link #listOfEnemyLoc}
+     * to take an {@link #enemyTurn(Point)}
+     */
     public void allEnemiesTurn(){
-        for(int i = 0; i>listOfEnemyLoc.length;i++){
-            enemyTurn(listOfEnemyLoc[i]);
+//        for(int i = 0; i>listOfEnemyLoc.length;i++){
+//            enemyTurn(listOfEnemyLoc[i]);
+//        }
+        for(int i= 0; i<board.getRowLen();i++){
+            for(int j=0;i<board.getColLen();j++){
+                if(board.getTile(i,j).hasEnemy()){
+                    enemyTurn(new Point(i,j));
+                }
+            }
         }
+
     }
 
+    /**
+     * This method swaps the tile at {@link Point} pt with the tile going up
+     * provided it is valid.
+     * @param pt
+     */
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
