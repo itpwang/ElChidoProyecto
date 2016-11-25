@@ -163,7 +163,11 @@ public class Tile {
         return enemy == null;
     }
 
-    public void killEnemy(){this.enemy = null;}
+    public void killEnemy()
+    {
+        System.out.println("You kill the Enemy!. ");
+        this.enemy = null;
+    }
     public Enemy getEnemy(){
         return enemy;
     }

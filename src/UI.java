@@ -73,8 +73,6 @@ public class UI {
      * to the screen
      */
     public static void displayKeypad() {
-        System.out.println("Press the following" +
-                " Keys to choose a direction:");
         System.out.println("  Up  : W ");
         System.out.println(" Left : A ");
         System.out.println("Right : D ");

@@ -1,16 +1,25 @@
 import java.io.*;
 import java.util.*;
 import java.awt.Point;
+
 /**
  * This class is in charge of handling all the game logic in the game.
  */
 public class GameEngine {
 
+    /**
+     * This is an array of {@link Point}s that stores the
+     * locations of each of the north facing {@link Tile}s
+     * of the {@link Room}s
+     */
     private static Point [] enterRoom = {
             new Point(0,1), new Point(0,3), new Point(0,5),
             new Point(3,1), new Point(3,3), new Point(3,5),
             new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
+    /**
+     * this field represents the location of the {@link Player}
+     */
     private static Point position = new Point(Math.toMapX(0), Math.toMapY(0));
 
     /**
@@ -35,6 +44,7 @@ public class GameEngine {
             new Point(4, 1), new Point(4, 4), new Point(4, 7),
             new Point(7, 1), new Point(7, 4), new Point(7, 7)
     };
+
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -46,9 +56,8 @@ public class GameEngine {
     public static boolean debug;
 
     /**
-     * This is the main constructor of the GameEngine class which instantiates a new Player object, Spawns a player object
-     * on the grid by using the {@link #setPlayer} method, spawns enemies on the map using the {@link #generateEnemies} method, and
-     * spawns power-ups on the grid by using the {@link #generateItems} method.
+     * This boolean field tells us whether
+     * the {@link Player} is invinsible
      */
     private static boolean isInvincible = false;
 
@@ -66,10 +75,17 @@ public class GameEngine {
 
     private static boolean radar;
 
+    /**
+     * This field
+     */
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
 
+    /**
+     * This enumerated field creates the values
+     * UP,DOWN,LEFT,RIGHT.
+     */
     public enum Direction {
         UP, DOWN, LEFT, RIGHT, SAVE
     }
@@ -111,13 +127,24 @@ public class GameEngine {
      */
     public void taketurn(){
         playerTurn();
+        timeDelay(1000);
         allEnemiesTurn();
         board.printGrid(debug);
     }
 
+    /**
+     * This method shoots the {@link Enemy}
+     * in the {@link GameEngine.Direction}
+     * that the {@link Player} chooses
+     *
+     * @param dir
+     */
     public void shoot(Direction dir) {
+
         Point p = player.getPos();
+
         for (int i = 0; i < board.map.length; i++) {
+
             if (dir == Direction.UP) {
                 if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
                     board.map[p.x - i][p.y].killEnemy();
@@ -153,6 +180,10 @@ public class GameEngine {
 //            return false;
 //    }
 
+    /**
+     *
+     * @return
+     */
     boolean gameWon(){
         return gameWon;
     }
@@ -163,7 +194,7 @@ public class GameEngine {
     }
 
     /**
-     * This method represents the turn of the main player of the game.
+     * This method represents the turn of the main {@link Player} of the game.
      */
     public void playerTurn() {
         Direction direction;
@@ -175,6 +206,7 @@ public class GameEngine {
         if(entry == 1)
         {
             while(board.validMove(pPos, direction=UI.movePrompt())){
+                timeDelay(1000);
                 switch (direction) {
                     case UP:
                         player.moveUp();
@@ -269,6 +301,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
+            System.out.println("You move UP one space. .");
         }
     }
 
@@ -276,6 +309,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x+1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
+            System.out.println("You move DOWN one space. .");
         }
     }
 
@@ -283,6 +317,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y-1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
+            System.out.println("You move LEFT one space. .");
         }
     }
 
@@ -290,6 +325,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y+1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
+            System.out.println("You move RIGHT one space. .");
         }
     }
 
@@ -509,5 +545,15 @@ public class GameEngine {
            return true;
        }
        else return false;
+    }
+
+    public void timeDelay(int a)
+    {
+        try {
+            System.out.println(". . .");
+            Thread.sleep(a);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
