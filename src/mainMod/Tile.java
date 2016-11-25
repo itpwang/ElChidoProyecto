@@ -1,4 +1,5 @@
 package mainMod;
+
 /**
  * This class is in charge of returning the location of a tile not already occupied by
  * another object.
