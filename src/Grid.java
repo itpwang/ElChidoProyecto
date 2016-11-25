@@ -82,6 +82,7 @@ public class Grid {
             System.out.println();
         }
     }
+
     /**
      * This method returns the cell at the position row,column on the map
      *
@@ -115,8 +116,20 @@ public class Grid {
         B.insertItem(temp.getItem());
         B.insertPlayer(temp.getPlayer());
     }
+
+    /**
+     * This method checks to see if the player move is valid
+     * The arguments passed are the {@link Player}'s position
+     * and the {@link GameEngine.Direction}
+     *
+     * @param position
+     * @param movePos
+     * @return
+     */
     public boolean validMove(Point position, GameEngine.Direction movePos){
+
         Point checkpos = new Point(position);
+
         switch(movePos){
             case UP:
                 checkpos.translate(-1,0);

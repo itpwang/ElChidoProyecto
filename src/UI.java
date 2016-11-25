@@ -91,12 +91,17 @@ public class UI {
     }
 
     public static int moveOrShootPrompt() {
-        System.out.println("Would you like to move or shoot?");
-        System.out.println("1. Move" );
-        System.out.println("2. Shoot");
+        int moveShoot = -1;
 
-        int moveShoot = takeInput(1,2);
-        scan.nextLine();
+        while(moveShoot != 1 && moveShoot != 2)
+        {
+            System.out.println("Would you like to move or shoot?");
+            System.out.println("1. Move" );
+            System.out.println("2. Shoot");
+
+            moveShoot = takeInput(1,2);
+            scan.nextLine();
+        }
 
         return moveShoot;
     }

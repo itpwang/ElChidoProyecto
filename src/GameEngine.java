@@ -61,6 +61,8 @@ public class GameEngine {
 
     private static boolean gameWon =  false;
 
+    private Point roomplace = new Point();
+
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -76,8 +78,6 @@ public class GameEngine {
      *
      */
     public GameEngine(){
-
-        Point roomplace = new Point();
 
         this.player = new Player(new Point(8, 0));
         setPlayer();
@@ -300,6 +300,7 @@ public class GameEngine {
         int num1, num2;
         Point enemyloc;
         Enemy enemyholder;
+
         for(int i = 0; i < enemies.length; i++)
         {
             num1 = rand.nextInt(8);
@@ -328,6 +329,7 @@ public class GameEngine {
     public void generateItems(){
         int num1, num2;
         boolean playerAmmoPlace = false, invPlace = false, radarPlace = false;
+
         while(true)
         {
             num1 = rand.nextInt(8);
@@ -340,19 +342,18 @@ public class GameEngine {
                     board.getTile(num1, num2).insertItem(new Ammo());
                     playerAmmoPlace = true;
                 }
-
                 else if(invPlace == false)
                 {
                     board.getTile(num1, num2).insertItem(new Invincibility());
                     invPlace = true;
                 }
-
                 else if(radarPlace == false)
                 {
                     board.getTile(num1, num2).insertItem(new Radar());
                     radarPlace = true;
                 }
             }
+
             if(playerAmmoPlace && invPlace && radarPlace)
                 break;
         }

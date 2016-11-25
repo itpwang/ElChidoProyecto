@@ -6,7 +6,6 @@ import java.util.Random;
  */
 public class Enemy extends Entity {
 
-
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
