@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import java.awt.Point;
 /**
@@ -28,6 +29,12 @@ public class GameEngine {
     private Enemy[] enemies = new Enemy[6];
 
     private Point[] listOfEnemyLoc = new Point[6];
+
+    private Point[] rooms = {
+            new Point(1, 1), new Point(1, 4), new Point(1, 7),
+            new Point(4, 1), new Point(4, 4), new Point(4, 7),
+            new Point(7, 1), new Point(7, 4), new Point(7, 7)
+    };
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -64,7 +71,7 @@ public class GameEngine {
     private Point roomplace = new Point();
 
     public enum Direction {
-        UP, DOWN, LEFT, RIGHT
+        UP, DOWN, LEFT, RIGHT, SAVE
     }
 
     /**
@@ -83,6 +90,7 @@ public class GameEngine {
         setPlayer();
         generateEnemies();
         generateItems();
+        generateBriefcase();
         debug = false;
     }
 
@@ -105,6 +113,53 @@ public class GameEngine {
         playerTurn();
         allEnemiesTurn();
         board.printGrid(debug);
+    }
+
+    public void shoot(Direction dir) {
+        Point p = player.getPos();
+        for (int i = 0; i < board.map.length; i++) {
+            if (dir == Direction.UP) {
+                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+                    board.map[p.x - i][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.DOWN) {
+                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+                    board.map[p.x + i][p.y].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.RIGHT) {
+                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+                    board.map[p.x][p.y + i].killEnemy();
+                    break;
+                }
+            } else if (dir == Direction.LEFT) {
+                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+                    board.map[p.x][p.y - i].killEnemy();
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * This method returns a boolean value of {@code false} representing the game is over.
+     * @return false.
+     */
+//    boolean gameOver(){
+//        if(gameWon()||!gameLost())
+//            return true;
+//        else
+//            return false;
+//    }
+
+    boolean gameWon(){
+        return gameWon;
+    }
+
+    boolean gameLost(){
+        // TODO
+        return false;
     }
 
     /**
@@ -178,47 +233,38 @@ public class GameEngine {
     }
 
     public void allEnemiesTurn(){
-        for(Point i: listOfEnemyLoc){
-            enemyTurn(i);
+        for(int i = 0; i>listOfEnemyLoc.length;i++){
+            enemyTurn(listOfEnemyLoc[i]);
         }
     }
-
-    public void shoot(Direction dir) {
-        Point p = player.getPos();
-        for (int i = 0; i < board.map.length; i++) {
-            if (dir == Direction.UP) {
-                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-                    board.map[p.x - i][p.y].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.DOWN) {
-                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-                    board.map[p.x + i][p.y].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.RIGHT) {
-                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-                    board.map[p.x][p.y + i].killEnemy();
-                    break;
-                }
-            } else if (dir == Direction.LEFT) {
-                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-                    board.map[p.x][p.y - i].killEnemy();
-                    break;
-                }
-            }
-        }
-    }
-
-    boolean gameWon(){
-        return gameWon;
-    }
-
-    boolean gameLost(){
-        // TODO
-        return false;
-    }
-
+//
+//    public void shoot(Direction dir) {
+//        Point p = player.getPos();
+//        for (int i = 0; i < board.map.length; i++) {
+//            if (dir == Direction.UP) {
+//                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
+//                    board.map[p.x - i][p.y].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.DOWN) {
+//                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
+//                    board.map[p.x + i][p.y].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.RIGHT) {
+//                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
+//                    board.map[p.x][p.y + i].killEnemy();
+//                    break;
+//                }
+//            } else if (dir == Direction.LEFT) {
+//                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
+//                    board.map[p.x][p.y - i].killEnemy();
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
@@ -281,6 +327,8 @@ public class GameEngine {
             case RIGHT:  A.translate(0,1);
                 B.translate(0,2);
                 break;
+            case SAVE: //SaveEngine.writeSave(player); uncomment to save
+                break;
         }
         board.printlookGrid(A,B, debug);
     }
@@ -306,7 +354,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol() == '/')
+            if(board.map[num1][num2].returnSymbol(debug) == '/')
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
@@ -335,7 +383,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol() == '/')
+            if(board.map[num1][num2].returnSymbol(debug) == '/')
             {
                 if(playerAmmoPlace == false)
                 {
@@ -357,6 +405,13 @@ public class GameEngine {
             if(playerAmmoPlace && invPlace && radarPlace)
                 break;
         }
+    }
+
+    private void generateBriefcase() {
+        int r = rand.nextInt(9);
+        board.getRoom(rooms[r]).setBriefcase(true);
+        System.out.print("Placed at " + rooms[r]);
+
     }
 
     /**
@@ -422,6 +477,10 @@ public class GameEngine {
             position = p;
         }
 
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     /**

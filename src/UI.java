@@ -18,14 +18,26 @@ public class UI {
 
     public static GameEngine.Direction choice;
 
+    private GameEngine g = new GameEngine();
+
     /**
      * This method allows the user to choose
      * to either start a new game, load a game
      * or quit.
      */
-    public void menuSelect(){
-        System.out.println("");
-        scan.nextInt();
+    public static int menuSelect(){
+        System.out.println("Please choose an option: ");
+        System.out.println("1. New Game");
+        System.out.println("2. Load Game");
+        System.out.println("3. Quit");
+
+        userinput = takeInput(1,2,3);
+        if(userinput == 3)
+        {
+            //close();
+        }
+
+        return userinput;
     }
 
     /**
@@ -52,7 +64,8 @@ public class UI {
         System.out.println("0. Look");
         System.out.println("1. Move");
         System.out.println("2. Shoot");
-        System.out.println("3. Quit");
+        System.out.println("3. Save");
+        System.out.println("4. Quit");
     }
 
     /**
@@ -66,6 +79,7 @@ public class UI {
         System.out.println(" Left : A ");
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
+        System.out.println(" Save : P ");
     }
 
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
@@ -74,7 +88,7 @@ public class UI {
 
         displayKeypad();
 
-        char direction = takeInput('W','A','S','D','w','a','s','d');
+        char direction = takeInput('W','A','S','D','P','w','a','s','d','p');
 
         if (direction == 'W' || direction == 'w')
             choice = GameEngine.Direction.UP;
@@ -84,6 +98,8 @@ public class UI {
             choice = GameEngine.Direction.RIGHT;
         else if(direction == 'S' || direction == 's')
             choice = GameEngine.Direction.DOWN;
+        else if(direction == 'P' || direction == 'p')
+            choice = GameEngine.Direction.SAVE;
 
 
         return choice;

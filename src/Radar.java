@@ -22,6 +22,13 @@ public class Radar extends Item{
     {
         return 'O';
     }
+
+    /**
+     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
+     * returns {@code O} if it is {@code true} and {@code /} if {@code false}
+     * @param debug
+     * @return char representing object
+     */
     public char returnSymbol(boolean debug) {return debug?'O':'/';}
 
     @Override
