@@ -1,3 +1,4 @@
+package mainMod;
 import java.awt.Point;
 
 /*
@@ -28,8 +29,11 @@ public class Grid {
     	for(int i = 1; i <= 7; i += 3)
         {
             map[1][i] = new Room(new Point(1,i));
+            map[1][i].setIsRoom(true);
             map[4][i] = new Room(new Point(4,i));
+            map[4][i].setIsRoom(true);
             map[7][i] = new Room(new Point(7, i));
+            map[7][i].setIsRoom(true);
             System.out.print("Dumbshit");
         }
 

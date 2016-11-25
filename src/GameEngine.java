@@ -1,3 +1,4 @@
+package mainMod;
 import java.io.*;
 import java.util.*;
 import java.awt.Point;
@@ -356,8 +357,11 @@ public class GameEngine {
         int num1, num2;
         Point enemyloc;
         Enemy enemyholder;
+        int i = 0;
+        
+        board.map[1][1].returnSymbol(debug);
 
-        for(int i = 0; i < enemies.length; i++)
+        while(i < 6)
         {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
@@ -366,14 +370,12 @@ public class GameEngine {
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
-                board.getTile(num1, num2).insertEnemy(enemyholder);
+                enemies[i] = new Enemy(enemyloc);
+                board.getTile(num1, num2).insertEnemy(enemies[i]);
                 listOfEnemyLoc[i]=enemyloc;
+                i++;
+                System.out.println("DUMBSHIT AT" + enemyloc);
             }
-            else
-            {
-                i--;
-            }
-
         }
     }
 

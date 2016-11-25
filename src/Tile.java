@@ -1,3 +1,4 @@
+package mainMod;
 /**
  * This class is in charge of returning the location of a tile not already occupied by
  * another object.
@@ -8,6 +9,7 @@ public class Tile {
     private Enemy enemy = null;
     private Player player = null;
     private Item item = null;
+    private boolean isRoom = false;
 
     /**
      * The Tile class constructor. Called by {@link Grid}
@@ -55,12 +57,17 @@ public class Tile {
     public char returnSymbol() {
         if (isEmpty()) {
             return '/';
-        } else if(hasEnemy()) {
+        }       
+        else if(isRoom) {
+        	return 'R';
+        }        
+        else if(hasEnemy()) {
             return displayTypeOfItem();
-        }
+        }       
         else if (hasEnemy()) {
             return '/';
-        } else if (hasPlayer()) {
+        } 
+        else if (hasPlayer()) {
             return 'P';
         }
         return '/';
@@ -78,11 +85,17 @@ public class Tile {
         if(debug) {
             if (hasItem()) {
                 return displayTypeOfItem();
-            } else if (hasEnemy()) {
-                return 'E';
-            } else if (hasPlayer()) {
+            } 
+            else if(isRoom) {
+            	return 'R';
+            }       
+            else if (hasEnemy()) {
+            	return 'E';
+            } 
+            else if (hasPlayer()) {
                 return 'P';
-            } else if (isEmpty()) {
+            } 
+            else if (isEmpty()) {
                 return ' ';
             }
             return ' '; //??
@@ -145,7 +158,7 @@ public class Tile {
      * @return {@code null} for {@code enemy} and {@code player} fields
      */
     public boolean isEmpty() {
-        return enemy == null && player == null && item == null;
+        return enemy == null && player == null && item == null && isRoom == false;
     }
 
     /**
@@ -175,7 +188,12 @@ public class Tile {
     public Player getPlayer(){
         return player;
     }
-    public boolean isRoom(){return false;}
+    public boolean isRoom(){
+    	return isRoom;
+    }
+    public void setIsRoom(boolean b) {
+    	this.isRoom = b;
+    }
     public Item getItem(){
         return item;
     }

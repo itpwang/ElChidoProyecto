@@ -1,3 +1,4 @@
+package mainMod;
 import java.awt.*;
 
 /**
@@ -19,10 +20,6 @@ public class Room extends Tile {
 	public Room(Point Pos){
         roomPos=Pos;
     }
-    public char returnSymbol()
-    {
-        return 'R';
-    }
 
     /**
      * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
@@ -30,7 +27,7 @@ public class Room extends Tile {
      * @param debug
      * @return char representing object
      */
-    public char returnSymbol(boolean debug) {return debug?'R':'/';}
+    //public char returnSymbol(boolean debug) {return debug?'R':'/';}
     public boolean isRoom(){return true;}
     public boolean getBriefcase(){
         return briefcase;
