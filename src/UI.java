@@ -6,18 +6,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
+
+    /**
+     *
+     */
     private static int userinput;
+
+    /**
+     *
+     */
     private static Scanner scan = new Scanner(System.in);
 
     /**
-     * Constructor for UI takes a {@link GameEngine}
-     * for an argument. instantiates the game, and
-     * creates a scan variable to input data.
-     * Lastly, calls the {@link #startMenu} method
+     *
      */
-
     public static GameEngine.Direction choice;
 
+    /**
+     *
+     */
     private GameEngine g = new GameEngine();
 
     /**
@@ -98,7 +105,6 @@ public class UI {
             choice = GameEngine.Direction.DOWN;
         else if(direction == 'P' || direction == 'p')
             choice = GameEngine.Direction.SAVE;
-
 
         return choice;
 

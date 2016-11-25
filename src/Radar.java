@@ -1,17 +1,33 @@
+import java.awt.Point;
+
 /**
  * This class is in charge of creating a Radar object which can be randomly spawned
  * on a tile in the grid.
  */
 public class Radar extends Item{
-	
-	/**
-	 * The Radar constructor which allows the Radar item to be randomly spawned 
-	 * in the grid where there is a {@code Tile} object.
-	 */
-    public Radar()
-    {
+
+    private Point radPosition;
+
+    /**
+     * The {@link Radar} constructor which allows the {@link Radar}
+     * {@link Item} to be randomly spawned in
+     * the grid where there is a {@link Tile} object.
+     */
+    public Radar(Point p) {
+        super(p);
+        radPosition = p;
+        this.exists = true;
     }
-    
+
+    /**
+     * This method gets the {@link Radar}s location
+     * @return
+     */
+    public Point getPos()
+    {
+        return radPosition;
+    }
+
     /**
      * This method returns a char value of {@code O} on the grid to represent 
      * the location of the radar item.
@@ -31,9 +47,10 @@ public class Radar extends Item{
      */
     public char returnSymbol(boolean debug) {return debug?'O':'/';}
 
-    @Override
     public void use() {
         GameEngine.radarOn();
+        System.out.println("You used the Radar! ");
+        this.exists = true;
     }
 }
 

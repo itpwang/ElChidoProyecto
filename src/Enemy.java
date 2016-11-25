@@ -136,6 +136,10 @@ public class Enemy extends Entity {
         Epos = point;
     }
 
+    /**
+     * This method gets the {@link Enemy}s location
+     * @return
+     */
     public Point getPos()
     {
         return Epos;

@@ -259,6 +259,10 @@ public class Player extends Entity implements Serializable{
         return alive;
     }
 
+    /**
+     * This method gets the {@link Player}s location
+     * @return
+     */
     public Point getPos()
     {
         return new Point(pPos);

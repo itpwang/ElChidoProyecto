@@ -37,13 +37,21 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
+    /**
+     * This field holds the position of the {@link Enemy}s
+     * as an array of {@link Point}s
+     */
     private Point[] listOfEnemyLoc = new Point[6];
 
-    private Point[] rooms = {
-            new Point(1, 1), new Point(1, 4), new Point(1, 7),
-            new Point(4, 1), new Point(4, 4), new Point(4, 7),
-            new Point(7, 1), new Point(7, 4), new Point(7, 7)
-    };
+    private Item[] items = new Item[3];
+
+    private Point[] listOfItemLoc = new Point[3];
+
+    /**
+     * This field holds the position of the {@link Room}s
+     * as an array of {@link Point}s
+     */
+    private Point[] rooms = {new Point(1, 1), new Point(1, 4), new Point(1, 7), new Point(4, 1), new Point(4, 4), new Point(4, 7), new Point(7, 1), new Point(7, 4), new Point(7, 7)};
 
     /**
      * This field represents the Random object used to randomly generate numbers.
@@ -170,17 +178,6 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false} representing the game is over.
-     * @return false.
-     */
-//    boolean gameOver(){
-//        if(gameWon()||!gameLost())
-//            return true;
-//        else
-//            return false;
-//    }
-
-    /**
      *
      * @return
      */
@@ -211,6 +208,8 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
+                        if(checkPos(pPos))
+
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
@@ -269,34 +268,7 @@ public class GameEngine {
             enemyTurn(listOfEnemyLoc[i]);
         }
     }
-//
-//    public void shoot(Direction dir) {
-//        Point p = player.getPos();
-//        for (int i = 0; i < board.map.length; i++) {
-//            if (dir == Direction.UP) {
-//                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-//                    board.map[p.x - i][p.y].killEnemy();
-//                    break;
-//                }
-//            } else if (dir == Direction.DOWN) {
-//                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-//                    board.map[p.x + i][p.y].killEnemy();
-//                    break;
-//                }
-//            } else if (dir == Direction.RIGHT) {
-//                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-//                    board.map[p.x][p.y + i].killEnemy();
-//                    break;
-//                }
-//            } else if (dir == Direction.LEFT) {
-//                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-//                    board.map[p.x][p.y - i].killEnemy();
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//
+
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
@@ -413,8 +385,10 @@ public class GameEngine {
     public void generateItems(){
         int num1, num2;
         boolean playerAmmoPlace = false, invPlace = false, radarPlace = false;
+        Point itemloc;
+        Item itemholder;
 
-        while(true)
+        for(int i = 0; i < items.length; i++)
         {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
@@ -423,21 +397,33 @@ public class GameEngine {
             {
                 if(playerAmmoPlace == false)
                 {
-                    board.getTile(num1, num2).insertItem(new Ammo());
+                    itemloc = new Point(num1,num2);
+                    itemholder = new Ammo(itemloc);
+                    board.getTile(num1,num2).insertItem(itemholder);
+                    listOfItemLoc[i] = itemloc;
                     playerAmmoPlace = true;
                 }
                 else if(invPlace == false)
                 {
-                    board.getTile(num1, num2).insertItem(new Invincibility());
+                    itemloc = new Point(num1,num2);
+                    itemholder = new Invincibility(itemloc);
+                    board.getTile(num1,num2).insertItem(itemholder);
+                    listOfItemLoc[i] = itemloc;
                     invPlace = true;
                 }
                 else if(radarPlace == false)
                 {
-                    board.getTile(num1, num2).insertItem(new Radar());
+                    itemloc = new Point(num1,num2);
+                    itemholder = new Radar(itemloc);
+                    board.getTile(num1,num2).insertItem(itemholder);
+                    listOfItemLoc[i] = itemloc;
                     radarPlace = true;
                 }
+                else
+                {
+                    i--;
+                }
             }
-
             if(playerAmmoPlace && invPlace && radarPlace)
                 break;
         }
@@ -520,10 +506,28 @@ public class GameEngine {
     }
 
     /**
-     *
+     * This method goes through the list of items
+     * checking if the item still exists.
+     * If so, checks if the position is the same as
+     * the {@link Player}s
      */
-    public static void checkPos(){
-        
+    public boolean checkPos(Point playerposition)
+    {
+        for(int i = 0; i < listOfItemLoc.length; i++)
+        {
+            if(player.getPos() == listOfItemLoc[i])
+                if(items[i].exists)
+                {
+                    useItem(items[i]);
+                    return true;
+                }
+        }
+            return false;
+    }
+
+    public void useItem(Item i)
+    {
+        i.use();
     }
 
     public void setGameWon(){

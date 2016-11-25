@@ -118,8 +118,6 @@ public class Tile {
 //        return -999;//?
 //
 
-
-
     /**
      * This method sets the fields of {@code enemy} and {@code player}
      * to null in a {@link Tile} object if {@link #hasItem()} returns {@code true}
@@ -165,7 +163,7 @@ public class Tile {
 
     public void killEnemy()
     {
-        System.out.println("You kill the Enemy!. ");
+        System.out.println("You kill the Enemy! ");
         this.enemy = null;
     }
     public Enemy getEnemy(){
