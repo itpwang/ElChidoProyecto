@@ -135,7 +135,6 @@ public class GameEngine {
      */
     public void taketurn(){
         playerTurn();
-        checkPos(player.getPos());
         timeDelay(1000);
         allEnemiesTurn();
         board.printGrid(debug);
@@ -155,24 +154,51 @@ public class GameEngine {
         for (int i = 0; i < board.map.length; i++) {
 
             if (dir == Direction.UP) {
-                if (!board.isOOB(p.x - i, p.y) && board.map[p.x - i][p.y].hasEnemy()) {
-                    board.map[p.x - i][p.y].killEnemy();
-                    break;
+                if (!board.isOOB(p.x - i, p.y)) {
+                	if(board.map[p.x - i][p.y].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x - i][p.y].hasEnemy()) {
+                        board.map[p.x - i][p.y].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.DOWN) {
-                if (!board.isOOB(p.x + i, p.y) && board.map[p.x + i][p.y].hasEnemy()) {
-                    board.map[p.x + i][p.y].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.DOWN) {
+                if (!board.isOOB(p.x + i, p.y)) {
+                	if(board.map[p.x + i][p.y].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x + i][p.y].hasEnemy()) {
+                        board.map[p.x + i][p.y].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.RIGHT) {
-                if (!board.isOOB(p.x, p.y + i) && board.map[p.x][p.y + i].hasEnemy()) {
-                    board.map[p.x][p.y + i].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.RIGHT) {
+                if (!board.isOOB(p.x, p.y + i)) {
+                	if(board.map[p.x][p.y + i].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x][p.y + i].hasEnemy()) {
+                        board.map[p.x][p.y + i].killEnemy();
+                        break;
+                	}
                 }
-            } else if (dir == Direction.LEFT) {
-                if (!board.isOOB(p.x, p.y - i) && board.map[p.x][p.y - i].hasEnemy()) {
-                    board.map[p.x][p.y - i].killEnemy();
-                    break;
+            }
+            else if (dir == Direction.LEFT) {
+                if (!board.isOOB(p.x, p.y - i)) {
+                	if(board.map[p.x][p.y - i].isRoom()) {
+                		System.out.println("you hit the room");
+                		break;
+                	}
+                	else if(board.map[p.x][p.y - i].hasEnemy()) {
+                        board.map[p.x][p.y - i].killEnemy();
+                        break;
+                	}
                 }
             }
         }
@@ -209,7 +235,6 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
-                        System.out.println("You move UP one space");
                         checkPos(pPos);
                         break;
                     case DOWN:
@@ -217,20 +242,17 @@ public class GameEngine {
                         else {
                             player.moveDown();
                             moveDown(pPos);
-                            System.out.println("You move DOWN one space");
                             checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
-                        System.out.println("You move LEFT one space");
                         checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
-                        System.out.println("You move RIGHT one space");
                         checkPos(pPos);
                         break;
                 }
@@ -295,6 +317,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
+            System.out.println("You move UP one space. .");
         }
     }
 
@@ -302,6 +325,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x+1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
+            System.out.println("You move DOWN one space. .");
         }
     }
 
@@ -309,6 +333,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y-1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
+            System.out.println("You move LEFT one space. .");
         }
     }
 
@@ -316,6 +341,7 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y+1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
+            System.out.println("You move RIGHT one space. .");
         }
     }
 
@@ -531,9 +557,15 @@ public class GameEngine {
      * the {@link Player}s
      * If the position is the same, it uses the {@link Item}
      */
-    public void checkPos(Point playerposition) {
-        if(board.getTile(playerposition.x,playerposition.y).hasItem()){
-            useItem(board.getTile(playerposition.x,playerposition.y).getItem());
+    public void checkPos(Point playerposition)
+    {
+        for(int i = 0; i < listOfItemLoc.length; i++)
+        {
+            if(player.getPos() == listOfItemLoc[i])
+                if(items[i].exists)
+                {
+                    useItem(items[i]);
+                }
         }
     }
 
@@ -563,7 +595,8 @@ public class GameEngine {
        else return false;
     }
 
-    public void timeDelay(int a) {
+    public void timeDelay(int a)
+    {
         try {
             System.out.println(". . .");
             Thread.sleep(a);
