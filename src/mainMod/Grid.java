@@ -115,7 +115,7 @@ public class Grid {
         Tile temp = new Tile();
         temp.insertPlayer(A.getPlayer());
         temp.insertEnemy(A.getEnemy());
-        temp.insertItem(A.getItem());
+        temp.insertItem(B.getItem());
 
         A.insertEnemy(B.getEnemy());
         A.insertItem(B.getItem());
