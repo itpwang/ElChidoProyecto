@@ -1,4 +1,3 @@
-package mainMod;
 import java.io.*;
 import java.util.*;
 import java.awt.Point;
@@ -209,23 +208,25 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
-                        if(checkPos(pPos))
-
+                        checkPos(pPos);
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
                         else {
                             player.moveDown();
                             moveDown(pPos);
+                            checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
+                        checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
+                        checkPos(pPos);
                         break;
                 }
                 break;
@@ -512,8 +513,9 @@ public class GameEngine {
      * checking if the item still exists.
      * If so, checks if the position is the same as
      * the {@link Player}s
+     * If the position is the same, it uses the {@link Item}
      */
-    public boolean checkPos(Point playerposition)
+    public void checkPos(Point playerposition)
     {
         for(int i = 0; i < listOfItemLoc.length; i++)
         {
@@ -521,10 +523,8 @@ public class GameEngine {
                 if(items[i].exists)
                 {
                     useItem(items[i]);
-                    return true;
                 }
         }
-            return false;
     }
 
     public void useItem(Item i)
