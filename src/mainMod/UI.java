@@ -10,14 +10,12 @@ import java.util.Scanner;
 public class UI {
 
     /**
-     * This int variable will hold the user's
-     * input for {@link UI#menuSelect()}
+     *
      */
     private static int userinput;
 
     /**
-     * This scanner variable will take in the user's
-     * input for the variable {@link UI#userinput}
+     *
      */
     private static Scanner scan = new Scanner(System.in);
 
@@ -45,7 +43,7 @@ public class UI {
         userinput = takeInput(1,2,3);
         if(userinput == 3)
         {
-            System.exit(0);
+            //close();
         }
 
         return userinput;
@@ -59,7 +57,6 @@ public class UI {
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
         System.out.println("*_________________________________*");
-        System.out.println();
         System.out.println("Would you like to run in debug mode?");
         System.out.println("Press 1 for debug mode, 0 for normal mode.");
 
