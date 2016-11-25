@@ -235,6 +235,7 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
+                        System.out.println("You move UP one space. .");
                         checkPos(pPos);
                         break;
                     case DOWN:
@@ -242,17 +243,20 @@ public class GameEngine {
                         else {
                             player.moveDown();
                             moveDown(pPos);
+                            System.out.println("You move DOWN one space. .");
                             checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
+                        System.out.println("You move LEFT one space. .");
                         checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
+                        System.out.println("You move RIGHT one space. .");
                         checkPos(pPos);
                         break;
                 }
@@ -317,7 +321,6 @@ public class GameEngine {
         if(!board.isOOB(pt.x-1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
-            System.out.println("You move UP one space. .");
         }
     }
 
@@ -325,7 +328,6 @@ public class GameEngine {
         if(!board.isOOB(pt.x+1,pt.y)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
-            System.out.println("You move DOWN one space. .");
         }
     }
 
@@ -333,7 +335,6 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y-1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
-            System.out.println("You move LEFT one space. .");
         }
     }
 
@@ -341,7 +342,6 @@ public class GameEngine {
         if(!board.isOOB(pt.x,pt.y+1)) {
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
-            System.out.println("You move RIGHT one space. .");
         }
     }
 
