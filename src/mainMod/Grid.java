@@ -102,7 +102,14 @@ public class Grid {
     public boolean isOOB(int x, int y) {
         return (x < 0 || x >= map.length || y < 0 || y >= map.length);
     }
+    public int getRowLen(){return map.length;}
+    public int getColLen(){return map[0].length;}
 
+    /**
+     * Swaps two tiles.
+     * @param {@link Tile} A
+     * @param {@link Tile} B
+     */
     public void swapTile(Tile A, Tile B){
         Tile temp = new Tile();
         temp.insertPlayer(A.getPlayer());
@@ -178,7 +185,6 @@ public class Grid {
                 else return false;
             default: return false;
         }
-
     }
 }
 

@@ -1,10 +1,12 @@
+package mainMod;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Tbe UI class represents the user interface. Handles all interactions
  * between user and game.
  */
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class UI {
 
     /**
