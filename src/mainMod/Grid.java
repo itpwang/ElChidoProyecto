@@ -95,7 +95,7 @@ public class Grid {
     }
 
     /**
-     * This method returns the cell at the {@link Point} on the map
+     * This method returns the {@link Tile} at the {@link Point} on the map
      *
      * @param pt
      * @return  {@link Tile}
@@ -104,12 +104,49 @@ public class Grid {
         return map[pt.x][pt.y];
     }
 
-    public Room getRoom(Point p) { return (Room)map[p.x][p.y]; }
+    /**
+     * This method returns the {@link Room} at the {@link Point} on the map
+     *
+     * @param pt
+     * @return  {@link Tile}
+     */
+    public Room getRoom(Point pt) { return (Room)map[pt.x][pt.y]; }
 
+    /**
+     * This function returns true if the coordinates entered are out of bounds,
+     * false if not
+     * @param x
+     * @param y
+     * @return {@code true, false}
+     */
     public boolean isOOB(int x, int y) {
         return (x < 0 || x >= map.length || y < 0 || y >= map.length);
     }
+
+    /**
+     * This method checks if the {@link Player}/{@link Enemy} at position
+     * can move by checking all directions of movement. Returns {@code true}
+     * if can move, {@code false} if can NOT move.
+     * @param position
+     * @return {@code true/false}
+     */
+    public boolean canMove(Point position){
+        if(validMove(position, GameEngine.Direction.UP)||validMove(position, GameEngine.Direction.DOWN)||
+                validMove(position,GameEngine.Direction.LEFT)||validMove(position, GameEngine.Direction.RIGHT)){
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * This method returns length of row in map
+     * @return row length of map
+     */
     public int getRowLen(){return map.length;}
+    /**
+     * This method returns length of column in map
+     * @return column length of map
+     */
     public int getColLen(){return map[0].length;}
 
 
@@ -143,63 +180,66 @@ public class Grid {
     /**
      * This method checks to see if the player move is valid
      * The arguments passed are the {@link Player}'s position
-     * and the {@link GameEngine.Direction}
+     * and the {@link GameEngine.Direction}. Also implements
+     * {@link #canMove(Point)} to check if the {@link Entity} at
+     * position can move.
      *
      * @param position
      * @param movePos
-     * @return
+     * @return {@code true/false}
      */
-    public boolean validMove(Point position, GameEngine.Direction movePos){
+    public boolean validMove(Point position, GameEngine.Direction movePos) {
 
         Point checkpos = new Point(position);
 
-        switch(movePos){
-            case UP:
-                checkpos.translate(-1,0);
-                if(isOOB(checkpos.x,checkpos.y))
-                {
-                    System.out.println("That's a wall.  ");
+        if (canMove(position)) {
+            switch (movePos) {
+                case UP:
+                    checkpos.translate(-1, 0);
+                    if (isOOB(checkpos.x, checkpos.y)) {
+                        System.out.println("That's a wall.  ");
+                        return false;
+                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                        return true;
+                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                        return true;
+                    } else return false;
+                case DOWN:
+                    checkpos.translate(1, 0);
+                    if (isOOB(checkpos.x, checkpos.y)) {
+                        System.out.println("That's a wall.  ");
+                        return false;
+                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                        System.out.println("That's a wall.  ");
+                        return true;
+                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                        return true;
+                    } else return false;
+                case LEFT:
+                    checkpos.translate(0, -1);
+                    if (isOOB(checkpos.x, checkpos.y)) {
+                        System.out.println("That's a wall.  ");
+                        return false;
+                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                        return true;
+                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                        return true;
+                    } else return false;
+                case RIGHT:
+                    checkpos.translate(0, 1);
+                    if (isOOB(checkpos.x, checkpos.y)) {
+                        System.out.println("That's a wall.  ");
+                        return false;
+                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                        return true;
+                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                        return true;
+                    } else return false;
+                default:
                     return false;
-                }
-                else if(getTile(checkpos.x,checkpos.y).hasItem()) {return true;}
-                else if(getTile(checkpos.x,checkpos.y).isEmpty()) {return true;}
-                else return false;
-            case DOWN:
-                checkpos.translate(1,0);
-                if(isOOB(checkpos.x,checkpos.y))
-                {
-                    System.out.println("That's a wall.  ");
-                    return false;
-                }
-                else if(getTile(checkpos.x,checkpos.y).hasItem())
-                {
-                    System.out.println("That's a wall.  ");
-                    return true;
-                }
-                else if(getTile(checkpos.x,checkpos.y).isEmpty()) {return true;}
-                else return false;
-            case LEFT:
-                checkpos.translate(0,-1);
-                if(isOOB(checkpos.x,checkpos.y))
-                {
-                    System.out.println("That's a wall.  ");
-                    return false;
-                }
-                else if(getTile(checkpos.x,checkpos.y).hasItem()) {return true;}
-                else if(getTile(checkpos.x,checkpos.y).isEmpty()) {return true;}
-                else return false;
-            case RIGHT:
-                checkpos.translate(0,1);
-                if(isOOB(checkpos.x,checkpos.y))
-                {
-                    System.out.println("That's a wall.  ");
-                    return false;
-                }
-                else if(getTile(checkpos.x,checkpos.y).hasItem()) {return true;}
-                else if(getTile(checkpos.x,checkpos.y).isEmpty()) {return true;}
-                else return false;
-            default: return false;
+            }
         }
+        else return false;
     }
 }
 
