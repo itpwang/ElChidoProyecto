@@ -240,7 +240,7 @@ public class GameEngine {
 
         if(entry == 1)
         {
-            while(board.validMove(pPos, direction=UI.movePrompt())){
+            while(board.validMove(pPos, direction=UI.movePrompt())&&board.canMove(pPos)){
                 timeDelay(1000);
                 switch (direction) {
                     case UP:
@@ -343,7 +343,7 @@ public class GameEngine {
         Direction movement;
 
         //Move
-        while(board.validMove(ePos,movement = rollMove())) {
+        while(board.validMove(ePos,movement = rollMove())&&board.canMove(ePos)) {
             switch (movement) {
                 case UP:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveUp();

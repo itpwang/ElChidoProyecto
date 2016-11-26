@@ -192,54 +192,53 @@ public class Grid {
 
         Point checkpos = new Point(position);
 
-        if (canMove(position)) {
-            switch (movePos) {
-                case UP:
-                    checkpos.translate(-1, 0);
-                    if (isOOB(checkpos.x, checkpos.y)) {
-                        System.out.println("That's a wall.  ");
-                        return false;
-                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                        return true;
-                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
-                        return true;
-                    } else return false;
-                case DOWN:
-                    checkpos.translate(1, 0);
-                    if (isOOB(checkpos.x, checkpos.y)) {
-                        System.out.println("That's a wall.  ");
-                        return false;
-                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                        System.out.println("That's a wall.  ");
-                        return true;
-                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
-                        return true;
-                    } else return false;
-                case LEFT:
-                    checkpos.translate(0, -1);
-                    if (isOOB(checkpos.x, checkpos.y)) {
-                        System.out.println("That's a wall.  ");
-                        return false;
-                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                        return true;
-                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
-                        return true;
-                    } else return false;
-                case RIGHT:
-                    checkpos.translate(0, 1);
-                    if (isOOB(checkpos.x, checkpos.y)) {
-                        System.out.println("That's a wall.  ");
-                        return false;
-                    } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                        return true;
-                    } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
-                        return true;
-                    } else return false;
-                default:
+
+        switch (movePos) {
+            case UP:
+                checkpos.translate(-1, 0);
+                if (isOOB(checkpos.x, checkpos.y)) {
+                    System.out.println("That's a wall.  ");
                     return false;
-            }
+                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                    return true;
+                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                    return true;
+                } else return false;
+            case DOWN:
+                checkpos.translate(1, 0);
+                if (isOOB(checkpos.x, checkpos.y)) {
+                    System.out.println("That's a wall.  ");
+                    return false;
+                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                    System.out.println("That's a wall.  ");
+                    return true;
+                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                    return true;
+                } else return false;
+            case LEFT:
+                checkpos.translate(0, -1);
+                if (isOOB(checkpos.x, checkpos.y)) {
+                    System.out.println("That's a wall.  ");
+                    return false;
+                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                    return true;
+                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                    return true;
+                } else return false;
+            case RIGHT:
+                checkpos.translate(0, 1);
+                if (isOOB(checkpos.x, checkpos.y)) {
+                    System.out.println("That's a wall.  ");
+                    return false;
+                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                    return true;
+                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                    return true;
+                } else return false;
+            default:
+                return false;
         }
-        else return false;
+
     }
 }
 
