@@ -275,11 +275,26 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method takes the {@link Enemy}'s
+     * turn.
+     *
+     * @param ePos
+     */
     public void enemyTurn(Point ePos){
         enemyAttack(ePos);
         enemyMove(ePos);
     }
 
+    /**
+     * This method takes an {@link Point}
+     * for the {@link Enemy} position and
+     * checks to see if there is a {@link Player}
+     * adjacent to attack. If so,
+     * it kills the {@link Player}
+     *
+     * @param ePos
+     */
     public void enemyAttack(Point ePos)
     {
         //Attack
@@ -318,6 +333,12 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method makes the {@link Enemy}
+     * move in a random {@link Direction}
+     *
+     * @param ePos
+     */
     public void enemyMove(Point ePos)
     {
         Direction movement;
