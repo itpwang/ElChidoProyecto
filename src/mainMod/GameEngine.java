@@ -527,13 +527,13 @@ public class GameEngine {
      */
 
     private boolean checkSpawn(int n, int m) {
-       if(n==0 && (m==5 || m ==6 || m==7))
+       if(n==6 && (m==0 || m ==1 ))
            return false;
-       else if(n==1 && (m==6 || m==7 || m==8))
+       else if(n==7 && (m==0 || m==1 || m==2))
             return false;
-       else if(n==2 && (m==7 || m ==8))
+       else if(n==8 && (m==1 || m ==2 || m==3))
            return false;
-        else if(n==3 && n==8)
+        else if(n==5 && n==0)
             return false;
 
         return true;
