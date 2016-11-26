@@ -148,6 +148,7 @@ public class GameEngine {
             board.printGrid(debug);
             System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
             if(invCounter >= 5)
+                System.out.println("Invincibility wore off!");
                 isInvincible = false;
         }
         else
@@ -295,8 +296,7 @@ public class GameEngine {
      *
      * @param ePos
      */
-    public void enemyAttack(Point ePos)
-    {
+    public void enemyAttack(Point ePos) {
         //Attack
         if(!board.isOOB(ePos.x - 1, ePos.y)) {
             if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
@@ -339,8 +339,7 @@ public class GameEngine {
      *
      * @param ePos
      */
-    public void enemyMove(Point ePos)
-    {
+    public void enemyMove(Point ePos) {
         Direction movement;
 
         //Move
