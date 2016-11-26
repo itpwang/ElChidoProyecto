@@ -135,6 +135,8 @@ public class GameEngine {
      */
     public void taketurn(){
         playerTurn();
+        System.out.println(player.getPos());
+        checkPos(player.getPos());
         timeDelay(1000);
         allEnemiesTurn();
         board.printGrid(debug);
@@ -236,7 +238,6 @@ public class GameEngine {
                         player.moveUp();
                         moveUp(pPos);
                         System.out.println("You move UP one space. .");
-                        checkPos(pPos);
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
@@ -244,20 +245,17 @@ public class GameEngine {
                             player.moveDown();
                             moveDown(pPos);
                             System.out.println("You move DOWN one space. .");
-                            checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
                         System.out.println("You move LEFT one space. .");
-                        checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
                         System.out.println("You move RIGHT one space. .");
-                        checkPos(pPos);
                         break;
                 }
                 break;
@@ -557,15 +555,10 @@ public class GameEngine {
      * the {@link Player}s
      * If the position is the same, it uses the {@link Item}
      */
-    public void checkPos(Point playerposition)
-    {
-        for(int i = 0; i < listOfItemLoc.length; i++)
-        {
-            if(player.getPos() == listOfItemLoc[i])
-                if(items[i].exists)
-                {
-                    useItem(items[i]);
-                }
+    public void checkPos(Point playerposition) {
+        if(board.getTile(playerposition).hasItem()) {
+            System.out.println("It sees the item");
+            useItem(board.getTile(playerposition).getItem());
         }
     }
 
@@ -595,8 +588,7 @@ public class GameEngine {
        else return false;
     }
 
-    public void timeDelay(int a)
-    {
+    public void timeDelay(int a) {
         try {
             System.out.println(". . .");
             Thread.sleep(a);

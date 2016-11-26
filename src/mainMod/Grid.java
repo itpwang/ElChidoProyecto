@@ -121,14 +121,14 @@ public class Grid {
         Tile temp = new Tile();
         temp.insertPlayer(A.getPlayer());
         temp.insertEnemy(A.getEnemy());
-        temp.insertItem(B.getItem());
+        //temp.insertItem(B.getItem());
 
         A.insertEnemy(B.getEnemy());
-        A.insertItem(B.getItem());
+        //A.insertItem(B.getItem());
         A.insertPlayer(B.getPlayer());
 
         B.insertEnemy(temp.getEnemy());
-        B.insertItem(temp.getItem());
+        //B.insertItem(temp.getItem());
         B.insertPlayer(temp.getPlayer());
     }
 
