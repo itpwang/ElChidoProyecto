@@ -14,12 +14,6 @@ public abstract class Entity implements Serializable{
 
     /**
      * This abstract method will allow the
-     * {@link Entity} to move on the grid
-     */
-    abstract void move(moveChoice e);
-
-    /**
-     * This abstract method will allow the
      * {@link Entity} to attack an adjacent
      * space
      */

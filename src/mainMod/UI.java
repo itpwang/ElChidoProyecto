@@ -218,7 +218,6 @@ public class UI {
         return false;
     }
 
-
     public static void roomMoveError() {
         System.out.println("Entering from the wrong side of the room");
 

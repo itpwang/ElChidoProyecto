@@ -85,34 +85,6 @@ public class Player extends Entity implements Serializable{
         }
     }
 
-    /**
-        * This method outputs the keypad to the screen
-        * and gets user input for the {@code moveChoice}
-        *
-        */
-    public void move(moveChoice direction){
-            moveChoice movechoice;
-
-            UI.displayKeypad();
-            movechoice = getMoveChoice();
-
-            if(direction == moveChoice.LEFT)
-            {
-                moveLeft();
-                }
-                else if(direction == moveChoice.RIGHT)
-                {
-                moveRight();
-                }
-                else if(direction == moveChoice.UP)
-                {
-                moveUp();
-                }
-                else if(direction == moveChoice.DOWN)
-                {
-                moveDown();
-            }
-        }
 
     public void moveUp() {pPos.translate(-1, 0);}
 
@@ -192,52 +164,6 @@ public class Player extends Entity implements Serializable{
 //        }
 //        return answer;
 //        }
-
-    /**
-        * This method prompts the user to imput a
-        * {@code moveChoice} for the {@link Player}'s
-        * Handles exceptions for invalid input
-        *
-        * @return moveChoice
-        */
-    private moveChoice getMoveChoice(){
-        String answer;
-        char movechoice;
-
-        UI.displayKeypad();
-        answer = input.next();
-        movechoice = answer.charAt(0);
-
-        try {
-            if (movechoice == 'A' )
-            {
-                return moveChoice.LEFT;
-            }
-            else if(movechoice == 'D')
-            {
-                return moveChoice.RIGHT;
-            }
-            else if(movechoice == 'W')
-            {
-                return moveChoice.UP;
-            }
-            else if(movechoice == 'S')
-            {
-                return moveChoice.DOWN;
-
-            } else {
-                System.out.println("Invalid Choice");
-                UI.displayKeypad();
-            }
-        } catch (InputMismatchException e) //move to UI
-        {
-            System.out.println("Input must be an integer.");
-            while(input.hasNext() && input.hasNextInt())
-                input.next();
-        }
-
-        return moveChoice.RIGHT;
-    }
 
     /**
         * This method checks to see if the player has ammo

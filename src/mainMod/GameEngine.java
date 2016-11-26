@@ -236,25 +236,25 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
-                        System.out.println("You move UP one space. .");
+                        checkPos(pPos);
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
                         else {
                             player.moveDown();
                             moveDown(pPos);
-                            System.out.println("You move DOWN one space. .");
+                            checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
-                        System.out.println("You move LEFT one space. .");
+                        checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
-                        System.out.println("You move RIGHT one space. .");
+                        checkPos(pPos);
                         break;
                 }
                 break;
@@ -310,7 +310,7 @@ public class GameEngine {
     }
 
     /**
-     * This method swaps the tile at {@link Point} pt with the tile going up
+     * This method swaps the tile at {@link Entity}'s pt with the tile going up
      * provided it is valid.
      * @param pt
      */
@@ -326,6 +326,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going down
+     * provided it is valid.
+     * @param pt
+     */
     public void moveDown(Point pt){
         if(!board.isOOB(pt.x+1,pt.y)) {
             if(board.checkTile(board.getTile(pt.x+1,pt.y)))
@@ -338,6 +343,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going left
+     * provided it is valid.
+     * @param pt
+     */
     public void moveLeft(Point pt){
         if(!board.isOOB(pt.x,pt.y-1)) {
             if(board.checkTile(board.getTile(pt.x,pt.y - 1)))
@@ -350,6 +360,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going right
+     * provided it is valid.
+     * @param pt
+     */
     public void moveRight(Point pt){
         if(!board.isOOB(pt.x,pt.y+1)) {
             if(board.checkTile(board.getTile(pt.x,pt.y+1)))
@@ -362,6 +377,12 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method rolls a random number from 0 - 3
+     * and returns an enum {@link Direction}
+     *
+     * @return
+     */
     public Direction rollMove() {
         int enemyMove;
         Random rand = new Random();
@@ -380,6 +401,12 @@ public class GameEngine {
         return Direction.UP;
     }
 
+    /**
+     * This method takes a {@link Direction}
+     * and translates two points in that
+     * {@link Direction}
+     * @param direction
+     */
     public void look(Direction direction){
         Point A  = player.getPos();
         Point B = player.getPos();
@@ -563,6 +590,10 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method returns the {@link Player}
+     * @return
+     */
     public Player getPlayer(){
         return player;
     }
@@ -581,11 +612,20 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method uses the {@link Item}
+     *
+     * @param i
+     */
     public void useItem(Item i)
     {
         i.use();
     }
 
+    /**
+     * This method sets the {@link GameEngine#gameWon}
+     * equal to True;
+     */
     public void setGameWon(){
         gameWon=true;
     }
@@ -607,6 +647,11 @@ public class GameEngine {
        else return false;
     }
 
+    /**
+     * This method pauses the program for the amount
+     * of milliseconds passed into the function.
+     * @param a
+     */
     public void timeDelay(int a) {
         try {
             System.out.println(". . .");
