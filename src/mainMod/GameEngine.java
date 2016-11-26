@@ -73,7 +73,7 @@ public class GameEngine {
      * This field is the counter that stores the
      * invincibility for the {@link Player}
      */
-    private int invCounter = 0;
+    private static int invCounter = 0;
 
     /**
      * This field stores the mmo of the
@@ -89,6 +89,7 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
+
 
     /**
      * This enumerated field creates the values
@@ -134,12 +135,23 @@ public class GameEngine {
      * {@link Entity} to take a turn
      */
     public void taketurn(){
-        playerTurn();
-        checkPos(player.getPos());
-        timeDelay(1000);
-        allEnemiesTurn();
-        board.printGrid(debug);
-        System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
+        int invCounter = 0;
+
+        if(player.getNumOfLives() >= 1)
+        {
+            if(invincibilityOn())
+                invCounter++;
+            playerTurn();
+            checkPos(player.getPos());
+            timeDelay(1000);
+            allEnemiesTurn();
+            board.printGrid(debug);
+            System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
+            if(invCounter >= 5)
+                isInvincible = false;
+        }
+        else
+            gameOver();
     }
 
     /**
@@ -215,11 +227,6 @@ public class GameEngine {
         return gameWon;
     }
 
-    boolean gameLost(){
-        // TODO
-        return false;
-    }
-
     /**
      * This method represents the turn of the main {@link Player} of the game.
      */
@@ -269,42 +276,53 @@ public class GameEngine {
     }
 
     public void enemyTurn(Point ePos){
-        Direction movement;
-    	//Attack
-    	if(!board.isOOB(ePos.x - 1, ePos.y)) {
-        	if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
-        		player.decLives();
-        		System.out.println("You ded");
-        		respawnPlayer();
-        		return;
-        	}
-    	}
-    	if(!board.isOOB(ePos.x + 1, ePos.y)) {
-        	if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
-        		player.decLives();
-        		System.out.println("You ded");
-        		respawnPlayer();
-        		return;
-        	}
-    	}
-    	if(!board.isOOB(ePos.x, ePos.y + 1)) {
-    		if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
-        		player.decLives();
-        		System.out.println("You ded");
-        		respawnPlayer();
-        		return;
-    		}
-    	}
-    	if(!board.isOOB(ePos.x, ePos.y - 1)) {
-    		if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
-        		player.decLives();
-        		System.out.println("You ded");
-        		respawnPlayer();
-        		return;
-    		}
-    	}
+        enemyAttack(ePos);
+        enemyMove(ePos);
+    }
 
-    	//Move
+    public void enemyAttack(Point ePos)
+    {
+        //Attack
+        if(!board.isOOB(ePos.x - 1, ePos.y)) {
+            if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x + 1, ePos.y)) {
+            if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x, ePos.y + 1)) {
+            if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x, ePos.y - 1)) {
+            if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+
+    }
+
+    public void enemyMove(Point ePos)
+    {
+        Direction movement;
+
+        //Move
         while(board.validMove(ePos,movement = rollMove())) {
             switch (movement) {
                 case UP:
@@ -326,6 +344,7 @@ public class GameEngine {
             }
             break;
         }
+
     }
 
     /**
@@ -497,7 +516,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol(debug) == '/')
+            if(board.map[num1][num2].isEmpty())
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
@@ -520,13 +539,13 @@ public class GameEngine {
         boolean playerAmmoPlace = false, invPlace = false, radarPlace = false;
         Point itemloc;
         Item itemholder;
-
-        for(int i = 0; i < items.length; i++)
+        int i = 0;
+        while(i != 3)
         {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol(debug) == '/')
+            if(board.map[num1][num2].isEmpty())
             {
                 if(playerAmmoPlace == false)
                 {
@@ -535,6 +554,7 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     playerAmmoPlace = true;
+                    i++;
                 }
                 else if(invPlace == false)
                 {
@@ -543,6 +563,7 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     invPlace = true;
+                    i++;
                 }
                 else if(radarPlace == false)
                 {
@@ -551,14 +572,9 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     radarPlace = true;
-                }
-                else
-                {
-                    i--;
+                    i++;
                 }
             }
-            if(playerAmmoPlace && invPlace && radarPlace)
-                break;
         }
     }
 
