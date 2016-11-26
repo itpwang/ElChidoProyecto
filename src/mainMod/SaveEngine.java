@@ -3,11 +3,11 @@ import java.io.*;
 
 public class SaveEngine {
 
-    public static void writeSave(Player p){
+    public static void writeSave(GameState current){
         try{
             FileOutputStream fileOut = new FileOutputStream("/C:\\Files\\Programming\\Java\\Programs\\CS141\\Github\\ElChidoProyecto\\src\\save.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(p);
+            out.writeObject(current);
             out.close();
             fileOut.close();
             System.out.println("Game saved in /C:\\Files\\Programming\\Java\\Programs\\CS141\\Github\\ElChidoProyecto\\src\\save.ser");
@@ -15,6 +15,8 @@ public class SaveEngine {
             e.printStackTrace();
         }
     }
+
+  //  s.writeSave(Point pl, Point en, Point am, Point inv, Point rad)
 
     public static void readSave(Player p){
         try{

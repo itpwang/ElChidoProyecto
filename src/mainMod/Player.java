@@ -19,11 +19,6 @@ public class Player extends Entity implements Serializable{
      * {@link Player}
      */
     private Point pPos;
-    /**
-     * This {@code Scanner} variable allows the user
-     * to input values for their choices in battle
-     */
-    private Scanner input = new Scanner(System.in);
 
     /**
         * This field stores {@link Player}'s living state
@@ -90,7 +85,7 @@ public class Player extends Entity implements Serializable{
         * and gets user input for the {@code moveChoice}
         *
         */
-    public void move(moveChoice direction){
+ /**   public void move(moveChoice direction){
             moveChoice movechoice;
 
             UI.displayKeypad();
@@ -112,7 +107,7 @@ public class Player extends Entity implements Serializable{
                 {
                 moveDown();
             }
-        }
+        }*/
 
     public void moveUp() {pPos.translate(-1, 0);}
 
@@ -200,12 +195,12 @@ public class Player extends Entity implements Serializable{
         *
         * @return moveChoice
         */
-    private moveChoice getMoveChoice(){
+ /**   private moveChoice getMoveChoice(){
         String answer;
         char movechoice;
 
         UI.displayKeypad();
-        answer = input.next();
+        answer = UI.takeInput('W','A','D','S','w','a','s','d');
         movechoice = answer.charAt(0);
 
         try {
@@ -229,15 +224,12 @@ public class Player extends Entity implements Serializable{
                 System.out.println("Invalid Choice");
                 UI.displayKeypad();
             }
-        } catch (InputMismatchException e) //move to UI
-        {
-            System.out.println("Input must be an integer.");
-            while(input.hasNext() && input.hasNextInt())
-                input.next();
+        } catch (InputMismatchException e) {
+            UI.inputMismatchException();
         }
 
         return moveChoice.RIGHT;
-    }
+    }*/
 
     /**
         * This method checks to see if the player has ammo

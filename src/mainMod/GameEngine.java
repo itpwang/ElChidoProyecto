@@ -224,7 +224,10 @@ public class GameEngine {
     public void playerTurn() {
         Direction direction;
         Point pPos = player.getPos();
-
+        int lives = player.getNumOfLives();
+        SaveEngine s = new SaveEngine();
+        GameState current = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
+                                          isInvincible, invCounter, radar, lives); //add Point briefcase
         look(UI.lookPrompt());
         int entry = UI.moveOrShootPrompt();
 
@@ -255,6 +258,9 @@ public class GameEngine {
                         player.moveRight();
                         moveRight(pPos);
                         System.out.println("You move RIGHT one space. .");
+                        break;
+                    case SAVE:
+                        s.writeSave(current);
                         break;
                 }
                 break;
