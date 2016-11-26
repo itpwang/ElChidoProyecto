@@ -206,12 +206,6 @@ public class UI {
         return false;
     }
 
-    public static void inputMismatchException(){
-        System.out.println("Input must be an integer.");
-        while(scan.hasNext() && scan.hasNextInt())
-            scan.next();
-    }
-
     public static void roomMoveError() {
         System.out.println("Entering from the wrong side of the room");
 

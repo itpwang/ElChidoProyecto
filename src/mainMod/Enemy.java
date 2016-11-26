@@ -51,6 +51,7 @@ public class Enemy extends Entity {
     {
 
     }
+
     /**
      * * This method rolls the move for the {@link Enemy}
      *

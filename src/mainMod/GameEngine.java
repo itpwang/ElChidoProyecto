@@ -73,13 +73,13 @@ public class GameEngine {
      * This field is the counter that stores the
      * invincibility for the {@link Player}
      */
-    private int invCounter = 0;
+    private static int invCounter = 0;
 
     /**
      * This field stores the mmo of the
      * {@link Player}
      */
-    private static int playerAmmo;
+    private static int playerAmmo = 1;
 
     private static boolean radar;
 
@@ -89,6 +89,7 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
+
 
     /**
      * This enumerated field creates the values
@@ -134,11 +135,24 @@ public class GameEngine {
      * {@link Entity} to take a turn
      */
     public void taketurn(){
-        playerTurn();
-        checkPos(player.getPos());
-        timeDelay(1000);
-        allEnemiesTurn();
-        board.printGrid(debug);
+        int invCounter = 0;
+
+        if(player.getNumOfLives() >= 1)
+        {
+            if(invincibilityOn())
+                invCounter++;
+            playerTurn();
+            checkPos(player.getPos());
+            timeDelay(1000);
+            allEnemiesTurn();
+            board.printGrid(debug);
+            System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
+            if(invCounter >= 5)
+                System.out.println("Invincibility wore off!");
+                isInvincible = false;
+        }
+        else
+            gameOver();
     }
 
     /**
@@ -203,6 +217,7 @@ public class GameEngine {
                 }
             }
         }
+        playerAmmo--;
     }
 
     /**
@@ -211,11 +226,6 @@ public class GameEngine {
      */
     boolean gameWon(){
         return gameWon;
-    }
-
-    boolean gameLost(){
-        // TODO
-        return false;
     }
 
     /**
@@ -239,25 +249,25 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
-                        System.out.println("You move UP one space. .");
+                        checkPos(pPos);
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
                         else {
                             player.moveDown();
                             moveDown(pPos);
-                            System.out.println("You move DOWN one space. .");
+                            checkPos(pPos);
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
-                        System.out.println("You move LEFT one space. .");
+                        checkPos(pPos);
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
-                        System.out.println("You move RIGHT one space. .");
+                        checkPos(pPos);
                         break;
                     case SAVE:
                         s.writeSave(current);
@@ -272,8 +282,73 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method takes the {@link Enemy}'s
+     * turn.
+     *
+     * @param ePos
+     */
     public void enemyTurn(Point ePos){
+        enemyAttack(ePos);
+        enemyMove(ePos);
+    }
+
+    /**
+     * This method takes an {@link Point}
+     * for the {@link Enemy} position and
+     * checks to see if there is a {@link Player}
+     * adjacent to attack. If so,
+     * it kills the {@link Player}
+     *
+     * @param ePos
+     */
+    public void enemyAttack(Point ePos) {
+        //Attack
+        if(!board.isOOB(ePos.x - 1, ePos.y)) {
+            if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x + 1, ePos.y)) {
+            if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x, ePos.y + 1)) {
+            if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+        if(!board.isOOB(ePos.x, ePos.y - 1)) {
+            if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
+                player.decLives();
+                System.out.println("You ded");
+                respawnPlayer();
+                return;
+            }
+        }
+
+    }
+
+    /**
+     * This method makes the {@link Enemy}
+     * move in a random {@link Direction}
+     *
+     * @param ePos
+     */
+    public void enemyMove(Point ePos) {
         Direction movement;
+
+        //Move
         while(board.validMove(ePos,movement = rollMove())) {
             switch (movement) {
                 case UP:
@@ -295,6 +370,14 @@ public class GameEngine {
             }
             break;
         }
+
+    }
+
+    /**
+     * Respawns player back to starting location. [8, 0]
+     */
+    public void respawnPlayer() {
+    	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
     }
 
     /**
@@ -316,7 +399,7 @@ public class GameEngine {
     }
 
     /**
-     * This method swaps the tile at {@link Point} pt with the tile going up
+     * This method swaps the tile at {@link Entity}'s pt with the tile going up
      * provided it is valid.
      * @param pt
      */
@@ -332,6 +415,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going down
+     * provided it is valid.
+     * @param pt
+     */
     public void moveDown(Point pt){
         if(!board.isOOB(pt.x+1,pt.y)) {
             if(board.checkTile(board.getTile(pt.x+1,pt.y)))
@@ -344,6 +432,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going left
+     * provided it is valid.
+     * @param pt
+     */
     public void moveLeft(Point pt){
         if(!board.isOOB(pt.x,pt.y-1)) {
             if(board.checkTile(board.getTile(pt.x,pt.y - 1)))
@@ -356,6 +449,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method swaps the tile at {@link Entity}'s pt with the tile going right
+     * provided it is valid.
+     * @param pt
+     */
     public void moveRight(Point pt){
         if(!board.isOOB(pt.x,pt.y+1)) {
             if(board.checkTile(board.getTile(pt.x,pt.y+1)))
@@ -368,6 +466,12 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method rolls a random number from 0 - 3
+     * and returns an enum {@link Direction}
+     *
+     * @return
+     */
     public Direction rollMove() {
         int enemyMove;
         Random rand = new Random();
@@ -386,6 +490,12 @@ public class GameEngine {
         return Direction.UP;
     }
 
+    /**
+     * This method takes a {@link Direction}
+     * and translates two points in that
+     * {@link Direction}
+     * @param direction
+     */
     public void look(Direction direction){
         Point A  = player.getPos();
         Point B = player.getPos();
@@ -432,7 +542,7 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol(debug) == '/')
+            if(board.map[num1][num2].isEmpty())
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
@@ -455,13 +565,13 @@ public class GameEngine {
         boolean playerAmmoPlace = false, invPlace = false, radarPlace = false;
         Point itemloc;
         Item itemholder;
-
-        for(int i = 0; i < items.length; i++)
+        int i = 0;
+        while(i != 3)
         {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].returnSymbol(debug) == '/')
+            if(board.map[num1][num2].isEmpty())
             {
                 if(playerAmmoPlace == false)
                 {
@@ -470,6 +580,7 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     playerAmmoPlace = true;
+                    i++;
                 }
                 else if(invPlace == false)
                 {
@@ -478,6 +589,7 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     invPlace = true;
+                    i++;
                 }
                 else if(radarPlace == false)
                 {
@@ -486,14 +598,9 @@ public class GameEngine {
                     board.getTile(num1,num2).insertItem(itemholder);
                     listOfItemLoc[i] = itemloc;
                     radarPlace = true;
-                }
-                else
-                {
-                    i--;
+                    i++;
                 }
             }
-            if(playerAmmoPlace && invPlace && radarPlace)
-                break;
         }
     }
 
@@ -569,6 +676,10 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method returns the {@link Player}
+     * @return
+     */
     public Player getPlayer(){
         return player;
     }
@@ -587,11 +698,20 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method uses the {@link Item}
+     *
+     * @param i
+     */
     public void useItem(Item i)
     {
         i.use();
     }
 
+    /**
+     * This method sets the {@link GameEngine#gameWon}
+     * equal to True;
+     */
     public void setGameWon(){
         gameWon=true;
     }
@@ -613,6 +733,11 @@ public class GameEngine {
        else return false;
     }
 
+    /**
+     * This method pauses the program for the amount
+     * of milliseconds passed into the function.
+     * @param a
+     */
     public void timeDelay(int a) {
         try {
             System.out.println(". . .");
