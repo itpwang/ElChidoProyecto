@@ -139,7 +139,7 @@ public class GameEngine {
         timeDelay(1000);
         allEnemiesTurn();
         board.printGrid(debug);
-        System.out.println("LIVES: " + player.getNumOfLives() + "AMMO: " + playerAmmo);
+        System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
     }
 
     /**
@@ -367,7 +367,6 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
-            System.out.println("You move UP one space. .");
         }
     }
 
@@ -385,7 +384,6 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
-            System.out.println("You move DOWN one space. .");
         }
     }
 
@@ -403,7 +401,6 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
-            System.out.println("You move LEFT one space. .");
         }
     }
 
@@ -421,7 +418,6 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
-            System.out.println("You move RIGHT one space. .");
         }
     }
 
