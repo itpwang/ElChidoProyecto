@@ -79,7 +79,7 @@ public class GameEngine {
      * This field stores the mmo of the
      * {@link Player}
      */
-    private static int playerAmmo;
+    private static int playerAmmo = 1;
 
     private static boolean radar;
 
@@ -139,6 +139,7 @@ public class GameEngine {
         timeDelay(1000);
         allEnemiesTurn();
         board.printGrid(debug);
+        System.out.println("LIVES: " + player.getNumOfLives() + "AMMO: " + playerAmmo);
     }
 
     /**
@@ -203,6 +204,7 @@ public class GameEngine {
                 }
             }
         }
+        playerAmmo--;
     }
 
     /**
@@ -268,6 +270,41 @@ public class GameEngine {
 
     public void enemyTurn(Point ePos){
         Direction movement;
+    	//Attack
+    	if(!board.isOOB(ePos.x - 1, ePos.y)) {
+        	if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
+        		player.decLives();
+        		System.out.println("You ded");
+        		respawnPlayer();
+        		return;
+        	}
+    	}
+    	if(!board.isOOB(ePos.x + 1, ePos.y)) {
+        	if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
+        		player.decLives();
+        		System.out.println("You ded");
+        		respawnPlayer();
+        		return;
+        	}
+    	}
+    	if(!board.isOOB(ePos.x, ePos.y + 1)) {
+    		if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
+        		player.decLives();
+        		System.out.println("You ded");
+        		respawnPlayer();
+        		return;
+    		}
+    	}
+    	if(!board.isOOB(ePos.x, ePos.y - 1)) {
+    		if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
+        		player.decLives();
+        		System.out.println("You ded");
+        		respawnPlayer();
+        		return;
+    		}
+    	}
+
+    	//Move
         while(board.validMove(ePos,movement = rollMove())) {
             switch (movement) {
                 case UP:
@@ -289,6 +326,13 @@ public class GameEngine {
             }
             break;
         }
+    }
+
+    /**
+     * Respawns player back to starting location. [8, 0]
+     */
+    public void respawnPlayer() {
+    	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
     }
 
     /**
@@ -323,6 +367,7 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
+            System.out.println("You move UP one space. .");
         }
     }
 
@@ -340,6 +385,7 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
+            System.out.println("You move DOWN one space. .");
         }
     }
 
@@ -357,6 +403,7 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
+            System.out.println("You move LEFT one space. .");
         }
     }
 
@@ -374,6 +421,7 @@ public class GameEngine {
             }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
+            System.out.println("You move RIGHT one space. .");
         }
     }
 

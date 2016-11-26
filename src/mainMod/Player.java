@@ -8,6 +8,7 @@ public class Player extends Entity implements Serializable{
 
     private int numOfLives = 3;
     private boolean validMove;
+
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
@@ -46,6 +47,10 @@ public class Player extends Entity implements Serializable{
     public void setNumOfLives(int numOfLives) {
         this.numOfLives = numOfLives;
 
+    }
+
+    public void decLives() {
+    	this.numOfLives--;
     }
 
     public Player(Point p) {
