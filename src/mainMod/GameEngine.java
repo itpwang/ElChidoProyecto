@@ -135,7 +135,6 @@ public class GameEngine {
      */
     public void taketurn(){
         playerTurn();
-        System.out.println(player.getPos());
         checkPos(player.getPos());
         timeDelay(1000);
         allEnemiesTurn();
@@ -317,6 +316,11 @@ public class GameEngine {
      */
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
+            if(board.checkTile(board.getTile(pt.x-1,pt.y)))
+            {
+               useItem(board.getTile(pt.x-1,pt.y).getItem());
+                board.getTile(pt.x-1,pt.y).setItem();
+            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
         }
@@ -324,6 +328,11 @@ public class GameEngine {
 
     public void moveDown(Point pt){
         if(!board.isOOB(pt.x+1,pt.y)) {
+            if(board.checkTile(board.getTile(pt.x+1,pt.y)))
+            {
+                useItem(board.getTile(pt.x+1,pt.y).getItem());
+                board.getTile(pt.x+1,pt.y).setItem();
+            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
         }
@@ -331,6 +340,11 @@ public class GameEngine {
 
     public void moveLeft(Point pt){
         if(!board.isOOB(pt.x,pt.y-1)) {
+            if(board.checkTile(board.getTile(pt.x,pt.y - 1)))
+            {
+                useItem(board.getTile(pt.x,pt.y - 1).getItem());
+                board.getTile(pt.x,pt.y-1).setItem();
+            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
         }
@@ -338,6 +352,11 @@ public class GameEngine {
 
     public void moveRight(Point pt){
         if(!board.isOOB(pt.x,pt.y+1)) {
+            if(board.checkTile(board.getTile(pt.x,pt.y+1)))
+            {
+                useItem(board.getTile(pt.x,pt.y+1).getItem());
+                board.getTile(pt.x,pt.y+1).setItem();
+            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
         }

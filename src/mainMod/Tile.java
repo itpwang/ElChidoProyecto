@@ -62,7 +62,7 @@ public class Tile {
         else if(isRoom) {
         	return 'R';
         }        
-        else if(hasEnemy()) {
+        else if(hasItem()) {
             return displayTypeOfItem();
         }       
         else if (hasEnemy()) {
@@ -195,8 +195,12 @@ public class Tile {
     public void setIsRoom(boolean b) {
     	this.isRoom = b;
     }
-    public Item getItem(){
+    public Item getItem()
+    {
         return item;
     }
-
+    public void setItem()
+    {
+        item = null;
+    }
 }

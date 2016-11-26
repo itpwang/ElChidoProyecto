@@ -51,6 +51,6 @@ public class Invincibility extends Item{
     public void use() {
         GameEngine.invincibilityOn();
         System.out.println("You used the Invicibility! ");
-        this.exists = true;
+        this.exists = false;
     }
 }
