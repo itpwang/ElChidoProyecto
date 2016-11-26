@@ -372,6 +372,8 @@ public class GameEngine {
      */
     public void respawnPlayer() {
     	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
+        player.setPos(new Point(8,0),0,0);
+
     }
 
     /**
@@ -523,12 +525,28 @@ public class GameEngine {
     /**
      * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
      */
+
+    private boolean checkSpawn(int n, int m) {
+       if(n==0 && (m==5 || m ==6 || m==7))
+           return false;
+       else if(n==1 && (m==6 || m==7 || m==8))
+            return false;
+       else if(n==2 && (m==7 || m ==8))
+           return false;
+        else if(n==3 && n==8)
+            return false;
+
+        return true;
+
+    }
+
     public void generateEnemies(){
         int num1, num2;
         Point enemyloc;
         Enemy enemyholder;
         int i = 0;
-        
+
+
         board.map[1][1].returnSymbol(debug);
 
         while(i < 6)
@@ -536,7 +554,8 @@ public class GameEngine {
             num1 = rand.nextInt(8);
             num2 = rand.nextInt(8);
 
-            if(board.map[num1][num2].isEmpty())
+
+            if(board.map[num1][num2].isEmpty() && checkSpawn(num1, num2))
             {
                 enemyloc = new Point(num1, num2);
                 enemyholder = new Enemy(enemyloc);
@@ -545,6 +564,11 @@ public class GameEngine {
                 listOfEnemyLoc[i]=enemyloc;
                 i++;
                 System.out.println("DUMBSHIT AT" + enemyloc);
+            }
+
+            else if(!checkSpawn(num1,num2)){
+                //andy is cool
+                //sean is bad at chess
             }
         }
     }
