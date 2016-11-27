@@ -25,7 +25,7 @@ public class GameEngine {
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
-    private Grid board = new Grid();
+    private Grid board ;
 
     /**
      * This field represent a Player object that presents that player in the the game.
@@ -123,12 +123,32 @@ public class GameEngine {
     public GameEngine(){
 
         this.player = new Player(new Point(8, 0));
+        board = new Grid();
         setPlayer();
         generateEnemies();
         generateItems();
         generateBriefcase();
         debug = false;
     }
+
+
+    public GameEngine(GameState loadedGameState){
+        player = loadedGameState.getSavedPlayer();
+        board = loadedGameState.getSavedBoard();
+        enemies = loadedGameState.getSavedEnemies();
+        listOfEnemyLoc = loadedGameState.getSavedListOfEnemyLoc();
+        listOfItemLoc = loadedGameState.getSavedListOfItemLoc();
+        isInvincible = loadedGameState.getSavedIsInvincible();
+        invCounter = loadedGameState.getSavedInvCounter();
+        playerAmmo = loadedGameState.getSavedPlayerAmmo();
+        radar = loadedGameState.getSavedRadar();
+        debug = loadedGameState.getSavedDebug();
+
+
+    }
+
+
+
 
     /**
      * This method toggles the value of the boolean
@@ -542,6 +562,7 @@ public class GameEngine {
                 gameObjects.add(invCounter);
                 gameObjects.add(playerAmmo);
                 gameObjects.add(radar);
+                gameObjects.add(debug);
                 //gameObjects.add(radarCounter);
                 //gameObjects.add(debug);
                 System.out.print("Saving game");

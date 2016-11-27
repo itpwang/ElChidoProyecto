@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 
 public class GameState implements Serializable {
+
+    private Boolean savedDebug;
     private Point[] savedListOfEnemyLoc;
     private Point[] savedListOfItemLoc;
     private Boolean savedIsInvincible;
@@ -26,6 +28,8 @@ public class GameState implements Serializable {
 //                gameObjects.add(invCounter);
 //                gameObjects.add(playerAmmo);
 //                gameObjects.add(radar);
+//                gameObjects.add(debug);
+
     public GameState(ArrayList gameObjects) {
         savedPlayer = (Player) gameObjects.get(0);
         savedBoard = (Grid) gameObjects.get(1);
@@ -36,25 +40,28 @@ public class GameState implements Serializable {
         savedInvCounter = (Integer) gameObjects.get(6);
         savedPlayerAmmo = (Integer) gameObjects.get(7);
         savedRadar = (Boolean) gameObjects.get(8);
+        savedDebug = (Boolean) gameObjects.get(9);
 
 
     }
 
 
-    public void getSavedPlayer() {
 
-        System.out.println(savedPlayer.getNumOfLives()); //test
 
+    public Player getSavedPlayer() {
+        return savedPlayer;
+    }
+    public Point[] getSavedListOfEnemyLoc() {
+        return savedListOfEnemyLoc;
     }
 
-//    public Point getSavedListOfEnemyLoc() {
-//        return savedListOfEnemyLoc;
-//    }
-//
-//    public Point getSavedListOfItemLoc() {
-//        return savedListOfItemLoc;
-//    }
+    public Point[] getSavedListOfItemLoc() {
+        return savedListOfItemLoc;
+    }
 
+    public Boolean getSavedDebug() {
+        return savedDebug;
+    }
     public Boolean getSavedIsInvincible() {
         return savedIsInvincible;
     }
@@ -71,9 +78,9 @@ public class GameState implements Serializable {
         return savedRadar;
     }
 
-//    public Enemy getSavedEnemies() {
-//       // return savedEnemies;
-//    }
+    public Enemy[] getSavedEnemies() {
+        return savedEnemies;
+    }
 
     public Grid getSavedBoard() {
         return savedBoard;

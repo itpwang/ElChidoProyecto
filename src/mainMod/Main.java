@@ -47,5 +47,9 @@ public class Main {
 
         }
 
+
+        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
+        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
+        }
     }
 }
