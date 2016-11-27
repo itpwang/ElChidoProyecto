@@ -613,8 +613,6 @@ public class GameEngine {
                 gameObjects.add(player);
                 gameObjects.add(board);
                 gameObjects.add(enemies);
-                gameObjects.add(listOfEnemyLoc);
-                gameObjects.add(listOfItemLoc);
                 gameObjects.add(isInvincible);
                 gameObjects.add(invCounter);
                 gameObjects.add(playerAmmo);
