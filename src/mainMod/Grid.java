@@ -1,11 +1,12 @@
 package mainMod;
 import java.awt.Point;
+import java.io.Serializable;
 
 /*
  * This class represents the Grid object, utilized by the GameEngine
  * to create and print the map the game will be played on.
  */
-public class Grid {
+public class Grid implements Serializable {
     /*
 	 * An object array of type {@link Cell} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.
@@ -197,7 +198,6 @@ public class Grid {
             case UP:
                 checkpos.translate(-1, 0);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;
@@ -207,10 +207,8 @@ public class Grid {
             case DOWN:
                 checkpos.translate(1, 0);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                    System.out.println("That's a wall.  ");
                     return true;
                 } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
                     return true;
@@ -218,7 +216,6 @@ public class Grid {
             case LEFT:
                 checkpos.translate(0, -1);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;
@@ -228,7 +225,6 @@ public class Grid {
             case RIGHT:
                 checkpos.translate(0, 1);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;

@@ -25,7 +25,7 @@ public class GameEngine {
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
-    private Grid board = new Grid();
+    private Grid board ;
 
     /**
      * This field represent a Player object that presents that player in the the game.
@@ -69,7 +69,7 @@ public class GameEngine {
      * This field is the counter that stores the
      * invincibility for the {@link Player}
      */
-    private static int invCounter = 0;
+    private static int invCounter = 5;
 
     /**
      * This field stores the mmo of the
@@ -85,7 +85,18 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
+    /**
+     * This boolean field represents whether or not the user is trying to save the game or not.
+     */
+    private boolean savingGame;
 
+    /**
+     * This method returns a boolean value representing if a user is saving the game
+     * @return savingGame
+     */
+    public boolean isSavingGame() {
+        return savingGame;
+    }
 
     /**
      * This enumerated field creates the values
@@ -108,11 +119,26 @@ public class GameEngine {
     public GameEngine(){
 
         this.player = new Player(new Point(8, 0));
+        board = new Grid();
         setPlayer();
         generateEnemies();
         generateItems();
         generateBriefcase();
         debug = false;
+    }
+
+
+    public GameEngine(GameState loadedGameState){
+        player = loadedGameState.getSavedPlayer();
+        board = loadedGameState.getSavedBoard();
+        enemies = loadedGameState.getSavedEnemies();
+        isInvincible = loadedGameState.getSavedIsInvincible();
+        invCounter = loadedGameState.getSavedInvCounter();
+        playerAmmo = loadedGameState.getSavedPlayerAmmo();
+        radar = loadedGameState.getSavedRadar();
+        debug = loadedGameState.getSavedDebug();
+
+
     }
 
     /**
@@ -131,21 +157,35 @@ public class GameEngine {
      * {@link Entity} to take a turn
      */
     public void taketurn(){
-        int invCounter = 0;
 
         if(player.getNumOfLives() >= 1)
         {
-            if(invincibilityOn())
-                invCounter++;
+            if(isInvincible)
+            {
+                System.out.println("Your still invincible!");
+                System.out.println("InvCounter: " + invCounter);
+                timeDelay(1);
+                invCounter--;
+            }
+
             playerTurn();
-//            checkPos(player.getPos());
-            timeDelay(1000);
+            if(isSavingGame())
+                return;
+
+            board.printGrid(debug);
+            timeDelay(2);
             allEnemiesTurn();
             board.printGrid(debug);
             System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
-            if(invCounter >= 5)
+            timeDelay(2);
+
+            if(invCounter <= 0)
+            {
                 System.out.println("Invincibility wore off!");
+                timeDelay(1);
                 isInvincible = false;
+                invCounter = 5;
+            }
         }
         else
             gameOver();
@@ -168,6 +208,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x - i, p.y)) {
                 	if(board.map[p.x - i][p.y].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x - i][p.y].hasEnemy()) {
@@ -180,6 +221,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x + i, p.y)) {
                 	if(board.map[p.x + i][p.y].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x + i][p.y].hasEnemy()) {
@@ -192,6 +234,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x, p.y + i)) {
                 	if(board.map[p.x][p.y + i].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x][p.y + i].hasEnemy()) {
@@ -204,6 +247,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x, p.y - i)) {
                 	if(board.map[p.x][p.y - i].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x][p.y - i].hasEnemy()) {
@@ -232,12 +276,15 @@ public class GameEngine {
         Point pPos = player.getPos();
 
         look(UI.lookPrompt());
+        if (savingGame)
+            return;
+
         int entry = UI.moveOrShootPrompt();
 
         if(entry == 1)
         {
             while(board.validMove(pPos, direction=UI.movePrompt())&&board.canMove(pPos)){
-                timeDelay(1000);
+                timeDelay(1);
                 switch (direction) {
                     case UP:
                         player.moveUp();
@@ -284,7 +331,14 @@ public class GameEngine {
         }
         else if(entry == 2){
             direction=UI.shootPrompt();
-            shoot(direction);
+            if(!playerAmmoEmpty())
+            {
+                shoot(direction);
+            }
+            else
+                System.out.println("You have no ammo!");
+            timeDelay(1);
+
         }
     }
 
@@ -312,33 +366,81 @@ public class GameEngine {
         //Attack
         if(!board.isOOB(ePos.x - 1, ePos.y)) {
             if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
         if(!board.isOOB(ePos.x + 1, ePos.y)) {
             if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
-                return;
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    timeDelay(1);
+                    System.out.println("You ded");
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
+               return;
             }
         }
         if(!board.isOOB(ePos.x, ePos.y + 1)) {
             if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
         if(!board.isOOB(ePos.x, ePos.y - 1)) {
             if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
@@ -396,6 +498,7 @@ public class GameEngine {
 //        for(int i = 0; i>listOfEnemyLoc.length;i++){
 //            enemyTurn(listOfEnemyLoc[i]);
 //        }
+        System.out.println("All the enemies take their turn!");
         for(int i= 0; i<board.getRowLen();i++){
             for(int j=0;j<board.getColLen();j++){
                 if(board.getTile(i,j).hasEnemy()){
@@ -413,11 +516,6 @@ public class GameEngine {
      */
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
-//            if(board.checkTile(board.getTile(pt.x-1,pt.y)))
-//            {
-//               useItem(board.getTile(pt.x-1,pt.y).getItem());
-//                board.getTile(pt.x-1,pt.y).setItemNull();
-//            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
         }
@@ -430,11 +528,6 @@ public class GameEngine {
      */
     public void moveDown(Point pt){
         if(!board.isOOB(pt.x+1,pt.y)) {
-//            if(board.checkTile(board.getTile(pt.x+1,pt.y)))
-//            {
-//                useItem(board.getTile(pt.x+1,pt.y).getItem());
-//                board.getTile(pt.x+1,pt.y).setItemNull();
-//            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
         }
@@ -447,11 +540,6 @@ public class GameEngine {
      */
     public void moveLeft(Point pt){
         if(!board.isOOB(pt.x,pt.y-1)) {
-//            if(board.checkTile(board.getTile(pt.x,pt.y - 1)))
-//            {
-//                useItem(board.getTile(pt.x,pt.y - 1).getItem());
-//                board.getTile(pt.x,pt.y-1).setItemNull();
-//            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
         }
@@ -464,11 +552,6 @@ public class GameEngine {
      */
     public void moveRight(Point pt){
         if(!board.isOOB(pt.x,pt.y+1)) {
-//            if(board.checkTile(board.getTile(pt.x,pt.y+1)))
-//            {
-//                useItem(board.getTile(pt.x,pt.y+1).getItem());
-//                board.getTile(pt.x,pt.y+1).setItemNull();
-//            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
         }
@@ -505,8 +588,10 @@ public class GameEngine {
      * @param direction
      */
     public void look(Direction direction){
+
         Point A  = player.getPos();
         Point B = player.getPos();
+
         switch(direction){
             case UP: A.translate(-1,0);
                 B.translate(-2,0);
@@ -520,10 +605,33 @@ public class GameEngine {
             case RIGHT:  A.translate(0,1);
                 B.translate(0,2);
                 break;
-            case SAVE: //SaveEngine.writeSave(player); uncomment to save
-                break;
+            case SAVE:
+
+
+                ArrayList<Object> gameObjects = new ArrayList<Object>();
+
+                gameObjects.add(player);
+                gameObjects.add(board);
+                gameObjects.add(enemies);
+                gameObjects.add(listOfEnemyLoc);
+                gameObjects.add(listOfItemLoc);
+                gameObjects.add(isInvincible);
+                gameObjects.add(invCounter);
+                gameObjects.add(playerAmmo);
+                gameObjects.add(radar);
+                gameObjects.add(debug);
+                //gameObjects.add(radarCounter);
+                //gameObjects.add(debug);
+                System.out.print("Saving game");
+                timeDelay(1);
+                timeDelay(1);
+                timeDelay(1);
+                GameState gameState = new GameState(gameObjects);
+                SaveEngine.writeSave(gameState);
+                savingGame = true;
+                return;
         }
-        board.printlookGrid(A,B, debug);
+       board.printlookGrid(A,B, debug);
     }
 
     /**
@@ -649,9 +757,8 @@ public class GameEngine {
     /**
      * This method sets the {@link GameEngine#isInvincible}
      */
-    public static boolean invincibilityOn() {
+    public static void invincibilityOn() {
         isInvincible = true;
-        return isInvincible;
     }
 
     /**
@@ -766,8 +873,8 @@ public class GameEngine {
      */
     public void timeDelay(int a) {
         try {
+            Thread.sleep(a*1000);
             System.out.println(". . .");
-            Thread.sleep(a);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

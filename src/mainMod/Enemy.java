@@ -1,11 +1,12 @@
 package mainMod;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  *
  */
-public class Enemy extends Entity {
+public class Enemy extends Entity implements Serializable {
 
     /**
      * This field stores the {@link Player}'s movement choice

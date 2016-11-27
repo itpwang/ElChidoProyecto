@@ -42,8 +42,14 @@ public class Main {
 //    }
         g.changeDebug(UI.startMenu());
         g.printBoard();
-        while(!g.gameOver()) {
+        while(!g.gameOver() && !g.isSavingGame()) {
             g.taketurn();
+
+        }
+
+
+        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
+        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
         }
     }
 }

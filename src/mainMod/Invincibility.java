@@ -1,11 +1,12 @@
 package mainMod;
 import java.awt.Point;
+import java.io.Serializable;
 
 /**
  * This class is in charge of creating an Invincibility object which can be randomly 
  * spawned on a tile in the grid..
  */
-public class Invincibility extends Item{
+public class Invincibility extends Item implements Serializable {
 
     private Point invPosition;
 
