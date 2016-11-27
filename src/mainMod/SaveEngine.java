@@ -27,8 +27,7 @@ public class SaveEngine {
         try {
             FileInputStream fileIn = new FileInputStream("./save.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            GameState loadedGameSave = (GameState) in.readObject(); //test
-            //loadedGameSave.getSavedPlayer(); //test
+            GameState loadedGameSave = (GameState) in.readObject();
             in.close();
             fileIn.close();
             return loadedGameSave;
