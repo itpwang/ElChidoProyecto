@@ -94,6 +94,10 @@ public class GameEngine {
      */
     private boolean savingGame;
 
+    /**
+     * This method returns a boolean value representing if a user is saving the game
+     * @return savingGame
+     */
     public boolean isSavingGame() {
         return savingGame;
     }
