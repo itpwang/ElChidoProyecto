@@ -169,7 +169,7 @@ public class Grid {
         temp.insertItem(B.getItem());
 
         A.insertEnemy(B.getEnemy());
-        A.insertItem(B.getItem());
+//        A.insertItem(B.getItem());
         A.insertPlayer(B.getPlayer());
 
         B.insertEnemy(temp.getEnemy());

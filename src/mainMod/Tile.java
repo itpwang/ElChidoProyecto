@@ -121,35 +121,20 @@ public class Tile {
         return ' ';
     }
 
-//    private int typeOfPowerUp() {
-//        if (item instanceof Radar) {
-//            return 1;
-//        } else if (item instanceof Invincibility) {
-//            return 0;
-//        } else if (item instanceof Ammo) {
-//            return -1;
-//        }
-//        return -999;//?
-//
-
     /**
-     * This method sets the fields of {@code enemy} and {@code player}
-     * to null in a {@link Tile} object if {@link #hasItem()} returns {@code true}
-     *
-     * @return {@code null} for {@code enemy} and {@code player} fields
+     * This method checks if {@link Tile} contains an {@link Item}
+     * @return {@code true]} if contains item, {@code false} if not
      */
     public boolean hasItem() {
-        return enemy == null && player == null && item !=null;
+        return item!=null;
     }
 
     /**
-     * This method sets the fields of {@code enemy} and {@code item}
-     * to null in a {@link Tile} object if {@link #hasPlayer()} returns {@code true}
-     *
-     * @return {@code null} for {@code enemy} and {@code item} fields
+     * This method checks if {@link Tile} contains a {@link Player}
+     * @return {@code true]} if contains item, {@code false} if not
      */
     public boolean hasPlayer() {
-        return enemy == null && item == null && player !=null;
+        return player!=null;
     }
 
     /**
@@ -163,13 +148,11 @@ public class Tile {
     }
 
     /**
-     * This method sets the fields of {@code player} and {@code item}
-     * to null in a {@link Tile} object if {@link #hasEnemy()} returns {@code true}
-     *
-     * @return {@code null} for {@code player} and {@code item} fields
+     * This method checks if {@link Tile} contains an {@link Enemy}
+     * @return {@code true]} if contains item, {@code false} if not
      */
     public boolean hasEnemy() {
-        return player == null && item == null && enemy != null;
+        return enemy != null;
     }
     public boolean noEnemy() {
         return enemy == null;
@@ -199,7 +182,7 @@ public class Tile {
     {
         return item;
     }
-    public void setItem()
+    public void setItemNull()
     {
         item = null;
     }
