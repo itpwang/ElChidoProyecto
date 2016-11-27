@@ -73,7 +73,7 @@ public class GameEngine {
      * This field is the counter that stores the
      * invincibility for the {@link Player}
      */
-    private static int invCounter = 0;
+    private static int invCounter = 5;
 
     /**
      * This field stores the mmo of the
@@ -147,9 +147,6 @@ public class GameEngine {
 
     }
 
-
-
-
     /**
      * This method toggles the value of the boolean
      * field {@link GameEngine#debug} to the value passed
@@ -167,25 +164,35 @@ public class GameEngine {
      */
     public void taketurn(){
 
-        int invCounter = 0;
-
         if(player.getNumOfLives() >= 1)
         {
-            if(invincibilityOn())
-                invCounter++;
+            if(isInvincible)
+            {
+                System.out.println("Your still invincible!");
+                System.out.println("InvCounter: " + invCounter);
+                timeDelay(1);
+                invCounter--;
+            }
 
             playerTurn();
             if(isSavingGame())
                 return;
 
             checkPos(player.getPos());
-            timeDelay(1000);
+            board.printGrid(debug);
+            timeDelay(2);
             allEnemiesTurn();
             board.printGrid(debug);
             System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
-            if(invCounter >= 5)
+            timeDelay(2);
+
+            if(invCounter <= 0)
+            {
                 System.out.println("Invincibility wore off!");
+                timeDelay(1);
                 isInvincible = false;
+                invCounter = 5;
+            }
         }
         else
             gameOver();
@@ -208,6 +215,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x - i, p.y)) {
                 	if(board.map[p.x - i][p.y].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x - i][p.y].hasEnemy()) {
@@ -220,6 +228,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x + i, p.y)) {
                 	if(board.map[p.x + i][p.y].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x + i][p.y].hasEnemy()) {
@@ -232,6 +241,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x, p.y + i)) {
                 	if(board.map[p.x][p.y + i].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x][p.y + i].hasEnemy()) {
@@ -244,6 +254,7 @@ public class GameEngine {
                 if (!board.isOOB(p.x, p.y - i)) {
                 	if(board.map[p.x][p.y - i].isRoom()) {
                 		System.out.println("you hit the room");
+                        timeDelay(1);
                 		break;
                 	}
                 	else if(board.map[p.x][p.y - i].hasEnemy()) {
@@ -281,7 +292,7 @@ public class GameEngine {
         if(entry == 1)
         {
             while(board.validMove(pPos, direction=UI.movePrompt())&&board.canMove(pPos)){
-                timeDelay(1000);
+                timeDelay(1);
                 switch (direction) {
                     case UP:
                         player.moveUp();
@@ -340,33 +351,81 @@ public class GameEngine {
         //Attack
         if(!board.isOOB(ePos.x - 1, ePos.y)) {
             if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
         if(!board.isOOB(ePos.x + 1, ePos.y)) {
             if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
-                return;
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    timeDelay(1);
+                    System.out.println("You ded");
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
+               return;
             }
         }
         if(!board.isOOB(ePos.x, ePos.y + 1)) {
             if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
         if(!board.isOOB(ePos.x, ePos.y - 1)) {
             if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
-                player.decLives();
-                System.out.println("You ded");
-                respawnPlayer();
+
+                System.out.println("The Enemy attacks! ");
+                timeDelay(1);
+
+                if(!isInvincible)
+                {
+                    player.decLives();
+                    System.out.println("You ded");
+                    timeDelay(1);
+                    respawnPlayer();
+                }
+                else
+                    System.out.println("Your invincible!");
+                timeDelay(1);
+
                 return;
             }
         }
@@ -424,6 +483,7 @@ public class GameEngine {
 //        for(int i = 0; i>listOfEnemyLoc.length;i++){
 //            enemyTurn(listOfEnemyLoc[i]);
 //        }
+        System.out.println("All the enemies take their turn!");
         for(int i= 0; i<board.getRowLen();i++){
             for(int j=0;j<board.getColLen();j++){
                 if(board.getTile(i,j).hasEnemy()){
@@ -533,8 +593,10 @@ public class GameEngine {
      * @param direction
      */
     public void look(Direction direction){
+
         Point A  = player.getPos();
         Point B = player.getPos();
+
         switch(direction){
             case UP: A.translate(-1,0);
                 B.translate(-2,0);
@@ -566,7 +628,9 @@ public class GameEngine {
                 //gameObjects.add(radarCounter);
                 //gameObjects.add(debug);
                 System.out.print("Saving game");
-                timeDelay(500);
+                timeDelay(1);
+                timeDelay(1);
+                timeDelay(1);
                 GameState gameState = new GameState(gameObjects);
                 SaveEngine.writeSave(gameState);
                 savingGame = true;
@@ -702,9 +766,8 @@ public class GameEngine {
     /**
      * This method sets the {@link GameEngine#isInvincible}
      */
-    public static boolean invincibilityOn() {
+    public static void invincibilityOn() {
         isInvincible = true;
-        return isInvincible;
     }
 
     /**
@@ -819,8 +882,8 @@ public class GameEngine {
      */
     public void timeDelay(int a) {
         try {
+            Thread.sleep(a*1000);
             System.out.println(". . .");
-            Thread.sleep(a);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

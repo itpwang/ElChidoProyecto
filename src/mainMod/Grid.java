@@ -198,7 +198,6 @@ public class Grid implements Serializable {
             case UP:
                 checkpos.translate(-1, 0);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;
@@ -208,10 +207,8 @@ public class Grid implements Serializable {
             case DOWN:
                 checkpos.translate(1, 0);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
-                    System.out.println("That's a wall.  ");
                     return true;
                 } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
                     return true;
@@ -219,7 +216,6 @@ public class Grid implements Serializable {
             case LEFT:
                 checkpos.translate(0, -1);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;
@@ -229,7 +225,6 @@ public class Grid implements Serializable {
             case RIGHT:
                 checkpos.translate(0, 1);
                 if (isOOB(checkpos.x, checkpos.y)) {
-                    System.out.println("That's a wall.  ");
                     return false;
                 } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
                     return true;
