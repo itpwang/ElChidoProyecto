@@ -323,7 +323,14 @@ public class GameEngine {
         }
         else if(entry == 2){
             direction=UI.shootPrompt();
-            shoot(direction);
+            if(!playerAmmoEmpty())
+            {
+                shoot(direction);
+            }
+            else
+                System.out.println("You have no ammo!");
+            timeDelay(1);
+
         }
     }
 
