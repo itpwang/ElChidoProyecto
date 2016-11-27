@@ -5,7 +5,7 @@ import java.awt.Point;
  * This class is in charge of creating an Ammo object which can be randomly spawned
  * on a tile in the grid.
  */
-public class Ammo extends Item{
+public class Ammo extends Item {
     private Point ammoPosition;
 
     /**

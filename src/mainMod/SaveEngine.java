@@ -3,24 +3,33 @@ import java.io.*;
 
 public class SaveEngine {
 
-    public static void writeSave(Player p){
+    public static void writeSave(GameState gameState){
         try{
-            FileOutputStream fileOut = new FileOutputStream("/C:\\Files\\Programming\\Java\\Programs\\CS141\\Github\\ElChidoProyecto\\src\\save.ser");
+
+            File newSaveFile = new File("./save.ser");
+            if (!newSaveFile.exists()) {
+                newSaveFile.createNewFile();
+            }
+
+            FileOutputStream fileOut = new FileOutputStream("./save.ser");
+
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(p);
+            out.writeObject(gameState);
             out.close();
             fileOut.close();
-            System.out.println("Game saved in /C:\\Files\\Programming\\Java\\Programs\\CS141\\Github\\ElChidoProyecto\\src\\save.ser");
+            System.out.println("File saved " + newSaveFile.getAbsolutePath());
+            readSave(gameState); //test
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public static void readSave(Player p){
+    public static void readSave(GameState p){
         try{
-            FileInputStream fileIn = new FileInputStream("/C:\\Files\\Programming\\Java\\Programs\\CS141\\Github\\ElChidoProyecto\\src\\save.ser");
+            FileInputStream fileIn = new FileInputStream("./save.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            p = (Player) in.readObject();
+            p = (GameState) in.readObject(); //test
+            p.getSavedPlayer(); //test
             in.close();
             fileIn.close();
         }catch(IOException e){

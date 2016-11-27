@@ -1,12 +1,15 @@
 package mainMod;
 
+
+import java.io.Serializable;
+
 /**
  * This class is in charge of returning the location of a tile not already occupied by
  * another object.
  * <p>
  * Created by travis on 11/14/16.
  */
-public class Tile {
+public class Tile implements Serializable {
     private Enemy enemy = null;
     private Player player = null;
     private Item item = null;

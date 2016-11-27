@@ -1,11 +1,12 @@
 package mainMod;
 import java.awt.Point;
 
+
 /**
  * This class is in charge of creating a Radar object which can be randomly spawned
  * on a tile in the grid.
  */
-public class Radar extends Item{
+public class Radar extends Item {
 
     private Point radPosition;
 

@@ -1,13 +1,14 @@
 package mainMod;
 import java.awt.Point;
-import java.util.Random;
+import java.io.Serializable;
+
 
 /**
  * Tagging interface implemented by Ammo, Invincibility, and Radar class.
  * 
  * Created by travis on 11/14/16.
  */
-public abstract class Item {
+public abstract class Item implements Serializable {
     private Point[] itemlocation = new Point[3];
     int i = 0;
     boolean exists = false;

@@ -1,11 +1,12 @@
 package mainMod;
 import java.awt.Point;
+import java.io.Serializable;
 
 /*
  * This class represents the Grid object, utilized by the GameEngine
  * to create and print the map the game will be played on.
  */
-public class Grid {
+public class Grid implements Serializable {
     /*
 	 * An object array of type {@link Cell} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.

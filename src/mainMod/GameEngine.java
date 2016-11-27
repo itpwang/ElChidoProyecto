@@ -89,7 +89,14 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
+    /**
+     * This boolean field represents whether or not the user is trying to save the game or not.
+     */
+    private boolean savingGame;
 
+    public boolean isSavingGame() {
+        return savingGame;
+    }
 
     /**
      * This enumerated field creates the values
@@ -135,13 +142,18 @@ public class GameEngine {
      * {@link Entity} to take a turn
      */
     public void taketurn(){
+
         int invCounter = 0;
 
         if(player.getNumOfLives() >= 1)
         {
             if(invincibilityOn())
                 invCounter++;
+
             playerTurn();
+            if(isSavingGame())
+                return;
+
             checkPos(player.getPos());
             timeDelay(1000);
             allEnemiesTurn();
@@ -232,10 +244,14 @@ public class GameEngine {
      * This method represents the turn of the main {@link Player} of the game.
      */
     public void playerTurn() {
+
         Direction direction;
         Point pPos = player.getPos();
 
         look(UI.lookPrompt());
+        if (savingGame)
+            return;
+
         int entry = UI.moveOrShootPrompt();
 
         if(entry == 1)
@@ -508,10 +524,30 @@ public class GameEngine {
             case RIGHT:  A.translate(0,1);
                 B.translate(0,2);
                 break;
-            case SAVE: //SaveEngine.writeSave(player); uncomment to save
-                break;
+            case SAVE:
+
+
+                ArrayList<Object> gameObjects = new ArrayList<Object>();
+
+                gameObjects.add(player);
+                gameObjects.add(board);
+                gameObjects.add(enemies);
+                gameObjects.add(listOfEnemyLoc);
+                gameObjects.add(listOfItemLoc);
+                gameObjects.add(isInvincible);
+                gameObjects.add(invCounter);
+                gameObjects.add(playerAmmo);
+                gameObjects.add(radar);
+                //gameObjects.add(radarCounter);
+                //gameObjects.add(debug);
+                System.out.print("Saving game");
+                timeDelay(500);
+                GameState gameState = new GameState(gameObjects);
+                SaveEngine.writeSave(gameState);
+                savingGame = true;
+                return;
         }
-        board.printlookGrid(A,B, debug);
+       board.printlookGrid(A,B, debug);
     }
 
     /**
