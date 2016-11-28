@@ -51,7 +51,7 @@ public class Radar extends Item {
 
     public void use() {
         GameEngine.radarOn();
-        System.out.println("You used the Radar! ");
+        System.out.println("You now have RADAR! ");
         this.exists = false;
     }
 }

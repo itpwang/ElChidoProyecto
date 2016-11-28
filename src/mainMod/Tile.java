@@ -65,10 +65,7 @@ public class Tile implements Serializable {
         else if(isRoom) {
         	return 'R';
         }        
-        else if(hasItem()) {
-            return displayTypeOfItem();
-        }       
-        else if (hasEnemy()) {
+        else if (hasEnemy()|| hasItem()) {
             return '/';
         } 
         else if (hasPlayer()) {
@@ -89,7 +86,11 @@ public class Tile implements Serializable {
         if(debug) {
             if (hasItem()) {
                 return displayTypeOfItem();
-            } 
+            }
+            else if(hasItem()&&hasEnemy())
+            {
+                return 'E';
+            }
             else if(isRoom) {
             	return 'R';
             }       
@@ -166,6 +167,7 @@ public class Tile implements Serializable {
         System.out.println("You kill the Enemy! ");
         this.enemy = null;
     }
+
     public Enemy getEnemy(){
         return enemy;
     }
@@ -187,6 +189,6 @@ public class Tile implements Serializable {
     }
     public void setItemNull()
     {
-        item = null;
+        this.item = null;
     }
 }

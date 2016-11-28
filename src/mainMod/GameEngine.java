@@ -173,8 +173,8 @@ public class GameEngine {
                 return;
 
             board.printGrid(debug);
-            timeDelay(2);
             allEnemiesTurn();
+            timeDelay(2);
             board.printGrid(debug);
             System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
             timeDelay(2);
@@ -499,6 +499,7 @@ public class GameEngine {
 //            enemyTurn(listOfEnemyLoc[i]);
 //        }
         System.out.println("All the enemies take their turn!");
+
         for(int i= 0; i<board.getRowLen();i++){
             for(int j=0;j<board.getColLen();j++){
                 if(board.getTile(i,j).hasEnemy()){
@@ -680,7 +681,6 @@ public class GameEngine {
                 enemies[i] = new Enemy(enemyloc);
                 board.getTile(num1, num2).insertEnemy(enemies[i]);
                 i++;
-                System.out.println("DUMBSHIT AT" + enemyloc);
             }
 
             else if(!checkSpawn(num1,num2)){
@@ -739,8 +739,9 @@ public class GameEngine {
     private void generateBriefcase() {
         int r = rand.nextInt(9);
         board.getRoom(rooms[r]).setBriefcase(true);
-        System.out.print("Placed at " + rooms[r]);
-
+        System.out.println("\n");
+        System.out.println("Briefcase placed at " + rooms[r]);
+        System.out.println("\n");
     }
 
     /**
@@ -824,7 +825,6 @@ public class GameEngine {
      */
     public void checkPos(Point playerposition) {
         if(board.getTile(playerposition).hasItem()) {
-            System.out.println("It sees the item");
             useItem(board.getTile(playerposition).getItem());
         }
     }

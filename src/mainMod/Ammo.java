@@ -49,7 +49,7 @@ public class Ammo extends Item {
 
     public void use() {
         GameEngine.addAmmo();
-        System.out.println("You used the Ammo! ");
+        System.out.println("You now have full AMMO ");
         this.exists = false;
     }
 

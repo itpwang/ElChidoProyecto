@@ -56,6 +56,7 @@ public class Player extends Entity implements Serializable{
     public Player(Point p) {
         pPos = p;
     }
+
     /**
      * This method returns the character
      * string that represents the {@link Player}

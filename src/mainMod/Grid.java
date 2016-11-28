@@ -35,7 +35,6 @@ public class Grid implements Serializable {
             map[4][i].setIsRoom(true);
             map[7][i] = new Room(new Point(7, i));
             map[7][i].setIsRoom(true);
-            System.out.print("Dumbshit");
         }
 
     }

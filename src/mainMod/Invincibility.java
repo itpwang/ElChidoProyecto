@@ -51,7 +51,7 @@ public class Invincibility extends Item implements Serializable {
 
     public void use() {
         GameEngine.invincibilityOn();
-        System.out.println("You used the Invicibility! ");
+        System.out.println("You are now INVINCIBLE");
         this.exists = false;
     }
 }
