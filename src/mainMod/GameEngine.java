@@ -589,21 +589,27 @@ public class GameEngine {
      * @param direction
      */
     public void look(Direction direction){
+        boolean check1 = false;
+        boolean check2 = false;
 
         Point A  = player.getPos();
         Point B = player.getPos();
 
         switch(direction){
-            case UP: A.translate(-1,0);
+            case UP:
+                A.translate(-1,0);
                 B.translate(-2,0);
                 break;
-            case DOWN:  A.translate(1, 0);
+            case DOWN:
+                A.translate(1, 0);
                 B.translate(2, 0);
                 break;
-            case LEFT:  A.translate(0, -1);
+            case LEFT:
+                A.translate(0, -1);
                 B.translate(0, -2);
                 break;
-            case RIGHT:  A.translate(0,1);
+            case RIGHT:
+                A.translate(0,1);
                 B.translate(0,2);
                 break;
             case SAVE:
@@ -630,7 +636,45 @@ public class GameEngine {
                 savingGame = true;
                 return;
         }
-       board.printlookGrid(A,B, debug);
+
+        if(!board.isOOB((int)A.getX(),(int)A.getY()))
+        {
+            check1 = checkLook(A);
+
+            if(!board.isOOB((int)B.getX(),(int)B.getY()))
+            {
+                check2 = checkLook(B);
+            }
+            else
+            {
+                System.out.println("That's a wall. . ");
+                timeDelay(1);
+            }
+        }
+        else
+        {
+            System.out.println("That's a wall. . ");
+            timeDelay(1);
+        }
+
+        if(check1 == true || check2 == true)
+        {
+            System.out.println("There is a Ninja ahead!. .");
+            timeDelay(1);
+        }
+        else
+            System.out.println("There is nothing ahead");
+
+        timeDelay(1);
+        board.printlookGrid(A,B, debug);
+    }
+
+    private boolean checkLook(Point a)
+    {
+            if(board.getTile(a).hasEnemy())
+                return true;
+            else
+                return false;
     }
 
     /**
