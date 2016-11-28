@@ -35,7 +35,8 @@ public class GameEngine {
 
 
     /**
-     * This field stores Items in an array
+     * This field stores {@link Item}s in
+     * {@link ArrayList} of {@link Item}
      */
     private ArrayList<Item> items = new ArrayList<Item>();
 
@@ -117,11 +118,10 @@ public class GameEngine {
 
         this.player = new Player(new Point(8, 0));
         board = new Grid();
-       // generatePlayer();
+        generatePlayer();
         generateEnemies();
         generateItems();
         generateBriefcase();
-        generatePlayer();
         debug = false;
     }
 
@@ -275,6 +275,10 @@ public class GameEngine {
         Point pPos = player.getPos();
         char itemtype;
 
+        int lives = player.getNumOfLives();
+        SaveEngine s = new SaveEngine();
+        GameState current = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
+                                          isInvincible, invCounter, radar, lives); //add Point briefcase
         look(UI.lookPrompt());
         if (savingGame)
             return;
@@ -293,7 +297,6 @@ public class GameEngine {
                             pPos=player.getPos();
                             checkPos(pPos);
                             itemtype=typeOfItem(board.getTile(pPos).getItem());
-
                             board.getTile(pPos).setItemNull();
 
                         }
@@ -328,6 +331,9 @@ public class GameEngine {
                             checkPos(pPos);
                             board.getTile(pPos).setItemNull();
                         }
+                        break;
+                    case SAVE:
+                        s.writeSave(current);
                         break;
                 }
                 break;
@@ -688,13 +694,7 @@ public class GameEngine {
      */
     public void generatePlayer()
     {
-       // board.getTile(8, 0).insertPlayer(this.player);
-
-        //DEBUG UNDER HERE
-        asdf.translate(-1, 0);
-       board.getTile(asdf).insertPlayer(this.player);
-        player.setPlayerPos(asdf);
-        //END DEBUG
+        board.getTile(8, 0).insertPlayer(this.player);
     }
 
     /**
@@ -791,19 +791,12 @@ public class GameEngine {
         }
     }
 
-    /**
-     * debug point
-     */
-    Point asdf;
     private void generateBriefcase() {
         int r = rand.nextInt(9);
         board.getRoom(rooms[r]).setBriefcase(true);
         System.out.println("\n");
         System.out.println("Briefcase placed at " + rooms[r]);
         System.out.println("\n");
-        //DEBUG DELETE
-        asdf = rooms[r].getLocation();
-
     }
 
     /**
@@ -942,4 +935,3 @@ public class GameEngine {
         else return 'x';
     }
 }
-

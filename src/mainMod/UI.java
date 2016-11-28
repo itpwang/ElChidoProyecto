@@ -66,18 +66,6 @@ public class UI {
     }
 
     /**
-     * This method outputs the choices for actions during
-     * the game
-     */
-    public static void displayChoice() {
-        System.out.println("0. Look");
-        System.out.println("1. Move");
-        System.out.println("2. Shoot");
-        System.out.println("3. Save");
-        System.out.println("4. Quit");
-    }
-
-    /**
      * This method outputs the keypad options
      * to the screen
      */
