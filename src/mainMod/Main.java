@@ -44,12 +44,11 @@ public class Main {
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {
             g.taketurn();
-
         }
 
 
-        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
-        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
-        }
+//        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
+//        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
+//        }
     }
 }

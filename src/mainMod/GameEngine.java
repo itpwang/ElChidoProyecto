@@ -85,6 +85,7 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
+
     /**
      * This boolean field represents whether or not the user is trying to save the game or not.
      */
@@ -120,10 +121,11 @@ public class GameEngine {
 
         this.player = new Player(new Point(8, 0));
         board = new Grid();
-        setPlayer();
+        //setPlayer();
         generateEnemies();
         generateItems();
         generateBriefcase();
+        setPlayer();
         debug = false;
     }
 
@@ -158,37 +160,38 @@ public class GameEngine {
      */
     public void taketurn(){
 
-        if(player.getNumOfLives() >= 1)
+        if(gameOver()) return;
+
+        if(isInvincible)
         {
-            if(isInvincible)
-            {
-                System.out.println("Your still invincible!");
-                System.out.println("InvCounter: " + invCounter);
-                timeDelay(1);
-                invCounter--;
-            }
-
-            playerTurn();
-            if(isSavingGame())
-                return;
-
-            board.printGrid(debug);
-            allEnemiesTurn();
-            timeDelay(2);
-            board.printGrid(debug);
-            System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
-            timeDelay(2);
-
-            if(invCounter <= 0)
-            {
-                System.out.println("Invincibility wore off!");
-                timeDelay(1);
-                isInvincible = false;
-                invCounter = 5;
-            }
+            System.out.println("Your still invincible!");
+            System.out.println("InvCounter: " + invCounter);
+            timeDelay(1);
+            invCounter--;
         }
-        else
-            gameOver();
+
+        playerTurn();
+
+        if(gameOver()) return;
+
+        if(isSavingGame())
+            return;
+
+        board.printGrid(debug);
+        allEnemiesTurn();
+        timeDelay(2);
+        board.printGrid(debug);
+        System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
+        timeDelay(2);
+
+        if(invCounter <= 0)
+        {
+            System.out.println("Invincibility wore off!");
+            timeDelay(1);
+            isInvincible = false;
+            invCounter = 5;
+        }
+
     }
 
     /**
@@ -296,15 +299,33 @@ public class GameEngine {
                         }
                         break;
                     case DOWN:
-                        if (board.getTile(player.getPos()).isRoom()) gameWon = true;
-                        else {
-                            player.moveDown();
-                            moveDown(pPos);
-                            if(board.getTile(player.getPos()).hasItem()) {
-                                pPos=player.getPos();
-                                checkPos(pPos);
-                                board.getTile(pPos).setItemNull();
+
+                        Point p = new Point((int) player.getPos().getX()+1,
+                                (int) player.getPos().getY());
+
+                        if (board.getTile(p).isRoom())
+                            {
+                                Room r = (Room) board.getTile(p);
+                                if(r.hasBriefcase())
+                                {
+                                    System.out.println("This room has the briefcase, You Win!!");
+                                    gameWon = true;
+                                    return;
+                                }
+                                else {
+                                    System.out.println("This room does not have the briefcase! Try again. . .");
+                                    return;
+                                }
+
                             }
+
+                        player.moveDown();
+                        moveDown(pPos);
+
+                        if(board.getTile(player.getPos()).hasItem()) {
+                            pPos=player.getPos();
+                            checkPos(pPos);
+                            board.getTile(pPos).setItemNull();
                         }
                         break;
                     case LEFT:
@@ -614,27 +635,7 @@ public class GameEngine {
                 B.translate(0,2);
                 break;
             case SAVE:
-
-
-                ArrayList<Object> gameObjects = new ArrayList<Object>();
-
-                gameObjects.add(player);
-                gameObjects.add(board);
-                gameObjects.add(enemies);
-                gameObjects.add(isInvincible);
-                gameObjects.add(invCounter);
-                gameObjects.add(playerAmmo);
-                gameObjects.add(radar);
-                gameObjects.add(debug);
-                //gameObjects.add(radarCounter);
-                //gameObjects.add(debug);
-                System.out.print("Saving game");
-                timeDelay(1);
-                timeDelay(1);
-                timeDelay(1);
-                GameState gameState = new GameState(gameObjects);
-                SaveEngine.writeSave(gameState);
-                savingGame = true;
+                saveGame();
                 return;
         }
 
@@ -670,6 +671,28 @@ public class GameEngine {
         board.printlookGrid(A,B, debug);
     }
 
+    private void saveGame(Objects ...o) {
+        ArrayList<Object> gameObjects = new ArrayList<Object>();
+
+        gameObjects.add(player);
+        gameObjects.add(board);
+        gameObjects.add(enemies);
+        gameObjects.add(isInvincible);
+        gameObjects.add(invCounter);
+        gameObjects.add(playerAmmo);
+        gameObjects.add(radar);
+        gameObjects.add(debug);
+        //gameObjects.add(radarCounter);
+        //gameObjects.add(debug);
+        System.out.print("Saving game");
+        timeDelay(1);
+        timeDelay(1);
+        timeDelay(1);
+        GameState gameState = new GameState(gameObjects);
+        SaveEngine.writeSave(gameState);
+        savingGame = true;
+    }
+
     private boolean checkLook(Point a)
     {
             if(board.getTile(a).hasEnemy())
@@ -683,12 +706,9 @@ public class GameEngine {
      */
     public void setPlayer()
     {
-        board.getTile(8, 0).insertPlayer(this.player);
+        board.getTile(8,0).insertPlayer(this.player);
+        this.player.setPos(player.getPos(),0, 0);
     }
-
-    /**
-     * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
-     */
 
     private boolean checkSpawn(int n, int m) {
        if(n==6 && (m==0 || m ==1 ))
@@ -704,6 +724,9 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
+     */
     public void generateEnemies(){
         int num1, num2;
         Point enemyloc;
@@ -778,11 +801,20 @@ public class GameEngine {
     }
 
     private void generateBriefcase() {
-        int r = rand.nextInt(9);
-        board.getRoom(rooms[r]).setBriefcase(true);
-        System.out.println("\n");
-        System.out.println("Briefcase placed at " + rooms[r]);
-        System.out.println("\n");
+        boolean briefcaseset = false;
+
+        while(!briefcaseset)
+        {
+            int r = rand.nextInt(9);
+            int s = rand.nextInt(9);
+
+            if(board.getTile(r,s).isRoom())
+            {
+                board.getTile(r,s).setBriefcase();
+                System.out.println("\nBriefcase placed at \n" + r + " " + s);
+                briefcaseset = true;
+            }
+        }
     }
 
     /**
@@ -896,9 +928,6 @@ public class GameEngine {
     public boolean gameOver(){
        if(player.getNumOfLives() == 0) {
            return true;
-       }
-       else if(player.getNumOfLives() != 0){
-           return false;
        }
        else if (gameWon()) {
            return true;
