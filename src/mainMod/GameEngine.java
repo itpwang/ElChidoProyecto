@@ -41,11 +41,7 @@ public class GameEngine {
      * This field holds the position of the {@link Enemy}s
      * as an array of {@link Point}s
      */
-    private Point[] listOfEnemyLoc = new Point[6];
-
     private Item[] items = new Item[3];
-
-    private Point[] listOfItemLoc = new Point[3];
 
     /**
      * This field holds the position of the {@link Room}s
@@ -136,8 +132,6 @@ public class GameEngine {
         player = loadedGameState.getSavedPlayer();
         board = loadedGameState.getSavedBoard();
         enemies = loadedGameState.getSavedEnemies();
-        listOfEnemyLoc = loadedGameState.getSavedListOfEnemyLoc();
-        listOfItemLoc = loadedGameState.getSavedListOfItemLoc();
         isInvincible = loadedGameState.getSavedIsInvincible();
         invCounter = loadedGameState.getSavedInvCounter();
         playerAmmo = loadedGameState.getSavedPlayerAmmo();
@@ -178,7 +172,6 @@ public class GameEngine {
             if(isSavingGame())
                 return;
 
-            checkPos(player.getPos());
             board.printGrid(debug);
             timeDelay(2);
             allEnemiesTurn();
@@ -279,7 +272,6 @@ public class GameEngine {
      * This method represents the turn of the main {@link Player} of the game.
      */
     public void playerTurn() {
-
         Direction direction;
         Point pPos = player.getPos();
 
@@ -297,25 +289,41 @@ public class GameEngine {
                     case UP:
                         player.moveUp();
                         moveUp(pPos);
-                        checkPos(pPos);
+                        if(board.getTile(player.getPos()).hasItem()) {
+                            pPos=player.getPos();
+                            checkPos(pPos);
+                            board.getTile(pPos).setItemNull();
+                        }
                         break;
                     case DOWN:
                         if (board.getTile(player.getPos()).isRoom()) gameWon = true;
                         else {
                             player.moveDown();
                             moveDown(pPos);
-                            checkPos(pPos);
+                            if(board.getTile(player.getPos()).hasItem()) {
+                                pPos=player.getPos();
+                                checkPos(pPos);
+                                board.getTile(pPos).setItemNull();
+                            }
                         }
                         break;
                     case LEFT:
                         player.moveLeft();
                         moveLeft(pPos);
-                        checkPos(pPos);
+                        if(board.getTile(player.getPos()).hasItem()) {
+                            pPos=player.getPos();
+                            checkPos(pPos);
+                            board.getTile(pPos).setItemNull();
+                        }
                         break;
                     case RIGHT:
                         player.moveRight();
                         moveRight(pPos);
-                        checkPos(pPos);
+                        if(board.getTile(player.getPos()).hasItem()) {
+                            pPos=player.getPos();
+                            checkPos(pPos);
+                            board.getTile(pPos).setItemNull();
+                        }
                         break;
                 }
                 break;
@@ -483,8 +491,8 @@ public class GameEngine {
     }
 
     /**
-     * This method causes the enemies at each {@link Point} in the array {@link #listOfEnemyLoc}
-     * to take an {@link #enemyTurn(Point)}
+     * This method lookw through {@link #board} for {@link Enemy}
+     * and calls{@link #enemyTurn(Point)}
      */
     public void allEnemiesTurn(){
 //        for(int i = 0; i>listOfEnemyLoc.length;i++){
@@ -508,14 +516,6 @@ public class GameEngine {
      */
     public void moveUp(Point pt){
         if(!board.isOOB(pt.x-1,pt.y)) {
-            if(board.checkTile(board.getTile(pt.x-1,pt.y)))
-            {
-                if(pt == player.getPos())
-                {
-                    useItem(board.getTile(pt.x-1,pt.y).getItem());
-                    board.getTile(pt.x-1,pt.y).setItem();
-                }
-            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x - 1, pt.y));
             pt.translate(-1,0);
         }
@@ -528,14 +528,6 @@ public class GameEngine {
      */
     public void moveDown(Point pt){
         if(!board.isOOB(pt.x+1,pt.y)) {
-            if(board.checkTile(board.getTile(pt.x+1,pt.y)))
-            {
-                if(pt == player.getPos())
-                {
-                    useItem(board.getTile(pt.x+1,pt.y).getItem());
-                    board.getTile(pt.x+1,pt.y).setItem();
-                }
-            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x + 1, pt.y));
             pt.translate(1,0);
         }
@@ -548,14 +540,6 @@ public class GameEngine {
      */
     public void moveLeft(Point pt){
         if(!board.isOOB(pt.x,pt.y-1)) {
-            if(board.checkTile(board.getTile(pt.x,pt.y - 1)))
-            {
-                if(pt == player.getPos())
-                {
-                    useItem(board.getTile(pt.x,pt.y-1).getItem());
-                    board.getTile(pt.x,pt.y-1).setItem();
-                }
-            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y - 1));
             pt.translate(0,-1);
         }
@@ -568,14 +552,6 @@ public class GameEngine {
      */
     public void moveRight(Point pt){
         if(!board.isOOB(pt.x,pt.y+1)) {
-            if(board.checkTile(board.getTile(pt.x,pt.y+1)))
-            {
-                if(pt == player.getPos())
-                {
-                    useItem(board.getTile(pt.x,pt.y+1).getItem());
-                    board.getTile(pt.x,pt.y+1).setItem();
-                }
-            }
             board.swapTile(board.getTile(pt.x, pt.y), board.getTile(pt.x, pt.y + 1));
             pt.translate(0,1);
         }
@@ -637,8 +613,6 @@ public class GameEngine {
                 gameObjects.add(player);
                 gameObjects.add(board);
                 gameObjects.add(enemies);
-                gameObjects.add(listOfEnemyLoc);
-                gameObjects.add(listOfItemLoc);
                 gameObjects.add(isInvincible);
                 gameObjects.add(invCounter);
                 gameObjects.add(playerAmmo);
@@ -705,7 +679,6 @@ public class GameEngine {
                 enemyholder = new Enemy(enemyloc);
                 enemies[i] = new Enemy(enemyloc);
                 board.getTile(num1, num2).insertEnemy(enemies[i]);
-                listOfEnemyLoc[i]=enemyloc;
                 i++;
                 System.out.println("DUMBSHIT AT" + enemyloc);
             }
@@ -740,7 +713,6 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Ammo(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
-                    listOfItemLoc[i] = itemloc;
                     playerAmmoPlace = true;
                     i++;
                 }
@@ -749,7 +721,6 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Invincibility(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
-                    listOfItemLoc[i] = itemloc;
                     invPlace = true;
                     i++;
                 }
@@ -758,7 +729,6 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Radar(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
-                    listOfItemLoc[i] = itemloc;
                     radarPlace = true;
                     i++;
                 }
