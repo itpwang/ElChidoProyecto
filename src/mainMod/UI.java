@@ -156,7 +156,7 @@ public class UI {
         GameEngine.Direction shootchoice = null;
         boolean input = false;
 
-        while(input == false)
+        while(!input)
         {
             System.out.println("Shoot what direction?");
             displayKeypad();
