@@ -20,8 +20,8 @@ public class Ammo extends Item {
     }
 
     /**
-     * This method gets the {@link Ammo}s location
-     * @return
+     * This method gets the {@link Ammo}'s location on the {@link Grid}  
+     * @return position of the Ammo on the map
      */
     public Point getPos()
     {
@@ -29,24 +29,8 @@ public class Ammo extends Item {
     }
 
     /**
-     * This method returns a char value of {@code B} on the grid to represent 
-     * the location of the ammo item.
-     * 
-     * @return B
+     * This method is used to reset the {@link Player} object ammo to full max ammo (1) and display to the user that they have max ammo.
      */
-    public char returnSymbol()
-    {
-        return 'B';
-    }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code B} if it is {@code true} and {@code /} if {@code false}
-     * @param debug
-     * @return char representing object
-     */
-    public char returnSymbol(boolean debug) {return debug?'B':'/';}
-
     public void use() {
         GameEngine.resetAmmo();
         System.out.println("You now have full AMMO ");
