@@ -118,10 +118,10 @@ public class GameEngine {
 
         this.player = new Player(new Point(8, 0));
         board = new Grid();
+        generateBriefcase();
         generatePlayer();
         generateEnemies();
         generateItems();
-        generateBriefcase();
         debug = false;
     }
 
@@ -293,9 +293,7 @@ public class GameEngine {
                         if(board.getTile(player.getPos()).hasItem()) {
                             pPos=player.getPos();
                             checkPos(pPos);
-                            itemtype=typeOfItem(board.getTile(pPos).getItem());
                             board.getTile(pPos).setItemNull();
-
                         }
                         break;
                     case DOWN:
@@ -328,7 +326,20 @@ public class GameEngine {
                             checkPos(pPos);
                             board.getTile(pPos).setItemNull();
                         }
+                        itemtype=typeOfItem(board.getTile(pPos).getItem());
+                        switch(itemtype){
+                            case 'a':
+                                items.remove(0);
+                                break;
+                            case 'i':
+                                items.remove(1);
+                                break;
+                            case 'r':
+                                items.remove(2);
+                                break;
+                        }
                         break;
+
                 }
                 break;
             }
