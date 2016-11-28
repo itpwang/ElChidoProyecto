@@ -350,7 +350,9 @@ public class GameEngine {
                         }
                         break;
                 }
-                itemtype=typeOfItem(board.getTile(pPos).getItem());
+
+                itemtype = typeOfItem(board.getTile(pPos).getItem());
+
                 switch(itemtype){
                     case 'a':
                         items.remove(0);
@@ -523,7 +525,7 @@ public class GameEngine {
      */
     public void respawnPlayer() {
     	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
-        player.setPos(new Point(8,0),0,0);
+        player.setPlayerPos(new Point(8,0));
         resetAmmo();
     }
 
@@ -721,8 +723,10 @@ public class GameEngine {
      */
     public void generatePlayer()
     {
-        board.getTile(8,0).insertPlayer(this.player);
-        this.player.setPos(player.getPos(),0, 0);
+        //board.getTile(8,0).insertPlayer(this.player);
+        //DEBUG BELOW
+        board.getTile(position).insertPlayer(this.player);
+        this.player.setPlayerPos(position);
     }
 
     /**
@@ -822,6 +826,8 @@ public class GameEngine {
         }
     }
 
+    //DEBUG
+    //Point asdf;
     private void generateBriefcase() {
         boolean briefcaseset = false;
 
@@ -829,6 +835,8 @@ public class GameEngine {
         {
             int r = rand.nextInt(9);
             int s = rand.nextInt(9);
+
+            //asdf = new Point(r - 1, s);
 
             if(board.getTile(r,s).isRoom())
             {
@@ -950,5 +958,25 @@ public class GameEngine {
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    /**
+     * This method returns a char identifying what type of {@link Item} item is.
+     * Returns {@code a} for {@link Ammo}, {@code i} for {@link Invincibility},
+     * {@code r} for {@link Radar}
+     * @param item
+     * @return char
+     */
+    public char typeOfItem(Item item){
+        if(item instanceof Ammo){
+            return 'a';
+        }
+        else if(item instanceof Invincibility){
+            return 'i';
+        }
+        else if(item instanceof Radar){
+            return 'r';
+        }
+        else return 'x';
     }
 }
