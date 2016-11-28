@@ -15,6 +15,7 @@ public class GameState implements Serializable {
     private Integer savedPlayerAmmo;
     private Boolean savedRadar;
     private Enemy[] savedEnemies;
+    private ArrayList<Item> savedItems;
     private Player savedPlayer;
     private Grid savedBoard;
 
@@ -34,13 +35,12 @@ public class GameState implements Serializable {
         savedPlayer = (Player) gameObjects.get(0);
         savedBoard = (Grid) gameObjects.get(1);
         savedEnemies = (Enemy[]) gameObjects.get(2);
-        savedListOfEnemyLoc = (Point[]) gameObjects.get(3);
-        savedListOfItemLoc = (Point[]) gameObjects.get(4);
-        savedIsInvincible = (Boolean) gameObjects.get(5);
-        savedInvCounter = (Integer) gameObjects.get(6);
-        savedPlayerAmmo = (Integer) gameObjects.get(7);
-        savedRadar = (Boolean) gameObjects.get(8);
-        savedDebug = (Boolean) gameObjects.get(9);
+        savedItems = (ArrayList<Item>) gameObjects.get(3);
+        savedIsInvincible = (Boolean) gameObjects.get(4);
+        savedInvCounter = (Integer) gameObjects.get(5);
+        savedPlayerAmmo = (Integer) gameObjects.get(6);
+        savedRadar = (Boolean) gameObjects.get(7);
+        savedDebug = (Boolean) gameObjects.get(8);
 
 
     }
@@ -51,13 +51,13 @@ public class GameState implements Serializable {
     public Player getSavedPlayer() {
         return savedPlayer;
     }
-    public Point[] getSavedListOfEnemyLoc() {
-        return savedListOfEnemyLoc;
-    }
-
-    public Point[] getSavedListOfItemLoc() {
-        return savedListOfItemLoc;
-    }
+//    public Point[] getSavedListOfEnemyLoc() {
+//        return savedListOfEnemyLoc;
+//    }
+//
+//    public Point[] getSavedListOfItemLoc() {
+//        return savedListOfItemLoc;
+//    }
 
     public Boolean getSavedDebug() {
         return savedDebug;
@@ -85,6 +85,7 @@ public class GameState implements Serializable {
     public Grid getSavedBoard() {
         return savedBoard;
     }
+    public ArrayList<Item> getSavedItems() { return savedItems;}
 
 }
 
