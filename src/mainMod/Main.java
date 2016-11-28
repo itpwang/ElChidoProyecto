@@ -14,32 +14,19 @@ public class Main {
 	 */
     public static void main(String[] args) {
 
-        GameEngine g = new GameEngine();
-//        SaveEngine s = new SaveEngine();
-//        switch(UI.menuSelect())
-//        {
-//            // NEW Game
-//            case 1:
-//            {
-//                g.changeDebug(UI.startMenu());
-//                g.printBoard();
-//                while (g.gameOver()) {
-//                    g.taketurn();
-//                }
-//            }
-//            // LOAD game
-//            case 2:
-//            {
-//                s.readSave(g.getPlayer());
-//                g.changeDebug(UI.startMenu());
-//                g.printBoard();
-//                while (g.gameOver()) {
-//                    g.taketurn();
-//                }
-//            }
-//            default:
-//                break;
-//    }
+        GameEngine g;
+        switch(UI.newGameorLoad()){
+            case 'N': g = new GameEngine();
+                break;
+            case 'n':g = new GameEngine();
+                break;
+            case 'L':g = new GameEngine(SaveEngine.readSave());
+                break;
+            case 'l':g = new GameEngine(SaveEngine.readSave());
+                break;
+            default: g=new GameEngine();
+
+        }
         g.changeDebug(UI.startMenu());
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {

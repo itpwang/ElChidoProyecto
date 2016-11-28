@@ -37,11 +37,13 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
+
     /**
-     * This field holds the position of the {@link Enemy}s
-     * as an array of {@link Point}s
+     * This field stores {@link Item}s in
+     * {@link ArrayList} of {@link Item}
      */
-    private Item[] items = new Item[3];
+    private ArrayList<Item> items = new ArrayList<Item>();
+
 
     /**
      * This field holds the position of the {@link Room}s
@@ -85,7 +87,6 @@ public class GameEngine {
     private static boolean gameWon =  false;
 
     private Point roomplace = new Point();
-
     /**
      * This boolean field represents whether or not the user is trying to save the game or not.
      */
@@ -110,7 +111,7 @@ public class GameEngine {
     /**
      * This is the constructor for the {@link GameEngine}
      * it instantiates the {@link GameEngine#player},
-     * calls the {@link GameEngine#setPlayer()} method,
+     * calls the {@link GameEngine#generatePlayer()} method,
      * the {@link GameEngine#generateEnemies()} method,
      * and the {@link GameEngine#generateItems()} method.
      * Finally it sets the value of {@link GameEngine#debug}
@@ -121,11 +122,10 @@ public class GameEngine {
 
         this.player = new Player(new Point(8, 0));
         board = new Grid();
-        //setPlayer();
+        generateBriefcase();
+        generatePlayer();
         generateEnemies();
         generateItems();
-        generateBriefcase();
-        setPlayer();
         debug = false;
     }
 
@@ -277,6 +277,9 @@ public class GameEngine {
     public void playerTurn() {
         Direction direction;
         Point pPos = player.getPos();
+        char itemtype;
+
+        int lives = player.getNumOfLives();
 
         look(UI.lookPrompt());
         if (savingGame)
@@ -345,6 +348,18 @@ public class GameEngine {
                             checkPos(pPos);
                             board.getTile(pPos).setItemNull();
                         }
+                        break;
+                }
+                itemtype=typeOfItem(board.getTile(pPos).getItem());
+                switch(itemtype){
+                    case 'a':
+                        items.remove(0);
+                        break;
+                    case 'i':
+                        items.remove(1);
+                        break;
+                    case 'r':
+                        items.remove(2);
                         break;
                 }
                 break;
@@ -704,11 +719,15 @@ public class GameEngine {
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
      */
-    public void setPlayer()
+    public void generatePlayer()
     {
         board.getTile(8,0).insertPlayer(this.player);
         this.player.setPos(player.getPos(),0, 0);
     }
+
+    /**
+     * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
+     */
 
     private boolean checkSpawn(int n, int m) {
        if(n==6 && (m==0 || m ==1 ))
@@ -777,6 +796,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Ammo(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     playerAmmoPlace = true;
                     i++;
                 }
@@ -785,6 +805,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Invincibility(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     invPlace = true;
                     i++;
                 }
@@ -793,6 +814,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Radar(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     radarPlace = true;
                     i++;
                 }
@@ -863,26 +885,6 @@ public class GameEngine {
     }
 
     /**
-     * This method gets the {@link Player}'s {@link GameEngine#position}
-     *
-     * @return position
-     */
-    public static Point getPos()
-    {
-        return position;
-    }
-
-    /**
-     * This method sets the {@link Player}'s {@link GameEngine#position}
-     */
-    public void setPos(Point p) {
-        if(!board.isOOB(p.x, p.y)) {
-            position = p;
-        }
-
-    }
-
-    /**
      * This method returns the {@link Player}
      * @return
      */
@@ -922,7 +924,8 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false} representing the game is over.
+     * This method returns a boolean value of {@code false}
+     * representing the game is over.
      * @return false.
      */
     public boolean gameOver(){
