@@ -276,9 +276,6 @@ public class GameEngine {
         char itemtype;
 
         int lives = player.getNumOfLives();
-        SaveEngine s = new SaveEngine();
-        GameState current = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
-                                          isInvincible, invCounter, radar, lives); //add Point briefcase
         look(UI.lookPrompt());
         if (savingGame)
             return;
@@ -331,9 +328,6 @@ public class GameEngine {
                             checkPos(pPos);
                             board.getTile(pPos).setItemNull();
                         }
-                        break;
-                    case SAVE:
-                        s.writeSave(current);
                         break;
                 }
                 break;
