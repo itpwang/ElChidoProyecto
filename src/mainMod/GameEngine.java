@@ -326,20 +326,19 @@ public class GameEngine {
                             checkPos(pPos);
                             board.getTile(pPos).setItemNull();
                         }
-                        itemtype=typeOfItem(board.getTile(pPos).getItem());
-                        switch(itemtype){
-                            case 'a':
-                                items.remove(0);
-                                break;
-                            case 'i':
-                                items.remove(1);
-                                break;
-                            case 'r':
-                                items.remove(2);
-                                break;
-                        }
                         break;
-
+                }
+                itemtype=typeOfItem(board.getTile(pPos).getItem());
+                switch(itemtype){
+                    case 'a':
+                        items.remove(0);
+                        break;
+                    case 'i':
+                        items.remove(1);
+                        break;
+                    case 'r':
+                        items.remove(2);
+                        break;
                 }
                 break;
             }
