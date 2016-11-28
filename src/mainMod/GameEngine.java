@@ -483,11 +483,12 @@ public class GameEngine {
 
     /**
      * Respawns player back to starting location. [8, 0]
+     * Resets ammo.
      */
     public void respawnPlayer() {
     	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
         player.setPos(new Point(8,0),0,0);
-
+        resetAmmo();
     }
 
     /**
@@ -706,7 +707,6 @@ public class GameEngine {
     public void generateEnemies(){
         int num1, num2;
         Point enemyloc;
-        Enemy enemyholder;
         int i = 0;
 
 
@@ -721,15 +721,12 @@ public class GameEngine {
             if(board.map[num1][num2].isEmpty() && checkSpawn(num1, num2))
             {
                 enemyloc = new Point(num1, num2);
-                enemyholder = new Enemy(enemyloc);
                 enemies[i] = new Enemy(enemyloc);
                 board.getTile(num1, num2).insertEnemy(enemies[i]);
                 i++;
             }
 
             else if(!checkSpawn(num1,num2)){
-                //andy is cool
-                //sean is bad at chess
             }
         }
     }
@@ -808,7 +805,7 @@ public class GameEngine {
      * This method increments the {@link GameEngine#playerAmmo}
      * by 1
      */
-    public static void addAmmo() {
+    public static void resetAmmo() {
         playerAmmo = 1;
     }
 

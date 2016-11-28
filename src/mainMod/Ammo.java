@@ -48,7 +48,7 @@ public class Ammo extends Item {
     public char returnSymbol(boolean debug) {return debug?'B':'/';}
 
     public void use() {
-        GameEngine.addAmmo();
+        GameEngine.resetAmmo();
         System.out.println("You now have full AMMO ");
         this.exists = false;
     }
