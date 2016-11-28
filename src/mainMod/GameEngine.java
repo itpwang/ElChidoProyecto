@@ -33,7 +33,6 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
-
     /**
      * This field stores {@link Item}s in
      * {@link ArrayList} of {@link Item}
@@ -642,7 +641,6 @@ public class GameEngine {
                 gameObjects.add(radar);
                 gameObjects.add(debug);
                 //gameObjects.add(radarCounter);
-                //gameObjects.add(debug);
                 System.out.print("Saving game");
                 timeDelay(1);
                 timeDelay(1);
@@ -888,8 +886,7 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false}
-     * representing the game is over.
+     * This method returns a boolean value of {@code false} representing the game is over.
      * @return false.
      */
     public boolean gameOver(){
@@ -912,15 +909,15 @@ public class GameEngine {
      */
     public void timeDelay(int a) {
         try {
-            Thread.sleep(a*1000);
+            Thread.sleep(a * 1000);
             System.out.println(". . .");
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
 
-    /**
-     * This method returns a char identifying what type of {@link Item} item is.
+    
+    /** * This method returns a char identifying what type of {@link Item} item is.
      * Returns {@code a} for {@link Ammo}, {@code i} for {@link Invincibility},
      * {@code r} for {@link Radar}
      * @param item
@@ -939,3 +936,6 @@ public class GameEngine {
         else return 'x';
     }
 }
+
+
+
