@@ -198,8 +198,8 @@ public class Player extends Entity implements Serializable{
         return new Point(pPos);
     }
 
-    public void setPos(Point p, int x, int y)
+    public void setPlayerPos(Point p)
     {
-        pPos.setLocation(p.getX()+x,p.getY()+y);
+        pPos.setLocation(p.getX(),p.getY());
     }
 }

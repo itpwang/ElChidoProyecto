@@ -17,10 +17,6 @@ public class GameEngine {
             new Point(3,1), new Point(3,3), new Point(3,5),
             new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
 
-    /**
-     * this field represents the location of the {@link Player}
-     */
-    private static Point position = new Point(mainMod.Math.toMapX(0), mainMod.Math.toMapY(0));
 
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
@@ -37,11 +33,13 @@ public class GameEngine {
      */
     private Enemy[] enemies = new Enemy[6];
 
+
     /**
-     * This field holds the position of the {@link Enemy}s
-     * as an array of {@link Point}s
+     * This field stores {@link Item}s in
+     * {@link ArrayList} of {@link Item}
      */
-    private Item[] items = new Item[3];
+    private ArrayList<Item> items = new ArrayList<Item>();
+
 
     /**
      * This field holds the position of the {@link Room}s
@@ -109,7 +107,7 @@ public class GameEngine {
     /**
      * This is the constructor for the {@link GameEngine}
      * it instantiates the {@link GameEngine#player},
-     * calls the {@link GameEngine#setPlayer()} method,
+     * calls the {@link GameEngine#generatePlayer()} method,
      * the {@link GameEngine#generateEnemies()} method,
      * and the {@link GameEngine#generateItems()} method.
      * Finally it sets the value of {@link GameEngine#debug}
@@ -120,7 +118,7 @@ public class GameEngine {
 
         this.player = new Player(new Point(8, 0));
         board = new Grid();
-        setPlayer();
+        generatePlayer();
         generateEnemies();
         generateItems();
         generateBriefcase();
@@ -132,6 +130,7 @@ public class GameEngine {
         player = loadedGameState.getSavedPlayer();
         board = loadedGameState.getSavedBoard();
         enemies = loadedGameState.getSavedEnemies();
+        items = loadedGameState.getSavedItems();
         isInvincible = loadedGameState.getSavedIsInvincible();
         invCounter = loadedGameState.getSavedInvCounter();
         playerAmmo = loadedGameState.getSavedPlayerAmmo();
@@ -274,7 +273,9 @@ public class GameEngine {
     public void playerTurn() {
         Direction direction;
         Point pPos = player.getPos();
+        char itemtype;
 
+        int lives = player.getNumOfLives();
         look(UI.lookPrompt());
         if (savingGame)
             return;
@@ -292,7 +293,9 @@ public class GameEngine {
                         if(board.getTile(player.getPos()).hasItem()) {
                             pPos=player.getPos();
                             checkPos(pPos);
+                            itemtype=typeOfItem(board.getTile(pPos).getItem());
                             board.getTile(pPos).setItemNull();
+
                         }
                         break;
                     case DOWN:
@@ -303,6 +306,7 @@ public class GameEngine {
                             if(board.getTile(player.getPos()).hasItem()) {
                                 pPos=player.getPos();
                                 checkPos(pPos);
+
                                 board.getTile(pPos).setItemNull();
                             }
                         }
@@ -487,7 +491,7 @@ public class GameEngine {
      */
     public void respawnPlayer() {
     	board.swapTile(board.getTile(player.getPos()), board.getTile(new Point(8,0)));
-        player.setPos(new Point(8,0),0,0);
+        player.setPlayerPos(new Point(8,0));
         resetAmmo();
     }
 
@@ -621,6 +625,7 @@ public class GameEngine {
                 gameObjects.add(player);
                 gameObjects.add(board);
                 gameObjects.add(enemies);
+                gameObjects.add(items);
                 gameObjects.add(isInvincible);
                 gameObjects.add(invCounter);
                 gameObjects.add(playerAmmo);
@@ -681,7 +686,7 @@ public class GameEngine {
     /**
      * This method spawns the player object at the default starting point of the grid (bottom left corner).
      */
-    public void setPlayer()
+    public void generatePlayer()
     {
         board.getTile(8, 0).insertPlayer(this.player);
     }
@@ -754,6 +759,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Ammo(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     playerAmmoPlace = true;
                     i++;
                 }
@@ -762,6 +768,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Invincibility(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     invPlace = true;
                     i++;
                 }
@@ -770,6 +777,7 @@ public class GameEngine {
                     itemloc = new Point(num1,num2);
                     itemholder = new Radar(itemloc);
                     board.getTile(num1,num2).insertItem(itemholder);
+                    items.add(itemholder);
                     radarPlace = true;
                     i++;
                 }
@@ -831,26 +839,6 @@ public class GameEngine {
     }
 
     /**
-     * This method gets the {@link Player}'s {@link GameEngine#position}
-     *
-     * @return position
-     */
-    public static Point getPos()
-    {
-        return position;
-    }
-
-    /**
-     * This method sets the {@link Player}'s {@link GameEngine#position}
-     */
-    public void setPos(Point p) {
-        if(!board.isOOB(p.x, p.y)) {
-            position = p;
-        }
-
-    }
-
-    /**
      * This method returns the {@link Player}
      * @return
      */
@@ -890,7 +878,8 @@ public class GameEngine {
     }
 
     /**
-     * This method returns a boolean value of {@code false} representing the game is over.
+     * This method returns a boolean value of {@code false}
+     * representing the game is over.
      * @return false.
      */
     public boolean gameOver(){
@@ -918,5 +907,25 @@ public class GameEngine {
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    /**
+     * This method returns a char identifying what type of {@link Item} item is.
+     * Returns {@code a} for {@link Ammo}, {@code i} for {@link Invincibility},
+     * {@code r} for {@link Radar}
+     * @param item
+     * @return char
+     */
+    public char typeOfItem(Item item){
+        if(item instanceof Ammo){
+            return 'a';
+        }
+        else if(item instanceof Invincibility){
+            return 'i';
+        }
+        else if(item instanceof Radar){
+            return 'r';
+        }
+        else return 'x';
     }
 }
