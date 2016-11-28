@@ -148,7 +148,7 @@ public class GameEngine {
      *
      * @param state
      */
-    public void changeDebug(boolean state){
+    public static void changeDebug(boolean state){
         debug = state;
     }
 
@@ -785,6 +785,7 @@ public class GameEngine {
      * {@link GameEngine#radar} to true;
      */
     public static void radarOn() {
+        changeDebug(true);
         radar = true;
     }
 

@@ -65,9 +65,12 @@ public class Tile implements Serializable {
         else if(isRoom) {
         	return 'R';
         }        
-        else if (hasEnemy()|| hasItem()) {
+        else if (hasEnemy()) {
             return '/';
-        } 
+        }
+        else if (hasItem()) {
+            return displayTypeOfItem();
+        }
         else if (hasPlayer()) {
             return 'P';
         }
