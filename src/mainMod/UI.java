@@ -78,87 +78,145 @@ public class UI {
     }
 
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
+        boolean input = false;
 
-        System.out.println("Which direction would you like to look?");
+        while(input == false)
+        {
+            System.out.println("Which direction would you like to look?");
 
-        displayKeypad();
+            displayKeypad();
 
-        char direction = takeInput('W','A','S','D','P','w','a','s','d','p');
+            char direction = takeInput('W','A','S','D','P','w','a','s','d','p');
 
-        if (direction == 'W' || direction == 'w')
-            choice = GameEngine.Direction.UP;
-        else if (direction == 'A' || direction == 'a')
-            choice = GameEngine.Direction.LEFT;
-        else if(direction == 'D' || direction == 'd')
-            choice = GameEngine.Direction.RIGHT;
-        else if(direction == 'S' || direction == 's')
-            choice = GameEngine.Direction.DOWN;
-        else if(direction == 'P' || direction == 'p')
-            choice = GameEngine.Direction.SAVE;
+            if (direction == 'W' || direction == 'w')
+            {
+                choice = GameEngine.Direction.UP;
+                input = true;
+            }
+            else if (direction == 'A' || direction == 'a')
+            {
+                choice = GameEngine.Direction.LEFT;
+                input = true;
+            }
+            else if(direction == 'D' || direction == 'd')
+            {
+                choice = GameEngine.Direction.RIGHT;
+                input = true;
+            }
+            else if(direction == 'S' || direction == 's')
+            {
+                choice = GameEngine.Direction.DOWN;
+                input = true;
+            }
+            else if(direction == 'P' || direction == 'p')
+            {
+                choice = GameEngine.Direction.SAVE;
+                input = true;
+            }
+        }
 
         return choice;
 
     }
 
     public static int moveOrShootPrompt() {
-        int moveShoot = -1;
+        boolean input = false;
+        int moveShoot = 0;
 
-        while(moveShoot != 1 && moveShoot != 2)
+        while(input == false)
         {
             System.out.println("Would you like to move or shoot?");
             System.out.println("1. Move" );
             System.out.println("2. Shoot");
 
             moveShoot = takeInput(1,2);
-            scan.nextLine();
+
+            if(moveShoot == 1 || moveShoot == 2)
+            {
+                input = true;
+            }
         }
 
         return moveShoot;
     }
 
     public static  GameEngine.Direction shootPrompt() {
-        System.out.println("Shoot what direction?");
-        displayKeypad();
-        char direction = takeInput('W','A','D','S','w','a','s','d');
-        GameEngine.Direction shootchoice;
+        GameEngine.Direction shootchoice = null;
+        boolean input = false;
 
-        if (direction == 'W' || direction == 'w')
-            shootchoice = GameEngine.Direction.UP;
-        else if (direction == 'A' || direction == 'a')
-            shootchoice = GameEngine.Direction.LEFT;
-        else if(direction == 'D' || direction == 'd')
-            shootchoice = GameEngine.Direction.RIGHT;
-        else if(direction == 'S' || direction == 's')
-            shootchoice = GameEngine.Direction.DOWN;
+        while(input == false)
+        {
+            System.out.println("Shoot what direction?");
+            displayKeypad();
+            char direction = takeInput('W','A','D','S','w','a','s','d');
 
-        else shootchoice = GameEngine.Direction.UP;
+            if (direction == 'W' || direction == 'w')
+            {
+                shootchoice = GameEngine.Direction.UP;
+                input = true;
+            }
+            else if (direction == 'A' || direction == 'a')
+            {
+                shootchoice = GameEngine.Direction.LEFT;
+                input = true;
+            }
+            else if(direction == 'D' || direction == 'd')
+            {
+                shootchoice = GameEngine.Direction.RIGHT;
+                input = true;
+            }
+            else if(direction == 'S' || direction == 's')
+            {
+                input = true;
+            }
+        }
 
         return shootchoice;
     }
 
     public static GameEngine.Direction movePrompt() {
-        System.out.println("What direction would you like to move?");
-        displayKeypad();
-        char direction = takeInput('W','A','D','S','w','a','s','d');
+        boolean input = false;
+        GameEngine.Direction mchoice = null;
 
-        GameEngine.Direction mchoice;
+        while(input == false)
+        {
+            System.out.println("What direction would you like to move?");
+            displayKeypad();
 
-        if (direction == 'W' || direction == 'w')
-            mchoice = GameEngine.Direction.UP;
-        else if (direction == 'A' || direction == 'a')
-            mchoice = GameEngine.Direction.LEFT;
-        else if(direction == 'D' || direction == 'd')
-            mchoice = GameEngine.Direction.RIGHT;
-        else if(direction == 'S' || direction == 's')
-            mchoice = GameEngine.Direction.DOWN;
+            char direction = takeInput('W','A','D','S','w','a','s','d');
 
-        else mchoice = GameEngine.Direction.UP;
+            if (direction == 'W' || direction == 'w')
+            {
+                mchoice = GameEngine.Direction.UP;
+                input = true;
+            }
+            else if (direction == 'A' || direction == 'a')
+            {
+                mchoice = GameEngine.Direction.LEFT;
+                input = true;
+            }
+            else if(direction == 'D' || direction == 'd')
+            {
+                mchoice = GameEngine.Direction.RIGHT;
+                input = true;
+            }
+            else if(direction == 'S' || direction == 's')
+            {
+                mchoice = GameEngine.Direction.DOWN;
+                input = true;
+            }
+            else
+            {
+                input = false;
+            }
+        }
 
         return mchoice;
     }
 
     private static int takeInput(int...validInputs) {
-        int choice = 0;
+        int choice;
+
         try
         {
             choice = scan.nextInt();

@@ -20,6 +20,11 @@ public class Player extends Entity implements Serializable{
      * {@link Player}
      */
     private Point pPos;
+    /**
+     * This {@code Scanner} variable allows the user
+     * to input values for their choices in battle
+     */
+    private transient Scanner input = new Scanner(System.in); // do we need this??
 
     /**
         * This field stores {@link Player}'s living state
@@ -51,6 +56,7 @@ public class Player extends Entity implements Serializable{
     public Player(Point p) {
         pPos = p;
     }
+
     /**
      * This method returns the character
      * string that represents the {@link Player}

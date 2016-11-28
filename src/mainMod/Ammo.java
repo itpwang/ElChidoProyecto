@@ -5,7 +5,7 @@ import java.awt.Point;
  * This class is in charge of creating an Ammo object which can be randomly spawned
  * on a tile in the grid.
  */
-public class Ammo extends Item{
+public class Ammo extends Item {
     private Point ammoPosition;
 
     /**
@@ -48,8 +48,8 @@ public class Ammo extends Item{
     public char returnSymbol(boolean debug) {return debug?'B':'/';}
 
     public void use() {
-        GameEngine.addAmmo();
-        System.out.println("You used the Ammo! ");
+        GameEngine.resetAmmo();
+        System.out.println("You now have full AMMO ");
         this.exists = false;
     }
 

@@ -1,11 +1,12 @@
 package mainMod;
-import java.awt.*;
-import java.io.Serializable;
+
+import java.awt.Point;
+
 
 /**
  * Created by travis on 11/13/16.
  */
-public abstract class Entity implements Serializable{
+public abstract class Entity{
     /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
