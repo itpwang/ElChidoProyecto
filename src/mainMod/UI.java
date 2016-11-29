@@ -49,7 +49,14 @@ public class UI {
         System.out.println(" Left : A ");
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
-        System.out.println(" Save : P ");
+        System.out.println(" Save and Quit : P ");
+    }
+
+    public static void displayKeypadNoSave(){
+        System.out.println("  Up  : W ");
+        System.out.println(" Left : A ");
+        System.out.println(" Down : S ");
+        System.out.println("Right : D ");
     }
 
     /**
@@ -172,7 +179,7 @@ public class UI {
         while(!input)
         {
             System.out.println("What direction would you like to move?");
-            displayKeypad();
+            displayKeypadNoSave();
 
             char direction = takeInput('W','A','D','S','w','a','s','d');
 
