@@ -89,22 +89,6 @@ public class Player extends Entity implements Serializable{
     public char returnSymbol(boolean debug) {return debug?'P':'P';}
 
     /**
-     * This method first checks that the {@link Player}
-     * has {@link Ammo}. If so, they attack an adjacent square.
-     */
-    public void attack(/*The argument should be a tile position*/ ){
-        if(checkAmmo())
-        {
-            if(peekAhead())
-            {
-                // kill enemy
-            }
-            else
-                System.out.println("You shoot nothing!");
-        }
-    }
-
-    /**
      * These methods set the new position of an entity by adding/subtracting 1
      * to the axis corresponding to the move direction.
      */
@@ -161,29 +145,6 @@ public class Player extends Entity implements Serializable{
         *
         * @return answer
         */
-//    public int taketurn(){
-//        int answer;
-//
-//        UI.displayChoice();
-//
-//        answer = input.nextInt();
-//
-//        try {
-//        if (answer == 0 || answer == 1 || answer == 2 || answer == 3)
-//        {
-//        return answer;
-//        } else {
-//        System.out.println("Invalid Choice");
-//        UI.displayChoice();
-//        }
-//        } catch (InputMismatchException e)
-//        {
-//        System.out.println("Input must be an integer.");
-//        while(input.hasNext() && input.hasNextInt())
-//        input.next();
-//        }
-//        return answer;
-//        }
 
     /**
      * This method checks to see if the player has ammo

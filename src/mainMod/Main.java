@@ -43,7 +43,7 @@ public class Main {
         g.changeDebug(UI.startMenu());
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {
-            g.taketurn();
+            g.takeTurn();
         }
     }
 }

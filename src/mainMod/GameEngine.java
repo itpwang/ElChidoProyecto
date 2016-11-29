@@ -8,21 +8,6 @@ import java.awt.Point;
 public class GameEngine {
 
     /**
-     * This is an array of {@link Point}s that stores the
-     * locations of each of the north facing {@link Tile}s
-     * of the {@link Room}s
-     */
-    private static Point [] enterRoom = {
-            new Point(0,1), new Point(0,3), new Point(0,5),
-            new Point(3,1), new Point(3,3), new Point(3,5),
-            new Point(6,1), new Point(6,3), new Point(6,5)}; // make private and make getter
-
-    /**
-     * this field represents the location of the {@link Player}
-     */
-    private static Point position = new Point(mainMod.Math.toMapX(0), mainMod.Math.toMapY(0));
-
-    /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
     private Grid board ;
@@ -44,13 +29,6 @@ public class GameEngine {
      */
     private ArrayList<Item> items = new ArrayList<Item>();
 
-
-    /**
-     * This field holds the position of the {@link Room}s
-     * as an array of {@link Point}s
-     */
-    private Point[] rooms = {new Point(1, 1), new Point(1, 4), new Point(1, 7), new Point(4, 1), new Point(4, 4), new Point(4, 7), new Point(7, 1), new Point(7, 4), new Point(7, 7)};
-
     /**
      * This field represents the Random object used to randomly generate numbers.
      */
@@ -63,7 +41,7 @@ public class GameEngine {
 
     /**
      * This boolean field tells us whether
-     * the {@link Player} is invinsible
+     * the {@link Player} is invincible
      */
     private static boolean isInvincible = false;
 
@@ -86,11 +64,11 @@ public class GameEngine {
     private static boolean radar = false;
 
     /**
-     * This field
+     * This field represents the if player has won;
+     * {@code true} = win, {@code false} = hasn't win
      */
     private static boolean gameWon =  false;
 
-    private Point roomplace = new Point();
     /**
      * This boolean field represents whether or not the user is trying to save the game or not.
      */
@@ -161,13 +139,13 @@ public class GameEngine {
      * This abstract method will allow the
      * {@link Entity} to take a turn
      */
-    public void taketurn(){
+    public void takeTurn(){
 
         if(gameOver()) return;
 
         if(isInvincible)
         {
-            System.out.println("Your still invincible!");
+            System.out.println("You're still invincible!");
             System.out.println("InvCounter: " + invCounter);
             timeDelay(1);
             invCounter--;
@@ -213,7 +191,7 @@ public class GameEngine {
             if (dir == Direction.UP) {
                 if (!board.isOOB(p.x - i, p.y)) {
                 	if(board.map[p.x - i][p.y].isRoom()) {
-                		System.out.println("you hit the room");
+                		System.out.println("you shot the room idiot");
                         timeDelay(1);
                 		break;
                 	}
@@ -494,8 +472,7 @@ public class GameEngine {
      * @param ePos
      */
     public void enemyMove(Point ePos) {
-        //Direction movement = rollMove();
-        Direction movement = Direction.UP;
+        Direction movement = rollMove();
         System.out.println("enemy at" + ePos.x +","+ ePos.y+ " moved"); //DEBUG
         //Move
         while(!board.validMove(ePos,movement)&&board.canMove(ePos))
@@ -733,10 +710,7 @@ public class GameEngine {
      */
     public void generatePlayer()
     {
-        //board.getTile(8,0).insertPlayer(this.player);
-        //DEBUG BELOW
-        board.getTile(position).insertPlayer(this.player);
-        this.player.setPlayerPos(position);
+        board.getTile(8,0).insertPlayer(this.player);
     }
 
     /**
@@ -841,8 +815,6 @@ public class GameEngine {
         }
     }
 
-    //DEBUG
-    //Point asdf;
     private void generateBriefcase() {
         boolean briefcaseset = false;
 
@@ -850,8 +822,6 @@ public class GameEngine {
         {
             int r = rand.nextInt(9);
             int s = rand.nextInt(9);
-
-            //asdf = new Point(r - 1, s);
 
             if(board.getTile(r,s).isRoom())
             {

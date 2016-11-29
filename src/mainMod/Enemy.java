@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- *
+ * This class represents the enemy and its fields/methods.
  */
 public class Enemy extends Entity implements Serializable {
 
@@ -19,7 +19,7 @@ public class Enemy extends Entity implements Serializable {
     /**
      * This field represents the {@link Enemy} position on the grid.
      */
-    Point Epos;
+    private Point Epos;
 
     /**
      * This field is set to {@code true} if the player is
@@ -31,9 +31,7 @@ public class Enemy extends Entity implements Serializable {
      * This is {@link Player}'s default constructor.
      * Sets field alive to {@code true}
      */
-    public Enemy() {
-        alive = true;
-    }
+    public Enemy() { alive = true;}
 
     /**
      * This method first checks that the {@link Player}
@@ -41,75 +39,6 @@ public class Enemy extends Entity implements Serializable {
      */
     public Enemy(Point p) {
         Epos = p;
-    }
-
-//    public char returnSymbol() {
-//        return 'E';
-//    }
-
-    /**
-     * This field stores {@link Player}'s living state
-     * If alive {@code true}, if dead {@code false}
-     */
-//    public char returnSymbol(boolean debug) {
-//        return '/';
-////        return debug ? 'E' : '/';
-//    }
-    public void attack(/*The argument should be a tile position*/)
-    {
-
-    }
-
-    /**
-     * This method rolls a random value 0 - 3 to determine the
-     * move direction of {@link Enemy}
-     *
-     * @return moveChoice The direction the enemy will move.
-     */
-    public moveChoice rollMove () {
-        int enemyMove;
-        Random rand = new Random();
-        enemyMove = rand.nextInt(3);
-
-        switch (enemyMove) {
-            case 0:
-                return moveChoice.UP;
-            case 1:
-                return moveChoice.DOWN;
-            case 2:
-                return moveChoice.LEFT;
-            case 3:
-                return moveChoice.RIGHT;
-        }
-            return moveChoice.UP;
-    }
-
-    /**
-     * This method outputs the keypad to the screen
-     * and gets user input for the {@code moveChoice}
-     *
-     * @param m The move direction of an entity
-     */
-    public void move(Entity.moveChoice m){
-
-        switch(m)
-        {
-            case UP:
-                moveUp();
-                break;
-
-            case DOWN:
-                moveDown();
-                break;
-
-            case LEFT:
-                moveLeft();
-                break;
-
-            case RIGHT:
-                moveRight();
-                break;
-        }
     }
 
     /**
