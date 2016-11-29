@@ -14,6 +14,7 @@ public class Tile implements Serializable {
     private Player player = null;
     private Item item = null;
     private boolean isRoom = false;
+    private boolean briefcase = false;
 
     /**
      * The Tile class constructor. Called by {@link Grid}
@@ -63,6 +64,8 @@ public class Tile implements Serializable {
             return '/';
         }       
         else if(isRoom) {
+            if(briefcase && GameEngine.getRadar())
+                return 'W';
         	return 'R';
         }
         else if (hasEnemy() || hasItem()) {
@@ -93,6 +96,8 @@ public class Tile implements Serializable {
             }
 
             else if(isRoom) {
+                if(briefcase && GameEngine.getRadar())
+                    return 'W';
             	return 'R';
             }       
             else if (hasEnemy()) {
@@ -172,24 +177,41 @@ public class Tile implements Serializable {
     public Enemy getEnemy(){
         return enemy;
     }
+
     public void setEnemy(Enemy e){
         enemy = e;
     }
+
     public Player getPlayer(){
         return player;
     }
+
     public boolean isRoom(){
     	return isRoom;
     }
+
+    public void setBriefcase()
+    {
+        briefcase = true;
+    }
+
+    public boolean hasBriefcase()
+    {
+        return briefcase;
+    }
+
     public void setIsRoom(boolean b) {
     	this.isRoom = b;
     }
+
     public Item getItem()
     {
         return item;
     }
+
     public void setItemNull()
     {
         this.item = null;
     }
+
 }

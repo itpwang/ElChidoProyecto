@@ -10,22 +10,22 @@ import java.util.Scanner;
 public class UI {
 
     /**
-     *
+     * static int feild that represents userInput when prompted.
      */
     private static int userinput;
 
     /**
-     *
+     *  Scanner object that is used to take in input from the user.
      */
     private static Scanner scan = new Scanner(System.in);
 
     /**
-     *
+     * This field represents an enum from the {@link GameEngine} which represents the direction the user wants the move or look towards.
      */
     public static GameEngine.Direction choice;
 
     /**
-     *
+     * This field represent the GameEngine object which is in charge of all the logic in the game and communication between the {@link UI} and game objects
      */
     private GameEngine g = new GameEngine();
 
@@ -77,6 +77,10 @@ public class UI {
         System.out.println(" Save : P ");
     }
 
+    /**
+     * This method prompts the user with which direction they would like to move and sets and returns their choice as a enum from the {@link GameEngine} class.
+     * @return choice Enumeration for directions
+     */
     public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
         boolean input = false;
 
@@ -119,6 +123,10 @@ public class UI {
 
     }
 
+    /**
+     * This method displays a prompt to the user to shoot or to move
+     * @return int value representing user's choice to move or shoot
+     */
     public static int moveOrShootPrompt() {
         boolean input = false;
         int moveShoot = 0;
@@ -140,6 +148,10 @@ public class UI {
         return moveShoot;
     }
 
+    /**
+     * This method provides a prompt to the user requesting for them to input which direction they would like to move.
+     * @return enumeration representing which direction they would like to shoot.
+     */
     public static  GameEngine.Direction shootPrompt() {
         GameEngine.Direction shootchoice = null;
         boolean input = false;
@@ -174,6 +186,10 @@ public class UI {
         return shootchoice;
     }
 
+    /**
+     *  This method provides the user with a prompt requesting them to enter which direction they would like to move.
+     * @return enumeration representing which direction they would like to shoot.
+     */
     public static GameEngine.Direction movePrompt() {
         boolean input = false;
         GameEngine.Direction mchoice = null;
@@ -214,6 +230,11 @@ public class UI {
         return mchoice;
     }
 
+    /**
+     * This method checks whether user input is valid or not.
+     * @param validInputs all possible valid inputs
+     * @return choice the correct input for the prompt
+     */
     private static int takeInput(int...validInputs) {
         int choice;
 
@@ -230,6 +251,12 @@ public class UI {
         return choice;
     }
 
+    /**
+     * This method checks whether user input is valid or not.
+     * @param inputs array of valid inputs
+     * @param c the value the user inputted
+     * @return boolean valid representing if the input is valid or not
+     */
     private static boolean isInputValid(int inputs[], int c) {
         for(int i : inputs)
         {
@@ -238,7 +265,11 @@ public class UI {
         }
         return false;
     }
-
+    /**
+     * This method checks whether user input is valid or not.
+     * @param validInputs all possible valid char inputs
+     * @return choice the correct input for the prompt
+     */
     private static char takeInput(char...validInputs) {
         char choice;
 
@@ -255,6 +286,12 @@ public class UI {
         return choice;
     }
 
+    /**
+     * This method checks whether user input is valid or not.
+     * @param inputs array of valid inputs
+     * @param c the value the user inputted
+     * @return boolean valid representing if the input is valid or not
+     */
     private static boolean isInputValid(char inputs[], char c) {
         for(char i : inputs)
         {
@@ -278,6 +315,11 @@ public class UI {
     public static void shootMiss() {
         System.out.println("Congratulations! You have missed your shot.");
     }
+
+    /**
+     * This method prompts the user requesting them to enter if they would like to load or save a game.
+     * @return input the choice representing if they want to
+     */
     public static char newGameorLoad(){
 
         System.out.println("Do you want to start a new game or load a saved file?");
@@ -285,7 +327,7 @@ public class UI {
         char input = takeInput('L', 'l', 'N', 'n');
         while(input == 'X') {
             input = takeInput('L', 'l', 'N', 'n');
-        };
+        }
         return input;
     }
 }

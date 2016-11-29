@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by travis on 11/14/16.
  */
 public class Room extends Tile {
-	private boolean briefcase;
+	private boolean briefcase = false;
     private Point roomPos;
 	/**
      * This method returns a char value of
@@ -30,8 +30,15 @@ public class Room extends Tile {
      */
     //public char returnSymbol(boolean debug) {return debug?'R':'/';}
     public boolean isRoom(){return true;}
+
     public boolean getBriefcase(){
         return briefcase;
+    }
+    public boolean isBriefcaseRoom() {
+        if(briefcase)
+            return true;
+        else
+            return false;
     }
     public void setBriefcase(boolean value){
         briefcase=value;

@@ -1,5 +1,4 @@
 package mainMod;
-import java.awt.Point;
 
 /**
  * This class represents the main class in our program. Program
@@ -15,28 +14,41 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g;
-        switch(UI.newGameorLoad()){
-            case 'N': g = new GameEngine();
+
+        switch (UI.newGameorLoad()) {
+            case 'N':
+                g = new GameEngine();
                 break;
-            case 'n':g = new GameEngine();
+            case 'n':
+                g = new GameEngine();
                 break;
-            case 'L':g = new GameEngine(SaveEngine.readSave());
+            case 'L':
+                try{g = new GameEngine(SaveEngine.readSave());
+                }catch (NullPointerException e){
+                    System.out.println("Starting a new game . . .");
+                    g = new GameEngine();
+                }
                 break;
-            case 'l':g = new GameEngine(SaveEngine.readSave());
+            case 'l':
+                try{g = new GameEngine(SaveEngine.readSave());
+                }catch (NullPointerException e){
+                    System.out.println("Starting a new game . . .");
+                    g = new GameEngine();
+                }
                 break;
-            default: g=new GameEngine();
+            default:
+                g = new GameEngine();
 
         }
         g.changeDebug(UI.startMenu());
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {
             g.taketurn();
-
         }
 
 
-        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
-        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
-        }
+//        if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
+//        GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
+//        }
     }
 }
