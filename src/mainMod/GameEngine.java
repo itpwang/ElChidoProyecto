@@ -79,7 +79,7 @@ public class GameEngine {
      */
     private static int playerAmmo = 1;
 
-    private static boolean radar;
+    private static boolean radar = false;
 
     /**
      * This field
@@ -890,7 +890,6 @@ public class GameEngine {
      * {@link GameEngine#radar} to true;
      */
     public static void radarOn() {
-        changeDebug(true);
         radar = true;
     }
 
@@ -980,5 +979,10 @@ public class GameEngine {
             return 'r';
         }
         else return 'x';
+    }
+
+    public static boolean getRadar()
+    {
+        return radar;
     }
 }
