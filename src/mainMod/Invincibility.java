@@ -34,25 +34,6 @@ public class Invincibility extends Item implements Serializable {
     }
 
     /**
-     * This method returns a char value of {@code I} on the grid to represent 
-     * the location of the invincibility item.
-     * 
-     * @return char {@code I}
-     */
-    public char returnSymbol()
-    {
-        return 'I';
-    }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code I} if it is {@code true} and {@code /} if {@code false}
-     * @param debug {@link GameEngine#debug}
-     * @return char representing object
-     */
-    public char returnSymbol(boolean debug) {return debug?'I':'/';}
-
-    /**
      * This method uses the invincibility item. Calls the
      * {@link GameEngine#invincibilityOn()} method to set
      * {@link GameEngine#isInvincible} to {@code true}

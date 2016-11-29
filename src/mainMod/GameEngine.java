@@ -245,10 +245,10 @@ public class GameEngine {
     }
 
     /**
-     *
-     * @return
+     * This method gives win condition.
+     * @return {@code true} for game won, {@code false} for not
      */
-    boolean gameWon(){
+    public boolean gameWon(){
         return gameWon;
     }
 
@@ -473,7 +473,7 @@ public class GameEngine {
      */
     public void enemyMove(Point ePos) {
         Direction movement = rollMove();
-        System.out.println("enemy at" + ePos.x +","+ ePos.y+ " moved"); //DEBUG
+//        System.out.println("enemy at" + ePos.x +","+ ePos.y+ " moved"); //DEBUG
         //Move
         while(!board.validMove(ePos,movement)&&board.canMove(ePos))
         {
@@ -484,22 +484,22 @@ public class GameEngine {
                 case UP:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
                     moveUp(ePos);
-                    System.out.println(" UP"); //DEBUG
+//                    System.out.println(" UP"); //DEBUG
                     break;
                 case DOWN:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
                     moveDown(ePos);
-                    System.out.println(" DOWN"); //DEBUG
+//                    System.out.println(" DOWN"); //DEBUG
                     break;
                 case LEFT:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
                     moveLeft(ePos);
-                    System.out.println(" LEFT"); //DEBUG
+//                    System.out.println(" LEFT"); //DEBUG
                     break;
                 case RIGHT:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
                     moveRight(ePos);
-                    System.out.println(" RIGHT"); //DEBUG
+//                    System.out.println(" RIGHT"); //DEBUG
                     break;
             }
             break;
@@ -744,7 +744,7 @@ public class GameEngine {
      */
     public void generateEnemies(){
         int num1, num2;
-        Point enemyloc;
+        Point enemyLocation;
         int i = 0;
 
         while(i < 6)
@@ -755,8 +755,8 @@ public class GameEngine {
 
             if(board.map[num1][num2].isEmpty() && checkSpawn(num1, num2))
             {
-                enemyloc = new Point(num1, num2);
-                enemies[i] = new Enemy(enemyloc);
+                enemyLocation = new Point(num1, num2);
+                enemies[i] = new Enemy(enemyLocation);
                 board.getTile(num1, num2).insertEnemy(enemies[i]);
                 i++;
             }
@@ -784,7 +784,7 @@ public class GameEngine {
 
             if(board.map[num1][num2].isEmpty())
             {
-                if(playerAmmoPlace == false)
+                if(!playerAmmoPlace)
                 {
                     itemloc = new Point(num1,num2);
                     itemholder = new Ammo(itemloc);
@@ -793,7 +793,7 @@ public class GameEngine {
                     playerAmmoPlace = true;
                     i++;
                 }
-                else if(invPlace == false)
+                else if(!invPlace)
                 {
                     itemloc = new Point(num1,num2);
                     itemholder = new Invincibility(itemloc);
@@ -802,7 +802,7 @@ public class GameEngine {
                     invPlace = true;
                     i++;
                 }
-                else if(radarPlace == false)
+                else if(!radarPlace)
                 {
                     itemloc = new Point(num1,num2);
                     itemholder = new Radar(itemloc);
@@ -864,7 +864,7 @@ public class GameEngine {
      */
     public static boolean playerAmmoEmpty(){
         boolean ans;
-        ans = (playerAmmo <= 0)? true : false;
+        ans = (playerAmmo <= 0);
         return ans;
     }
 
@@ -878,7 +878,7 @@ public class GameEngine {
 
     /**
      * This method returns the {@link Player}
-     * @return
+     * @return player
      */
     public Player getPlayer(){
         return player;
@@ -905,14 +905,6 @@ public class GameEngine {
     public void useItem(Item i)
     {
         i.use();
-    }
-
-    /**
-     * This method sets the {@link GameEngine#gameWon}
-     * equal to True;
-     */
-    public void setGameWon(){
-        gameWon=true;
     }
 
     /**

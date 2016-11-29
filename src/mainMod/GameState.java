@@ -16,16 +16,6 @@ public class GameState implements Serializable {
     private Boolean savedDebug;
 
     /**
-     * This field holds an array of {@link Enemy} locations
-     */
-    private Point[] savedListOfEnemyLoc;
-
-    /**
-     * This field holds an array of {@link Item} locations
-     */
-    private Point[] savedListOfItemLoc;
-
-    /**
      * This field holds whether invincible is on or off {@code true, false}
      */
     private Boolean savedIsInvincible;
@@ -64,19 +54,6 @@ public class GameState implements Serializable {
      * This field holds the {@link Grid} object.
      */
     private Grid savedBoard;
-
-    // ORDER :
-//                gameObjects.add(player);
-//                gameObjects.add(board);
-//                gameObjects.add(enemies);
-//                gameObjects.add(listOfEnemyLoc);
-//                gameObjects.add(listOfItemLoc);
-//                gameObjects.add(isInvincible);
-//                gameObjects.add(invCounter);
-//                gameObjects.add(playerAmmo);
-//                gameObjects.add(radar);
-//                gameObjects.add(debug);
-
     /**
      * The GameState constructor that sets the fields to the
      * value of the {@link ArrayList} objects that are passed.
@@ -92,8 +69,6 @@ public class GameState implements Serializable {
         savedPlayerAmmo = (Integer) gameObjects.get(6);
         savedRadar = (Boolean) gameObjects.get(7);
         savedDebug = (Boolean) gameObjects.get(8);
-
-
     }
 
     /**

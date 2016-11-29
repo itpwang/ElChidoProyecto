@@ -24,7 +24,7 @@ public class Grid implements Serializable {
             for (int j = 0; j < map.length; j++)
                 map[i][j] = new Tile();
     	/**
-    	 * Certain predisclosed tiles are set up as the Rooms in which the briefcase could potentially be
+    	 * Certain pre-disclosed tiles are set up as the Rooms in which the briefcase could potentially be
     	 * located in.
     	 */
     	for(int i = 1; i <= 7; i += 3)
@@ -39,15 +39,6 @@ public class Grid implements Serializable {
 
     }
 
-    /**
-     * This method returns a boolean value to determine if the tile the player wishes to be moved onto
-     * is empty. If true, the player may move onto it.
-     *
-     * @return boolean {@code false}
-     */
-    public boolean isEmpty() {
-        return false;
-    } //needs work
 
     /**
      * This method is a void method which prints the map. Uses a for loop to run through the multi-dimensional
@@ -111,14 +102,6 @@ public class Grid implements Serializable {
     }
 
     /**
-     * This method returns the {@link Room} at the {@link Point} on the map
-     *
-     * @param pt Point on grid
-     * @return Tile {@link Tile}
-     */
-    public Room getRoom(Point pt) { return (Room)map[pt.x][pt.y]; }
-
-    /**
      * This function returns true if the coordinates entered are out of bounds,
      * false if not
      *
@@ -160,24 +143,11 @@ public class Grid implements Serializable {
     public int getColLen(){return map[0].length;}
 
     /**
-     * This method checks the tile to see if it has an item.
-     *
-     * @param A {@link Tile}
-     * @return boolean {@code true} if the tile has an item,
-     * {@code false} if there is no item
-     */
-    public boolean checkTile(Tile A) {
-       if(A.hasItem())
-           return true;
-        else return false;
-    }
-
-    /**
      * Swaps two tiles. Items stay in original tile.
      * @param A {@link Tile}
      * @param B {@link Tile}
      */
-    public void swapTile(Tile A, Tile B){ //GHETTHO AF
+    public void swapTile(Tile A, Tile B){
         if(B.hasItem()) {
             itemBegoneSwap(A, B);
             return;
@@ -208,13 +178,14 @@ public class Grid implements Serializable {
      */
     public void itemBegoneSwap(Tile A, Tile B) {
         B.insertEnemy(A.getEnemy());
+        B.insertPlayer(A.getPlayer());
         A.insertEnemy(null);
         A.insertItem(null);
         A.insertPlayer(null);
     }
 
     /**
-     * Drop it motha fucka
+     *
      */
     public void dropThatItemBoy(Tile A, Tile B) {
         B.insertEnemy(A.getEnemy());
@@ -233,48 +204,60 @@ public class Grid implements Serializable {
      */
     public boolean validMove(Point position, GameEngine.Direction movePos) {
 
-        Point checkpos = new Point(position);
+        Point checkPos = new Point(position);
 
         switch (movePos) {
             case UP:
-                checkpos.translate(-1, 0);
-                if (isOOB(checkpos.x, checkpos.y)) {
+                checkPos.translate(-1, 0);
+                if (isOOB(checkPos.x, checkPos.y)) {
                     return false;
-                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).hasItem()) {
                     return true;
-                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).isEmpty()) {
                     return true;
-                } else return false;
+                }
+                else return false;
             case DOWN:
-                checkpos.translate(1, 0);
-                if (isOOB(checkpos.x, checkpos.y)) {
+                checkPos.translate(1, 0);
+                if (isOOB(checkPos.x, checkPos.y)) {
                     return false;
-                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).hasItem()) {
                     return true;
-                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).isEmpty()) {
                     return true;
-                } else if (getTile(checkpos.x, checkpos.y).isRoom()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).isRoom()) {
                     return true;
                 }
                 else return false;
             case LEFT:
-                checkpos.translate(0, -1);
-                if (isOOB(checkpos.x, checkpos.y)) {
+                checkPos.translate(0, -1);
+                if (isOOB(checkPos.x, checkPos.y)) {
                     return false;
-                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).hasItem()) {
                     return true;
-                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).isEmpty()) {
                     return true;
-                } else return false;
+                }
+                else return false;
             case RIGHT:
-                checkpos.translate(0, 1);
-                if (isOOB(checkpos.x, checkpos.y)) {
+                checkPos.translate(0, 1);
+                if (isOOB(checkPos.x, checkPos.y)) {
                     return false;
-                } else if (getTile(checkpos.x, checkpos.y).hasItem()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).hasItem()) {
                     return true;
-                } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
+                }
+                else if (getTile(checkPos.x, checkPos.y).isEmpty()) {
                     return true;
-                } else return false;
+                }
+                else return false;
             default:
                 return false;
         }

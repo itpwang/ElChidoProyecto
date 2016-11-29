@@ -32,26 +32,7 @@ public class Radar extends Item {
     {
         return radPosition;
     }
-
-    /**
-     * This method returns a char value of {@code O} on the grid to represent 
-     * the location of the radar item.
-     * 
-     * @return char {@code O}
-     */
-    public char returnSymbol()
-    {
-        return 'O';
-    }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code O} if it is {@code true} and {@code /} if {@code false}
-     * @param debug
-     * @return char representing object
-     */
-    public char returnSymbol(boolean debug) {return debug?'O':'/';}
-
+    
     /**
      * This method uses the radar item. Calls the
      * {@link GameEngine#radarOn()} method to set
