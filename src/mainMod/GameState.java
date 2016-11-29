@@ -78,6 +78,8 @@ public class GameState implements Serializable {
 //                gameObjects.add(debug);
 
     /**
+     * The GameState constructor that sets the fields to the
+     * value of the {@link ArrayList} objects that are passed.
      * @param gameObjects
      */
     public GameState(ArrayList gameObjects) {
@@ -94,39 +96,81 @@ public class GameState implements Serializable {
 
     }
 
+    /**
+     * This method returns the {@link Player} object that was saved.
+     *
+     * @return Player The saved player
+     */
     public Player getSavedPlayer() {
         return savedPlayer;
     }
 
+    /**
+     * This method returns the boolean value {@code true, false}
+     * of {@link #savedDebug}that was saved
+     *
+     * @return boolean {@code true, false}
+     */
     public Boolean getSavedDebug() {
         return savedDebug;
     }
 
+    /**
+     * This method returns the boolean value {@code true, false}
+     * of {@link #savedIsInvincible}that was saved
+     *
+     * @return boolean {@code true, false}
+     */
     public Boolean getSavedIsInvincible() {
         return savedIsInvincible;
     }
 
+    /**
+     * This method returns the {@link #savedInvCounter} value that was saved.
+     *
+     * @return int Saved invincibility counter
+     */
     public Integer getSavedInvCounter() {
         return savedInvCounter;
     }
 
+    /**
+     * This method returns the {@link #savedPlayerAmmo} value that was saved.
+     *
+     * @return int Saved player ammo
+     */
     public Integer getSavedPlayerAmmo() {
         return savedPlayerAmmo;
     }
 
+    /**
+     * This method returns the boolean value {@code true, false}
+     * of {@link #savedRadar}that was saved
+     *
+     * @return boolean {@code true, false}
+     */
     public Boolean getSavedRadar() {
         return savedRadar;
     }
 
+    /**
+     * This method returns an array of {@link Enemy} objects that was saved.
+     *
+     * @return Enemy[] Array of saved enemy objects
+     */
     public Enemy[] getSavedEnemies() {
         return savedEnemies;
     }
 
+    /**
+     * This method returns the state of the {@link Grid} object that was saved.
+     *
+     * @return Grid The saved grid object
+     */
     public Grid getSavedBoard() {
         return savedBoard;
     }
+    
     public ArrayList<Item> getSavedItems() { return savedItems;}
 
 }
-
-
