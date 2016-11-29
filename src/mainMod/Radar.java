@@ -8,6 +8,9 @@ import java.awt.Point;
  */
 public class Radar extends Item {
 
+    /**
+     * This field represents the position of {@link Radar} on the grid.
+     */
     private Point radPosition;
 
     /**
@@ -23,7 +26,7 @@ public class Radar extends Item {
 
     /**
      * This method gets the {@link Radar}s location
-     * @return
+     * @return Point {@link #radPosition}
      */
     public Point getPos()
     {
@@ -34,7 +37,7 @@ public class Radar extends Item {
      * This method returns a char value of {@code O} on the grid to represent 
      * the location of the radar item.
      * 
-     * @return O
+     * @return char {@code O}
      */
     public char returnSymbol()
     {
@@ -49,6 +52,11 @@ public class Radar extends Item {
      */
     public char returnSymbol(boolean debug) {return debug?'O':'/';}
 
+    /**
+     * This method uses the radar item. Calls the
+     * {@link GameEngine#radarOn()} method to set
+     * {@link GameEngine#radar} to {@code true}
+     */
     public void use() {
         GameEngine.radarOn();
         System.out.println("You now have RADAR! ");

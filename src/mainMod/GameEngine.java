@@ -72,11 +72,15 @@ public class GameEngine {
     private static int invCounter = 5;
 
     /**
-     * This field stores the mmo of the
+     * This field stores the ammo of the
      * {@link Player}
      */
     private static int playerAmmo = 1;
 
+    /**
+     * This field tells whether the radar
+     * is on or off
+     */
     private static boolean radar;
 
     /**
@@ -268,6 +272,25 @@ public class GameEngine {
         return gameWon;
     }
 
+
+
+   public void loadGameEngine(GameState save){
+        player.setPos(save.getPlayerPos());
+        listOfEnemyLoc = save.getEnemiesPos();
+        listOfItemLoc = save.getItemsPos();
+        playerAmmo = save.getPlayerAmmo();
+        isInvincible = save.getInvOn();
+        invCounter = save.getInvCounter();
+        radar = save.getRadarOn();
+        player.setNumOfLives(save.getLives());
+    }
+
+    public void save(){
+        Point pPos = player.getPos();
+        int lives = player.getNumOfLives();
+        GameState current = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
+                                          isInvincible, invCounter, radar, lives); //add Point briefcase
+    }
     /**
      * This method represents the turn of the main {@link Player} of the game.
      */
@@ -276,8 +299,7 @@ public class GameEngine {
         Point pPos = player.getPos();
         int lives = player.getNumOfLives();
         SaveEngine s = new SaveEngine();
-        GameState current = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
-                                          isInvincible, invCounter, radar, lives); //add Point briefcase
+
         look(UI.lookPrompt());
         if (savingGame)
             return;
@@ -328,9 +350,6 @@ public class GameEngine {
                             board.getTile(pPos).setItemNull();
                         }
                         break;
-                    case SAVE:
-                        s.writeSave(current);
-                        break;
                 }
                 break;
             }
@@ -345,6 +364,11 @@ public class GameEngine {
                 System.out.println("You have no ammo!");
             timeDelay(1);
 
+        }
+        else if(entry == 3){
+            GameState savedGameState = new GameState(pPos, listOfEnemyLoc, listOfItemLoc, playerAmmo,
+                    isInvincible, invCounter, radar, lives); //add Point briefcase);
+            s.writeSave(savedGameState);
         }
     }
 
@@ -693,9 +717,15 @@ public class GameEngine {
     }
 
     /**
-     * This method is in charge of randomly generating enemies on an empty space of the map denoted by the "/" symbol. If the space
+     * This method is in charge of checking the randomly generated enemy
+     * locations and returning a boolean if the point is too
+     * close to player spawn.
+     *
+     * @param n Randomly generated y-coord for enemy
+     * @param m Randomly generated x-coord for enemy
+     * @return {@code false} if the generated enemy
+     * point is invalid, {@code true} if point is valid
      */
-
     private boolean checkSpawn(int n, int m) {
        if(n==6 && (m==0 || m ==1 ))
            return false;
@@ -710,6 +740,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method is in charge of randomly generating enemies on an empty
+     * space of the map denoted by the "/" symbol. Using the {@link #checkSpawn(int, int)}
+     * method will make enemies not generate near the player spawn.
+     */
     public void generateEnemies(){
         int num1, num2;
         Point enemyloc;

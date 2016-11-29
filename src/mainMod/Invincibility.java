@@ -8,6 +8,9 @@ import java.io.Serializable;
  */
 public class Invincibility extends Item implements Serializable {
 
+    /**
+     * This field represents the position of {@link Invincibility} on the grid.
+     */
     private Point invPosition;
 
     /**
@@ -23,7 +26,7 @@ public class Invincibility extends Item implements Serializable {
 
     /**
      * This method gets the {@link Invincibility}s location
-     * @return
+     * @return Point {@link #invPosition}
      */
     public Point getPos()
     {
@@ -34,7 +37,7 @@ public class Invincibility extends Item implements Serializable {
      * This method returns a char value of {@code I} on the grid to represent 
      * the location of the invincibility item.
      * 
-     * @return I
+     * @return char {@code I}
      */
     public char returnSymbol()
     {
@@ -44,11 +47,16 @@ public class Invincibility extends Item implements Serializable {
     /**
      * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
      * returns {@code I} if it is {@code true} and {@code /} if {@code false}
-     * @param debug
+     * @param debug {@link GameEngine#debug}
      * @return char representing object
      */
     public char returnSymbol(boolean debug) {return debug?'I':'/';}
 
+    /**
+     * This method uses the invincibility item. Calls the
+     * {@link GameEngine#invincibilityOn()} method to set
+     * {@link GameEngine#isInvincible} to {@code true}
+     */
     public void use() {
         GameEngine.invincibilityOn();
         System.out.println("You are now INVINCIBLE");

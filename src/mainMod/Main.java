@@ -15,34 +15,28 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g = new GameEngine();
-/**        SaveEngine s = new SaveEngine();
-        switch(UI.menuSelect())
-        {
+        SaveEngine s = new SaveEngine();
+        switch(UI.menuSelect()) {
             // NEW Game
             case 1:
-            {
                 g.changeDebug(UI.startMenu());
                 g.printBoard();
-                while (g.gameOver()) {
+                while (!g.gameOver()) {
                     g.taketurn();
                 }
                 break;
-            }
             // LOAD game
             case 2:
-            {
-                s.readSave(g.getPlayer());
+                s.readSave();
                 g.changeDebug(UI.startMenu());
                 g.printBoard();
-                while (g.gameOver()) {
+                while (!g.gameOver()) {
                     g.taketurn();
                 }
                 break;
-            }
-            default:
-                break;
-    }*/
-        g.changeDebug(UI.startMenu());
+        }
+    }
+  /**      g.changeDebug(UI.startMenu());
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {
             g.taketurn();
@@ -53,5 +47,4 @@ public class Main {
         if (SaveEngine.readSave() != null){ // for testing for now until we implement the above switch
         GameEngine gameEngine = new GameEngine(SaveEngine.readSave());
         }
-    }
-}
+    */}

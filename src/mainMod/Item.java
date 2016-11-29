@@ -13,6 +13,13 @@ public abstract class Item implements Serializable {
     int i = 0;
     boolean exists = false;
 
+    /**
+     * Abstract constructor of the item class. Fills the {@link Item#itemlocation}
+     * array with the point locations of items and increments {@link Item#i} with
+     * each item added.
+     *
+     * @param p The point location of an item.
+     */
     public Item(Point p)
     {
         itemlocation[i] = p;
@@ -20,9 +27,13 @@ public abstract class Item implements Serializable {
     }
 
     /**
-     * This method gets the {@link Item}s location
+     * This abstract method gets the {@link Item}s location
      * @return
      */
     public abstract Point getPos();
+
+    /**
+     * This abstract method uses the {@link Item}
+     */
     public abstract void use();
 }

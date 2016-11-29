@@ -30,7 +30,7 @@ public abstract class Entity{
      * This abstract method returns {@code true}
      * if {@link Entity} is alive and {@code false}
      * if not.
-     * @return {@code true} if alive {@code false} if not
+     * @return boolean {@code true} if alive {@code false} if not
      */
     abstract boolean isAlive();
 
@@ -38,7 +38,7 @@ public abstract class Entity{
      * This method returns the character
      * string that represents the {@link Entity}
      *
-     * @return
+     * @return char {@code C} for the character
      */
     public char returnSymbol()
     {
@@ -49,8 +49,16 @@ public abstract class Entity{
      * string that represents the {@link Entity}
      * (Debug mode)
      *
-     * @return
+     * @param debug {@link GameEngine#debug}
+     * @return char {@code C} if {@param debug}
+     * is {@code true} and {@code /} if {@param debug}
+     * is {@code false}
      */
     public char returnSymbol(boolean debug) {return debug?'C':'/';}
+
+    /**
+     * Abstract method to return the position of an entity.
+     * @return Point Entity location
+     */
     abstract Point getPos();
 }

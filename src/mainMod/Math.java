@@ -35,7 +35,13 @@ public class Math {
 //            return (y);
 //        }
 
-        //Playable field coord to map coord
+    /**
+     * Playable field coord to map coord
+     *
+     * @param x x-coord
+     * @param y y-coord
+     * @return Point
+     */
         static public Point toMap(int x, int y) {
             return new Point((8 - x), (y));
         }
@@ -47,8 +53,8 @@ public class Math {
     /**
      * This method translates a cartesian coordinate to
      * the grid coordinate
-     * @param x
-     * @return int y
+     * @param x x-coord
+     * @return int y-coord
      */
     static public int toMapX(int x) {
             return (8 - x);
@@ -56,8 +62,8 @@ public class Math {
     /**
      * This method translates a cartesian coordinate to
      * the grid coordinate
-     * @param y
-     * @return
+     * @param y y-coord
+     * @return int x-coord
      */
         static public int toMapY(int y) {
             return (y);

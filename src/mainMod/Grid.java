@@ -2,28 +2,28 @@ package mainMod;
 import java.awt.Point;
 import java.io.Serializable;
 
-/*
+/**
  * This class represents the Grid object, utilized by the GameEngine
  * to create and print the map the game will be played on.
  */
 public class Grid implements Serializable {
-    /*
-	 * An object array of type {@link Cell} is created. The multidimensional
+    /**
+	 * An object array of type {@link Tile} is created. The multidimensional
 	 * array allows for a 9 by 9 grid to be created.
 	 */
     public Tile[][] map = new Tile[9][9];
 
-    /*
+    /**
      * Constructor which is called to instantiate the map.
      */
     public Grid() {
-       /*
+        /**
         * This for loop allows each place in the multidimensional array to be instantiated as a Tile object.
         */
         for (int i = 0; i < map.length; i++)
             for (int j = 0; j < map.length; j++)
                 map[i][j] = new Tile();
-    	/*
+    	/**
     	 * Certain predisclosed tiles are set up as the Rooms in which the briefcase could potentially be
     	 * located in.
     	 */
@@ -39,17 +39,21 @@ public class Grid implements Serializable {
 
     }
 
-    /*
+    /**
      * This method returns a boolean value to determine if the tile the player wishes to be moved onto
      * is empty. If true, the player may move onto it.
+     *
+     * @return boolean {@code false}
      */
     public boolean isEmpty() {
         return false;
     } //needs work
 
-    /*
+    /**
      * This method is a void method which prints the map. Uses a for loop to run through the multi-dimensional
      * array and prints out the subsequent tiles.
+     *
+     * @param debug {@link GameEngine#debug}
      */
     public void printGrid(boolean debug) {
         for (int i = 0; i < map.length; i++) {
@@ -64,8 +68,10 @@ public class Grid implements Serializable {
     /**
      * This method takes in two {@link Point}s and prints them in debug mode(visible {@link Tile}
      * Functions as 2 tiles ahead of player in direction looked.
-     * @param {@link Point}
-     * @param {@link Point}
+     *
+     * @param a {@link Point}
+     * @param b {@link Point}
+     * @param debug {@link GameEngine#debug}
      */
     public void printlookGrid(Point a, Point b, boolean debug){
         for(int i = 0; i < map.length; i++){
@@ -86,9 +92,9 @@ public class Grid implements Serializable {
     /**
      * This method returns the cell at the position row,column on the map
      *
-     * @param row
-     * @param col
-     * @return  {@link Tile}
+     * @param row x-coord
+     * @param col y-coord
+     * @return Tile {@link Tile}
      */
     public Tile getTile(int row, int col) {
         return map[row][col];
@@ -97,8 +103,8 @@ public class Grid implements Serializable {
     /**
      * This method returns the {@link Tile} at the {@link Point} on the map
      *
-     * @param pt
-     * @return  {@link Tile}
+     * @param pt Point on grid
+     * @return Tile {@link Tile}
      */
     public Tile getTile(Point pt){
         return map[pt.x][pt.y];
@@ -107,17 +113,18 @@ public class Grid implements Serializable {
     /**
      * This method returns the {@link Room} at the {@link Point} on the map
      *
-     * @param pt
-     * @return  {@link Tile}
+     * @param pt Point on grid
+     * @return Tile {@link Tile}
      */
     public Room getRoom(Point pt) { return (Room)map[pt.x][pt.y]; }
 
     /**
      * This function returns true if the coordinates entered are out of bounds,
      * false if not
-     * @param x
-     * @param y
-     * @return {@code true, false}
+     *
+     * @param x x-coord
+     * @param y y-coord
+     * @return boolean {@code true, false}
      */
     public boolean isOOB(int x, int y) {
         return (x < 0 || x >= map.length || y < 0 || y >= map.length);
@@ -127,8 +134,9 @@ public class Grid implements Serializable {
      * This method checks if the {@link Player}/{@link Enemy} at position
      * can move by checking all directions of movement. Returns {@code true}
      * if can move, {@code false} if can NOT move.
-     * @param position
-     * @return {@code true/false}
+     *
+     * @param position Point position
+     * @return boolean {@code true/false}
      */
     public boolean canMove(Point position){
         if(validMove(position, GameEngine.Direction.UP)||validMove(position, GameEngine.Direction.DOWN)||
@@ -140,16 +148,24 @@ public class Grid implements Serializable {
 
     /**
      * This method returns length of row in map
-     * @return row length of map
+     *
+     * @return int row length of map
      */
     public int getRowLen(){return map.length;}
     /**
      * This method returns length of column in map
-     * @return column length of map
+     *
+     * @return int column length of map
      */
     public int getColLen(){return map[0].length;}
 
-
+    /**
+     * This method checks the tile to see if it has an item.
+     *
+     * @param A {@link Tile}
+     * @return boolean {@code true} if the tile has an item,
+     * {@code false} if there is no item
+     */
     public boolean checkTile(Tile A) {
        if(A.hasItem())
            return true;
@@ -158,8 +174,8 @@ public class Grid implements Serializable {
 
     /**
      * Swaps two tiles. Items stay in original tile.
-     * @param {@link Tile} A
-     * @param {@link Tile} B
+     * @param A {@link Tile}
+     * @param B {@link Tile}
      */
     public void swapTile(Tile A, Tile B){
 
@@ -184,14 +200,13 @@ public class Grid implements Serializable {
      * {@link #canMove(Point)} to check if the {@link Entity} at
      * position can move.
      *
-     * @param position
-     * @param movePos
+     * @param position Entity position
+     * @param movePos The position an entity will move to
      * @return {@code true/false}
      */
     public boolean validMove(Point position, GameEngine.Direction movePos) {
 
         Point checkpos = new Point(position);
-
 
         switch (movePos) {
             case UP:

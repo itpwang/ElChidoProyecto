@@ -16,8 +16,15 @@ public class Enemy extends Entity implements Serializable {
         UP, DOWN, LEFT, RIGHT
     }
 
+    /**
+     * This field represents the {@link Enemy} position on the grid.
+     */
     Point Epos;
 
+    /**
+     * This field is set to {@code true} if the player is
+     * alive, and {@code false} if player is dead.
+     */
     private boolean alive;
 
     /**
@@ -29,7 +36,7 @@ public class Enemy extends Entity implements Serializable {
     }
 
     /**
-     * This method firts checks that the {@link Player}
+     * This method first checks that the {@link Player}
      * has {@link Ammo}. If so, they attack an adjacent square.
      */
     public Enemy(Point p) {
@@ -54,9 +61,10 @@ public class Enemy extends Entity implements Serializable {
     }
 
     /**
-     * * This method rolls the move for the {@link Enemy}
+     * This method rolls a random value 0 - 3 to determine the
+     * move direction of {@link Enemy}
      *
-     * @return int
+     * @return moveChoice The direction the enemy will move.
      */
     public moveChoice rollMove () {
         int enemyMove;
@@ -80,6 +88,7 @@ public class Enemy extends Entity implements Serializable {
      * This method outputs the keypad to the screen
      * and gets user input for the {@code moveChoice}
      *
+     * @param m The move direction of an entity
      */
     public void move(Entity.moveChoice m){
 
@@ -103,21 +112,26 @@ public class Enemy extends Entity implements Serializable {
         }
     }
 
+    /**
+     * These methods set the new position of an entity by adding/subtracting 1
+     * to the axis corresponding to the move direction.
+     */
+    // UP: (x - 1, y)
     public void moveUp()
     {
         setPos(new Point(getPos().x - 1,getPos().y));
     }
-
+    // DOWN: (x + 1, y)
     public void moveDown()
     {
         setPos(new Point(getPos().x + 1,getPos().y));
     }
-
+    // LEFT: (x, y - 1)
     public void moveLeft()
     {
         setPos(new Point(getPos().x,getPos().y - 1));
     }
-
+    // RIGHT: (x, y + 1)
     public void moveRight()
     {
         setPos(new Point(getPos().x,getPos().y + 1));
@@ -132,8 +146,8 @@ public class Enemy extends Entity implements Serializable {
     }
 
     /**
-     * This method sets {@link #Epos to a passed in {@link Point}parameter
-     * @param point
+     * This method sets {@link #Epos} to a passed in {@link Point} parameter
+     * @param point Enemy position
      */
     public void setPoint(Point point){
         Epos = point;
@@ -141,13 +155,17 @@ public class Enemy extends Entity implements Serializable {
 
     /**
      * This method gets the {@link Enemy}s location
-     * @return
+     * @return Point The enemy location
      */
     public Point getPos()
     {
         return Epos;
     }
 
+    /**
+     * This method sets {@link #Epos} to the Point passed as an argument
+     * @param p The enemy position
+     */
     public void setPos(Point p)
     {
         this.Epos = p;

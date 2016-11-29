@@ -6,6 +6,10 @@ import java.awt.Point;
  * on a tile in the grid.
  */
 public class Ammo extends Item {
+
+    /**
+     * This field represents the position of {@link Ammo} on the grid.
+     */
     private Point ammoPosition;
 
     /**
@@ -21,7 +25,7 @@ public class Ammo extends Item {
 
     /**
      * This method gets the {@link Ammo}s location
-     * @return
+     * @return Point {@link #ammoPosition}
      */
     public Point getPos()
     {
@@ -32,7 +36,7 @@ public class Ammo extends Item {
      * This method returns a char value of {@code B} on the grid to represent 
      * the location of the ammo item.
      * 
-     * @return B
+     * @return char {@code B}
      */
     public char returnSymbol()
     {
@@ -42,11 +46,16 @@ public class Ammo extends Item {
     /**
      * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
      * returns {@code B} if it is {@code true} and {@code /} if {@code false}
-     * @param debug
+     * @param debug {@link GameEngine#debug}
      * @return char representing object
      */
     public char returnSymbol(boolean debug) {return debug?'B':'/';}
 
+    /**
+     * This method uses the ammo item. Calls the
+     * {@link GameEngine#resetAmmo()} method to set
+     * {@link GameEngine#playerAmmo} to {@code 1}
+     */
     public void use() {
         GameEngine.resetAmmo();
         System.out.println("You now have full AMMO ");

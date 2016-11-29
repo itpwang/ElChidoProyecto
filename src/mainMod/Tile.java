@@ -10,9 +10,25 @@ import java.io.Serializable;
  * Created by travis on 11/14/16.
  */
 public class Tile implements Serializable {
+
+    /**
+     * This field holds an {@link Enemy} object
+     */
     private Enemy enemy = null;
+
+    /**
+     * This field holds a {@link Player} object
+     */
     private Player player = null;
+
+    /**
+     * This field holds an {@link Item} object
+     */
     private Item item = null;
+
+    /**
+     * This field holds a boolean whether a {@link Tile} is a room or not
+     */
     private boolean isRoom = false;
 
     /**
@@ -26,8 +42,9 @@ public class Tile implements Serializable {
 
     /**
      * This method takes in an argument of {@link Item} type and
-     * sets the position equal to the {@code item} field.
-     * @param item
+     * sets the position equal to the {@link #item} field.
+     *
+     * @param item An item object
      */
     public void insertItem(Item item) {
         this.item = item;
@@ -35,8 +52,9 @@ public class Tile implements Serializable {
 
     /**
      * This method takes in an argument of {@link Player} type and
-     * sets the position equal to the {@code player} field.
-     * @param player
+     * sets the position equal to the {@link #player} field.
+     *
+     * @param player A player object
      */
     public void insertPlayer(Player player) {
         this.player = player;
@@ -44,8 +62,9 @@ public class Tile implements Serializable {
 
     /**
      * This method takes in an argument of {@link Enemy} type and
-     * sets the position equal to the {@code enemy} field.
-     * @param enemy
+     * sets the position equal to the {@link #enemy} field.
+     *
+     * @param enemy An enemy object
      */
     public void insertEnemy(Enemy enemy) {
         this.enemy = enemy;
@@ -79,7 +98,8 @@ public class Tile implements Serializable {
      * returns {@code ' '}, {@code E}, {@code P}, {@code B}, {@code O}, {@code I}
      * depending on object that occupies the tile if it is {@code true} and
      * {@code /} if {@code false}
-     * @param debug
+     *
+     * @param debug {@link GameEngine#debug}
      * @return char representing object
      */
     public char returnSymbol(boolean debug) {
@@ -112,6 +132,7 @@ public class Tile implements Serializable {
      * This method is called by {@link #returnSymbol(boolean)} and returns
      * {@code O}, {@code I}, {@code B} if there is a value in the {@code item}
      * field.
+     *
      * @return char representing object
      */
     private char displayTypeOfItem() {
@@ -127,7 +148,8 @@ public class Tile implements Serializable {
 
     /**
      * This method checks if {@link Tile} contains an {@link Item}
-     * @return {@code true]} if contains item, {@code false} if not
+     *
+     * @return boolean {@code true]} if contains {@link Item}, {@code false} if not
      */
     public boolean hasItem() {
         return item!=null;
@@ -135,7 +157,8 @@ public class Tile implements Serializable {
 
     /**
      * This method checks if {@link Tile} contains a {@link Player}
-     * @return {@code true]} if contains item, {@code false} if not
+     *
+     * @return boolean {@code true} if contains {@link Player}, {@code false} if not
      */
     public boolean hasPlayer() {
         return player!=null;
@@ -145,7 +168,7 @@ public class Tile implements Serializable {
      * This method sets the fields of {@code enemy}, {@code player}, and {@code item}
      * to null in a {@link Tile} object if {@link #isEmpty()} returns {@code true}
      *
-     * @return {@code null} for {@code enemy} and {@code player} fields
+     * @return boolean {@code true} if {@link Tile} is empty, {@code false} if not
      */
     public boolean isEmpty() {
         return enemy == null && player == null && item == null && isRoom == false;
@@ -153,40 +176,89 @@ public class Tile implements Serializable {
 
     /**
      * This method checks if {@link Tile} contains an {@link Enemy}
-     * @return {@code true]} if contains item, {@code false} if not
+     *
+     * @return boolean {@code true} if contains enemy, {@code false} if not
      */
     public boolean hasEnemy() {
         return enemy != null;
     }
+
+    /**
+     * This method checks if {@link Tile} contains an {@link Enemy}
+     *
+     * @return {@code true]} if contains no enemy, {@code false} if it does
+     */
     public boolean noEnemy() {
         return enemy == null;
     }
 
+    /**
+     * This method kills the enemy be setting {@link #enemy} to {@code null}
+     */
     public void killEnemy()
     {
         System.out.println("You kill the Enemy! ");
         this.enemy = null;
     }
 
+    /**
+     * This method is used to return an {@link Enemy} object
+     * @return Enemy An enemy
+     */
     public Enemy getEnemy(){
         return enemy;
     }
+
+    /**
+     * This method is used to set {@link #enemy} to the {@link Enemy}
+     * passed as an argument
+     *
+     * @param e An enemy object
+     */
     public void setEnemy(Enemy e){
         enemy = e;
     }
+
+    /**
+     * This method is used to return the {@link Player} object
+     *
+     * @return Player The player object
+     */
     public Player getPlayer(){
         return player;
     }
+
+    /**
+     * This method returns {@code true} if there is a {@link Room} at
+     * the location, and {@code false} if not.
+     *
+     * @return boolean {@code true, false}
+     */
     public boolean isRoom(){
     	return isRoom;
     }
+
+    /**
+     * This method sets a {@link Room} object at the position if b is {@code true}
+     *
+     * @param b {@code true, false}
+     */
     public void setIsRoom(boolean b) {
     	this.isRoom = b;
     }
+
+    /**
+     * This method is used to return an {@link Item} object
+     * @return Item An item
+     */
     public Item getItem()
     {
         return item;
     }
+
+    /**
+     * This method is used to set {@link Item} to {@code null}
+     */
     public void setItemNull()
     {
         this.item = null;
