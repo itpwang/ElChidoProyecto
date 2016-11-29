@@ -144,7 +144,7 @@ public class UI {
         GameEngine.Direction shootchoice = null;
         boolean input = false;
 
-        while(input == false)
+        while(!input)
         {
             System.out.println("Shoot what direction?");
             displayKeypad();
@@ -178,7 +178,7 @@ public class UI {
         boolean input = false;
         GameEngine.Direction mchoice = null;
 
-        while(input == false)
+        while(!input)
         {
             System.out.println("What direction would you like to move?");
             displayKeypad();
@@ -278,4 +278,15 @@ public class UI {
     public static void shootMiss() {
         System.out.println("Congratulations! You have missed your shot.");
     }
+    public static char newGameorLoad(){
+
+        System.out.println("Do you want to start a new game or load a saved file?");
+        System.out.println("Enter [N] for New Game OR [L] for Load ");
+        char input = takeInput('L', 'l', 'N', 'n');
+        while(input == 'X') {
+            input = takeInput('L', 'l', 'N', 'n');
+        };
+        return input;
+    }
 }
+

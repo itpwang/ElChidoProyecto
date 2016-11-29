@@ -14,7 +14,7 @@ public class Room extends Tile {
      * This field is set to {@code true} if the briefcase is in the room,
      * {@code false} if it is not.
      */
-    private boolean briefcase;
+    private boolean briefcase = false;
 
     /**
      * This field is the position of a room object.
@@ -52,6 +52,12 @@ public class Room extends Tile {
      */
     public boolean getBriefcase(){
         return briefcase;
+    }
+    public boolean isBriefcaseRoom() {
+        if(briefcase)
+            return true;
+        else
+            return false;
     }
 
     /**

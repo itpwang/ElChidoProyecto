@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.awt.Point;
 
-public class Player extends Entity{
+public class Player extends Entity implements Serializable{
 
     private int numOfLives = 3;
     private boolean validMove;
@@ -211,24 +211,12 @@ public class Player extends Entity{
     {
         return new Point(pPos);
     }
-
-    /**
-     * This method sets the {@link Player}'s location.
-     * @return Point Player position
-     */
-    public void setPos(Point p)
-    {
-        pPos = p;
-    }
-
     /**
      * This method sets the {@link Player}'s location.
      * @param p Player position
-     * @param x x-coord
-     * @param y y-coord
      */
-    public void setPos(Point p, int x, int y)
+    public void setPlayerPos(Point p)
     {
-        pPos.setLocation(p.getX()+x,p.getY()+y);
+        pPos.setLocation(p.getX(),p.getY());
     }
 }

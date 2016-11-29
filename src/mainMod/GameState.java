@@ -49,6 +49,11 @@ public class GameState implements Serializable {
      * This field holds an array of the {@link Enemy}'s remaining.
      */
     private Enemy[] savedEnemies;
+    /**
+     * This field stores an {@link ArrayList} of
+     * {@link Item}s
+     */
+    private ArrayList<Item> savedItems;
 
     /**
      * This field holds the {@link Player} object
@@ -79,25 +84,18 @@ public class GameState implements Serializable {
         savedPlayer = (Player) gameObjects.get(0);
         savedBoard = (Grid) gameObjects.get(1);
         savedEnemies = (Enemy[]) gameObjects.get(2);
-        savedListOfEnemyLoc = (Point[]) gameObjects.get(3);
-        savedListOfItemLoc = (Point[]) gameObjects.get(4);
-        savedIsInvincible = (Boolean) gameObjects.get(5);
-        savedInvCounter = (Integer) gameObjects.get(6);
-        savedPlayerAmmo = (Integer) gameObjects.get(7);
-        savedRadar = (Boolean) gameObjects.get(8);
-        savedDebug = (Boolean) gameObjects.get(9);
+        savedItems = (ArrayList<Item>) gameObjects.get(3);
+        savedIsInvincible = (Boolean) gameObjects.get(4);
+        savedInvCounter = (Integer) gameObjects.get(5);
+        savedPlayerAmmo = (Integer) gameObjects.get(6);
+        savedRadar = (Boolean) gameObjects.get(7);
+        savedDebug = (Boolean) gameObjects.get(8);
+
+
     }
 
     public Player getSavedPlayer() {
         return savedPlayer;
-    }
-
-    public Point[] getSavedListOfEnemyLoc() {
-        return savedListOfEnemyLoc;
-    }
-
-    public Point[] getSavedListOfItemLoc() {
-        return savedListOfItemLoc;
     }
 
     public Boolean getSavedDebug() {
@@ -127,6 +125,7 @@ public class GameState implements Serializable {
     public Grid getSavedBoard() {
         return savedBoard;
     }
+    public ArrayList<Item> getSavedItems() { return savedItems;}
 
 }
 

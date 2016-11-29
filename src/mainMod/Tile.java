@@ -30,6 +30,7 @@ public class Tile implements Serializable {
      * This field holds a boolean whether a {@link Tile} is a room or not
      */
     private boolean isRoom = false;
+    private boolean briefcase = false;
 
     /**
      * The Tile class constructor. Called by {@link Grid}
@@ -82,6 +83,8 @@ public class Tile implements Serializable {
             return '/';
         }       
         else if(isRoom) {
+            if(briefcase && GameEngine.getRadar())
+                return 'W';
         	return 'R';
         }
         else if (hasEnemy() || hasItem()) {
@@ -112,6 +115,8 @@ public class Tile implements Serializable {
                 return 'E';
             }
             else if(isRoom) {
+                if(briefcase && GameEngine.getRadar())
+                    return 'W';
             	return 'R';
             }       
             else if (hasEnemy()) {
@@ -237,7 +242,15 @@ public class Tile implements Serializable {
     public boolean isRoom(){
     	return isRoom;
     }
+    public void setBriefcase()
+    {
+        briefcase = true;
+    }
 
+    public boolean hasBriefcase()
+    {
+        return briefcase;
+    }
     /**
      * This method sets a {@link Room} object at the position if b is {@code true}
      *
@@ -263,4 +276,5 @@ public class Tile implements Serializable {
     {
         this.item = null;
     }
+
 }

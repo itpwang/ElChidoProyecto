@@ -226,7 +226,10 @@ public class Grid implements Serializable {
                     return true;
                 } else if (getTile(checkpos.x, checkpos.y).isEmpty()) {
                     return true;
-                } else return false;
+                } else if (getTile(checkpos.x, checkpos.y).isRoom()) {
+                    return true;
+                }
+                else return false;
             case LEFT:
                 checkpos.translate(0, -1);
                 if (isOOB(checkpos.x, checkpos.y)) {
