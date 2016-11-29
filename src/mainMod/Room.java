@@ -5,8 +5,6 @@ import java.awt.*;
 /**
  * This class is in charge of returning a char
  * representing the location of each room on the grid.
- * 
- * Created by travis on 11/14/16.
  */
 public class Room extends Tile {
 
@@ -28,14 +26,6 @@ public class Room extends Tile {
 	public Room(Point Pos){
         roomPos=Pos;
     }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code R} if it is {@code true} and {@code /} if {@code false}
-     * @param debug {@code true, false}
-     * @return char representing object
-     */
-    //public char returnSymbol(boolean debug) {return debug?'R':'/';} uncommment?
 
     /**
      * This method checks if there is a room at the point

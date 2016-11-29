@@ -15,12 +15,6 @@ public class Player extends Entity implements Serializable{
     private int numOfLives = 3;
 
     /**
-     * This field returns {@code true, false} depending if a move
-     * is valid or not.
-     */
-    private boolean validMove;
-
-    /**
      * This field stores the {@link Player}'s movement choice
      * on the keypad
      */
@@ -80,26 +74,6 @@ public class Player extends Entity implements Serializable{
     }
 
     /**
-     * This method returns the character
-     * string that represents the {@link Player}
-     *
-     * @return char {@code P}
-     */
-    public char returnSymbol()
-    {
-        return 'P';
-    }
-
-    /**
-     * This method returns the character
-     * string that represents the {@link Player}
-     *
-     * @param debug {@link GameEngine#debug}
-     * @return char {@code P}
-     */
-    public char returnSymbol(boolean debug) {return debug?'P':'P';}
-
-    /**
      * These methods set the new position of an entity by adding/subtracting 1
      * to the axis corresponding to the move direction.
      */
@@ -116,47 +90,6 @@ public class Player extends Entity implements Serializable{
     // RIGHT: (x, y + 1)
     public void moveRight() {
         pPos.translate(0, 1);
-    }
-
-    /**
-     * This method returns a boolean value based
-     * on whether the spaces they are looking at
-     * are empty or not.
-     *
-     * @return boolean {@code true, false}
-     */
-    public boolean look(moveChoice m){
-        this.lookDirection = m;
-
-        if(peekAhead())
-        {
-        System.out.println("Ninja Ahead!");
-        return true;
-        }
-        else
-        System.out.println("All clear!");
-        return false;
-        }
-
-    /**
-     * This method checks the adjacent space
-     *
-     * @return boolean {@code true}
-     */
-    private boolean peekAhead(){
-        // Checks the look spaces
-        // done from game engine
-        return true;
-        }
-
-    /**
-     * This method checks to see if the player has ammo
-     *
-     * @return boolean {@code true, false}
-     */
-    private boolean checkAmmo(){
-        // total ammo is stored in game engine
-        return true;
     }
 
     /**

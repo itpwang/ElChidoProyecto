@@ -8,12 +8,12 @@ import java.io.Serializable;
  *
  */
 public abstract class Item implements Serializable {
-    private Point[] itemlocation = new Point[3];
+    private Point[] itemLocation = new Point[3];
     int i = 0;
     boolean exists = false;
 
     /**
-     * Abstract constructor of the item class. Fills the {@link Item#itemlocation}
+     * Abstract constructor of the item class. Fills the {@link Item#itemLocation}
      * array with the point locations of items and increments {@link Item#i} with
      * each item added.
      *
@@ -21,7 +21,7 @@ public abstract class Item implements Serializable {
      */
     public Item(Point p)
     {
-        itemlocation[i] = p;
+        itemLocation[i] = p;
         i++;
     }
 

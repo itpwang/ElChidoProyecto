@@ -3,8 +3,6 @@ package mainMod;
 /**
  * This class represents the main class in our program. Program
  * is launched here.
- * @author HiThereAndy
- *
  */
 public class Main {
 	/*
@@ -21,7 +19,7 @@ public class Main {
         /**
          * Prompts user for input to start new or load game.
          */
-        switch (UI.newGameorLoad()) {
+        switch (UI.newGameOrLoad()) {
             // NEW Game
             case 'N':
                 g = new GameEngine();

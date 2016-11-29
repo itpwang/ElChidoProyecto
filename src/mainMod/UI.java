@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class UI {
 
     /**
-     * static int feild that represents userInput when prompted.
+     * static int field that represents userInput when prompted.
      */
-    private static int userinput;
+    private static int userInput;
 
     /**
      *  Scanner object that is used to take in input from the user.
@@ -25,31 +25,6 @@ public class UI {
     public static GameEngine.Direction choice;
 
     /**
-     * This field represent the GameEngine object which is in charge of all the logic in the game and communication between the {@link UI} and game objects
-     */
-    private GameEngine g = new GameEngine();
-
-    /**
-     * This method allows the user to choose
-     * to either start a new game, load a game
-     * or quit.
-     */
-    public static int menuSelect(){
-        System.out.println("Please choose an option: ");
-        System.out.println("1. New Game");
-        System.out.println("2. Load Game");
-        System.out.println("3. Quit");
-
-        userinput = takeInput(1,2,3);
-        if(userinput == 3)
-        {
-            //close();
-        }
-
-        return userinput;
-    }
-
-    /**
      * This method outputs the game description
      * to the screen.
      */
@@ -60,8 +35,8 @@ public class UI {
         System.out.println("Would you like to run in debug mode?");
         System.out.println("Press 1 for debug mode, 0 for normal mode.");
 
-        userinput = takeInput(0,1);
-        if(userinput==1) return true;
+        userInput = takeInput(0,1);
+        if(userInput ==1) return true;
         else return false;
     }
 
@@ -81,10 +56,10 @@ public class UI {
      * This method prompts the user with which direction they would like to move and sets and returns their choice as a enum from the {@link GameEngine} class.
      * @return choice Enumeration for directions
      */
-    public static GameEngine.Direction lookPrompt() { //USE SEAN'S FUNCTION THING HERE
+    public static GameEngine.Direction lookPrompt() {
         boolean input = false;
 
-        while(input == false)
+        while(!input)
         {
             System.out.println("Which direction would you like to look?");
 
@@ -131,7 +106,7 @@ public class UI {
         boolean input = false;
         int moveShoot = 0;
 
-        while(input == false)
+        while(!input)
         {
             System.out.println("Would you like to move or shoot?");
             System.out.println("1. Move" );
@@ -153,7 +128,7 @@ public class UI {
      * @return enumeration representing which direction they would like to shoot.
      */
     public static  GameEngine.Direction shootPrompt() {
-        GameEngine.Direction shootchoice = null;
+        GameEngine.Direction shootChoice = null;
         boolean input = false;
 
         while(!input)
@@ -164,17 +139,17 @@ public class UI {
 
             if (direction == 'W' || direction == 'w')
             {
-                shootchoice = GameEngine.Direction.UP;
+                shootChoice = GameEngine.Direction.UP;
                 input = true;
             }
             else if (direction == 'A' || direction == 'a')
             {
-                shootchoice = GameEngine.Direction.LEFT;
+                shootChoice = GameEngine.Direction.LEFT;
                 input = true;
             }
             else if(direction == 'D' || direction == 'd')
             {
-                shootchoice = GameEngine.Direction.RIGHT;
+                shootChoice = GameEngine.Direction.RIGHT;
                 input = true;
             }
             else if(direction == 'S' || direction == 's')
@@ -183,7 +158,7 @@ public class UI {
             }
         }
 
-        return shootchoice;
+        return shootChoice;
     }
 
     /**
@@ -192,7 +167,7 @@ public class UI {
      */
     public static GameEngine.Direction movePrompt() {
         boolean input = false;
-        GameEngine.Direction mchoice = null;
+        GameEngine.Direction moveChoice = null;
 
         while(!input)
         {
@@ -203,22 +178,22 @@ public class UI {
 
             if (direction == 'W' || direction == 'w')
             {
-                mchoice = GameEngine.Direction.UP;
+                moveChoice = GameEngine.Direction.UP;
                 input = true;
             }
             else if (direction == 'A' || direction == 'a')
             {
-                mchoice = GameEngine.Direction.LEFT;
+                moveChoice = GameEngine.Direction.LEFT;
                 input = true;
             }
             else if(direction == 'D' || direction == 'd')
             {
-                mchoice = GameEngine.Direction.RIGHT;
+                moveChoice = GameEngine.Direction.RIGHT;
                 input = true;
             }
             else if(direction == 'S' || direction == 's')
             {
-                mchoice = GameEngine.Direction.DOWN;
+                moveChoice = GameEngine.Direction.DOWN;
                 input = true;
             }
             else
@@ -227,7 +202,7 @@ public class UI {
             }
         }
 
-        return mchoice;
+        return moveChoice;
     }
 
     /**
@@ -301,27 +276,11 @@ public class UI {
         return false;
     }
 
-    public static void roomMoveError() {
-        System.out.println("Entering from the wrong side of the room");
-
-
-    }
-
-    public static void shootHit() {
-        System.out.println("Congratulations! You have hit an ninja! " +
-                " You are now a murderer.");
-    }
-
-    public static void shootMiss() {
-        System.out.println("Congratulations! You have missed your shot.");
-    }
-
     /**
      * This method prompts the user requesting them to enter if they would like to load or save a game.
      * @return input the choice representing if they want to
      */
-    public static char newGameorLoad(){
-
+    public static char newGameOrLoad(){
         System.out.println("Do you want to start a new game or load a saved file?");
         System.out.println("Enter [N] for New Game OR [L] for Load ");
         char input = takeInput('L', 'l', 'N', 'n');
