@@ -161,15 +161,25 @@ public class Grid implements Serializable {
      * @param {@link Tile} A
      * @param {@link Tile} B
      */
-    public void swapTile(Tile A, Tile B){
-
+    public void swapTile(Tile A, Tile B){ //GHETTHO AF
+        if(B.hasItem()) {
+            itemBegoneSwap(A, B);
+            return;
+        }
+        if(A.hasItem() && A.hasEnemy()) {
+            dropThatItemBoy(A, B);
+            return;
+        }
+        if(A.hasItem() && B.hasItem()) {
+            return; //Don't move at all
+        }
         Tile temp = new Tile();
         temp.insertPlayer(A.getPlayer());
         temp.insertEnemy(A.getEnemy());
-        temp.insertItem(B.getItem());
+        temp.insertItem(A.getItem());
 
         A.insertEnemy(B.getEnemy());
-//        A.insertItem(B.getItem());
+        A.insertItem(B.getItem());
         A.insertPlayer(B.getPlayer());
 
         B.insertEnemy(temp.getEnemy());
@@ -177,6 +187,23 @@ public class Grid implements Serializable {
         B.insertPlayer(temp.getPlayer());
     }
 
+    /**
+     * Moves enemy into a tile with an item, creating a tile with both an enemy and an item inside
+     */
+    public void itemBegoneSwap(Tile A, Tile B) {
+        B.insertEnemy(A.getEnemy());
+        A.insertEnemy(null);
+        A.insertItem(null);
+        A.insertPlayer(null);
+    }
+
+    /**
+     * Drop it motha fucka
+     */
+    public void dropThatItemBoy(Tile A, Tile B) {
+        B.insertEnemy(A.getEnemy());
+        A.insertEnemy(null);
+    }
     /**
      * This method checks to see if the player move is valid
      * The arguments passed are the {@link Player}'s position
