@@ -4,18 +4,60 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
+/**
+ * This class holds the current state of the game when a save is made and will be
+ * used to instantiate a GameEngine object.
+ */
 public class GameState implements Serializable {
 
+    /**
+     * This field holds whether debug is {@code true, false}
+     */
     private Boolean savedDebug;
+
+    /**
+     * This field holds an array of {@link Enemy} locations
+     */
     private Point[] savedListOfEnemyLoc;
+
+    /**
+     * This field holds an array of {@link Item} locations
+     */
     private Point[] savedListOfItemLoc;
+
+    /**
+     * This field holds whether invincible is on or off {@code true, false}
+     */
     private Boolean savedIsInvincible;
+
+    /**
+     * This field holds the remaining steps of invincibility
+     */
     private Integer savedInvCounter;
+
+    /**
+     * This field holds the player's total ammo
+     */
     private Integer savedPlayerAmmo;
+
+    /**
+     * This field holds whether the {@link Radar} is on or off {@code true, false}
+     */
     private Boolean savedRadar;
+
+    /**
+     * This field holds an array of the {@link Enemy}'s remaining.
+     */
     private Enemy[] savedEnemies;
+
+    /**
+     * This field holds the {@link Player} object
+     */
     private Player savedPlayer;
+
+    /**
+     * This field holds the {@link Grid} object.
+     */
     private Grid savedBoard;
 
     // ORDER :
@@ -30,6 +72,9 @@ public class GameState implements Serializable {
 //                gameObjects.add(radar);
 //                gameObjects.add(debug);
 
+    /**
+     * @param gameObjects
+     */
     public GameState(ArrayList gameObjects) {
         savedPlayer = (Player) gameObjects.get(0);
         savedBoard = (Grid) gameObjects.get(1);
@@ -41,16 +86,12 @@ public class GameState implements Serializable {
         savedPlayerAmmo = (Integer) gameObjects.get(7);
         savedRadar = (Boolean) gameObjects.get(8);
         savedDebug = (Boolean) gameObjects.get(9);
-
-
     }
-
-
-
 
     public Player getSavedPlayer() {
         return savedPlayer;
     }
+
     public Point[] getSavedListOfEnemyLoc() {
         return savedListOfEnemyLoc;
     }
@@ -62,6 +103,7 @@ public class GameState implements Serializable {
     public Boolean getSavedDebug() {
         return savedDebug;
     }
+
     public Boolean getSavedIsInvincible() {
         return savedIsInvincible;
     }
