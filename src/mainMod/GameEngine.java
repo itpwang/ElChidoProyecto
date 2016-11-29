@@ -83,6 +83,11 @@ public class GameEngine {
     }
 
     /**
+     * Holds success of shoot state, false= failed, true = hit
+     */
+
+    private boolean shootState = false;
+    /**
      * This enumerated field creates the values
      * UP,DOWN,LEFT,RIGHT.
      */
@@ -159,7 +164,9 @@ public class GameEngine {
             return;
 
         board.printGrid(debug);
-        allEnemiesTurn();
+        if(!shootState) {
+            allEnemiesTurn();
+        }
         timeDelay(2);
         board.printGrid(debug);
         System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
@@ -172,6 +179,7 @@ public class GameEngine {
             isInvincible = false;
             invCounter = 5;
         }
+        shootState = false;
 
     }
 
@@ -197,6 +205,7 @@ public class GameEngine {
                 	}
                 	else if(board.map[p.x - i][p.y].hasEnemy()) {
                         board.map[p.x - i][p.y].killEnemy();
+                        shootState = true;
                         break;
                 	}
                 }
@@ -210,6 +219,7 @@ public class GameEngine {
                 	}
                 	else if(board.map[p.x + i][p.y].hasEnemy()) {
                         board.map[p.x + i][p.y].killEnemy();
+                        shootState = true;
                         break;
                 	}
                 }
@@ -223,6 +233,7 @@ public class GameEngine {
                 	}
                 	else if(board.map[p.x][p.y + i].hasEnemy()) {
                         board.map[p.x][p.y + i].killEnemy();
+                        shootState = true;
                         break;
                 	}
                 }
@@ -236,6 +247,7 @@ public class GameEngine {
                 	}
                 	else if(board.map[p.x][p.y - i].hasEnemy()) {
                         board.map[p.x][p.y - i].killEnemy();
+                        shootState = true;
                         break;
                 	}
                 }
