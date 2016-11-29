@@ -134,13 +134,12 @@ public class GameEngine {
         player = loadedGameState.getSavedPlayer();
         board = loadedGameState.getSavedBoard();
         enemies = loadedGameState.getSavedEnemies();
+        items = loadedGameState.getSavedItems();
         isInvincible = loadedGameState.getSavedIsInvincible();
         invCounter = loadedGameState.getSavedInvCounter();
         playerAmmo = loadedGameState.getSavedPlayerAmmo();
         radar = loadedGameState.getSavedRadar();
         debug = loadedGameState.getSavedDebug();
-
-
     }
 
     /**
@@ -694,13 +693,16 @@ public class GameEngine {
         gameObjects.add(player);
         gameObjects.add(board);
         gameObjects.add(enemies);
+        gameObjects.add(items);
         gameObjects.add(isInvincible);
         gameObjects.add(invCounter);
         gameObjects.add(playerAmmo);
         gameObjects.add(radar);
         gameObjects.add(debug);
+
         //gameObjects.add(radarCounter);
         //gameObjects.add(debug);
+
         System.out.print("Saving game");
         timeDelay(1);
         timeDelay(1);
