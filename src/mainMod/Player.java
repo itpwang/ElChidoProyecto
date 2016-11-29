@@ -4,9 +4,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.awt.Point;
 
+/**
+ * This class represents the player and its fields/methods
+ */
 public class Player extends Entity implements Serializable{
 
+    /**
+     * This field represents the number of lives that a {@link Player} has left
+     */
     private int numOfLives = 3;
+
+    /**
+     * This field returns {@code true, false} depending if a move
+     * is valid or not.
+     */
     private boolean validMove;
 
     /**
@@ -139,14 +150,6 @@ public class Player extends Entity implements Serializable{
         }
 
     /**
-        * This method calls the {@code displayChoice} method
-        * and returns the respective integer from the
-        * users decision
-        *
-        * @return answer
-        */
-
-    /**
      * This method checks to see if the player has ammo
      *
      * @return boolean {@code true, false}
@@ -172,6 +175,7 @@ public class Player extends Entity implements Serializable{
     {
         return new Point(pPos);
     }
+
     /**
      * This method sets the {@link Player}'s location.
      * @param p Player position

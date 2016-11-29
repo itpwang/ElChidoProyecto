@@ -145,7 +145,13 @@ public class GameState implements Serializable {
     public Grid getSavedBoard() {
         return savedBoard;
     }
-    
+
+    /**
+     * This method returns an {@link ArrayList} of
+     * {@link Item} objects from {@link #savedItems}
+     *
+     * @return ArrayList<Item> Saved item objects
+     */
     public ArrayList<Item> getSavedItems() { return savedItems;}
 
 }
