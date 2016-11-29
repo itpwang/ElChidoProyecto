@@ -64,6 +64,8 @@ public class Tile implements Serializable {
             return '/';
         }       
         else if(isRoom) {
+            if(briefcase && GameEngine.getRadar())
+                return 'W';
         	return 'R';
         }
         else if (hasEnemy() || hasItem()) {
@@ -93,6 +95,8 @@ public class Tile implements Serializable {
                 return 'E';
             }
             else if(isRoom) {
+                if(briefcase && GameEngine.getRadar())
+                    return 'W';
             	return 'R';
             }       
             else if (hasEnemy()) {

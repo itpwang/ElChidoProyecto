@@ -16,15 +16,20 @@ public class Main {
 
         GameEngine g;
         switch(UI.newGameorLoad()){
-            case 'N': g = new GameEngine();
+            case 'N':
+                g = new GameEngine();
                 break;
-            case 'n':g = new GameEngine();
+            case 'n':
+                g = new GameEngine();
                 break;
-            case 'L':g = new GameEngine(SaveEngine.readSave());
+            case 'L':
+                g = new GameEngine(SaveEngine.readSave());
                 break;
-            case 'l':g = new GameEngine(SaveEngine.readSave());
+            case 'l':
+                g = new GameEngine(SaveEngine.readSave());
                 break;
-            default: g=new GameEngine();
+            default:
+                g = new GameEngine();
 
         }
         g.changeDebug(UI.startMenu());
