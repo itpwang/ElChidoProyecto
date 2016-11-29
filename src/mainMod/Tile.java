@@ -30,6 +30,10 @@ public class Tile implements Serializable {
      * This field holds a boolean whether a {@link Tile} is a room or not
      */
     private boolean isRoom = false;
+
+    /**
+     * This field holds whether a {@link Tile} has a briefcase or not
+     */
     private boolean briefcase = false;
 
     /**
@@ -243,11 +247,21 @@ public class Tile implements Serializable {
     public boolean isRoom(){
     	return isRoom;
     }
+
+    /**
+     * This method sets a {@link #briefcase} to return {@code true}
+     */
     public void setBriefcase()
     {
         briefcase = true;
     }
 
+    /**
+     * This method returns {@code true, false} depending on what a {@link Tile}
+     * has in {@link #briefcase}
+     *
+     * @return boolean {@code true, false}
+     */
     public boolean hasBriefcase()
     {
         return briefcase;

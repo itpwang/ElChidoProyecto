@@ -2,13 +2,18 @@ package mainMod;
 import java.io.*;
 
 /**
- * This class handles all of the saving and loading for the game. Saving is done by serializing the {@link GameState} class which holds all of the {@link GameEngine} objects.
+ * This class handles all of the saving and loading for
+ * the game. Saving is done by serializing the {@link GameState}
+ * class which holds all of the {@link GameEngine} objects.
  */
 public class SaveEngine {
 
 
     /**
-     * This method writes the {@link GameState} to a file in the current directory and display the current directory the file has been saved in.
+     * This method writes the {@link GameState} to a file in
+     * the current directory and display the current directory
+     * the file has been saved in.
+     *
      * @param gameState GameState
      */
     public static void writeSave(GameState gameState){
