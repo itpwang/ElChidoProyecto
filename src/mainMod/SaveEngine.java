@@ -1,8 +1,16 @@
 package mainMod;
 import java.io.*;
 
+/**
+ * This class handles all of the saving and loading for the game. Saving is done by serializing the {@link GameState} class which holds all of the {@link GameEngine} objects.
+ */
 public class SaveEngine {
 
+
+    /**
+     * This method writes the {@link GameState} to a file in the current directory and display the current directory the file has been saved in.
+     * @param gameState GameState
+     */
     public static void writeSave(GameState gameState){
         try{
 
@@ -23,6 +31,10 @@ public class SaveEngine {
         }
     }
 
+    /**
+     * This method reads the save.ser files which contains serialized {@link GameEngine} objects.
+     * @return loadedGameSave GameState serialized object
+     */
     public static GameState readSave() {
         try {
             FileInputStream fileIn = new FileInputStream("./save.ser");
@@ -31,6 +43,9 @@ public class SaveEngine {
             in.close();
             fileIn.close();
             return loadedGameSave;
+        } catch (FileNotFoundException f){
+            System.out.println("No game save was found.");
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -38,24 +38,6 @@ public class Ammo extends Item {
      * 
      * @return char {@code B}
      */
-    public char returnSymbol()
-    {
-        return 'B';
-    }
-
-    /**
-     * Overloaded method of {@link #returnSymbol()} Checks if debug mode is on and
-     * returns {@code B} if it is {@code true} and {@code /} if {@code false}
-     * @param debug {@link GameEngine#debug}
-     * @return char representing object
-     */
-    public char returnSymbol(boolean debug) {return debug?'B':'/';}
-
-    /**
-     * This method uses the ammo item. Calls the
-     * {@link GameEngine#resetAmmo()} method to set
-     * {@link GameEngine#playerAmmo} to {@code 1}
-     */
     public void use() {
         GameEngine.resetAmmo();
         System.out.println("You now have full AMMO ");

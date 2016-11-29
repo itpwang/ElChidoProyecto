@@ -107,13 +107,14 @@ public class Tile implements Serializable {
      */
     public char returnSymbol(boolean debug) {
         if(debug) {
-            if (hasItem()) {
-                return displayTypeOfItem();
-            }
-            else if(hasItem()&&hasEnemy())
+            if(hasItem()&&hasEnemy())
             {
                 return 'E';
             }
+            else if (hasItem()) {
+                return displayTypeOfItem();
+            }
+
             else if(isRoom) {
                 if(briefcase && GameEngine.getRadar())
                     return 'W';

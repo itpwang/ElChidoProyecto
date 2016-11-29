@@ -128,8 +128,8 @@ public class GameEngine {
         board = new Grid();
         generateBriefcase();
         generatePlayer();
-        generateEnemies();
         generateItems();
+        generateEnemies();
         debug = false;
     }
 
@@ -379,7 +379,6 @@ public class GameEngine {
             else
                 System.out.println("You have no ammo!");
             timeDelay(1);
-
         }
     }
 
@@ -495,26 +494,35 @@ public class GameEngine {
      * @param ePos
      */
     public void enemyMove(Point ePos) {
-        Direction movement;
-
+        //Direction movement = rollMove();
+        Direction movement = Direction.UP;
+        System.out.println("enemy at" + ePos.x +","+ ePos.y+ " moved"); //DEBUG
         //Move
-        while(board.validMove(ePos,movement = rollMove())&&board.canMove(ePos)) {
+        while(!board.validMove(ePos,movement)&&board.canMove(ePos))
+        {
+            movement=rollMove();
+        };
+        while(board.validMove(ePos,movement)&&board.canMove(ePos)) {
             switch (movement) {
                 case UP:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveUp();
                     moveUp(ePos);
+                    System.out.println(" UP"); //DEBUG
                     break;
                 case DOWN:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveDown();
                     moveDown(ePos);
+                    System.out.println(" DOWN"); //DEBUG
                     break;
                 case LEFT:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveLeft();
                     moveLeft(ePos);
+                    System.out.println(" LEFT"); //DEBUG
                     break;
                 case RIGHT:
                     board.getTile(ePos.x, ePos.y).getEnemy().moveRight();
                     moveRight(ePos);
+                    System.out.println(" RIGHT"); //DEBUG
                     break;
             }
             break;
@@ -537,19 +545,19 @@ public class GameEngine {
      * and calls{@link #enemyTurn(Point)}
      */
     public void allEnemiesTurn(){
-//        for(int i = 0; i>listOfEnemyLoc.length;i++){
-//            enemyTurn(listOfEnemyLoc[i]);
-//        }
-        System.out.println("All the enemies take their turn!");
-
-        for(int i= 0; i<board.getRowLen();i++){
-            for(int j=0;j<board.getColLen();j++){
-                if(board.getTile(i,j).hasEnemy()){
-                    enemyTurn(new Point(i,j));
+        for(Enemy e: enemies) {
+            for (int i = 0; i < board.getRowLen(); i++) {
+                for (int j = 0; j < board.getColLen(); j++) {
+                    if (board.getTile(i, j).hasEnemy()) {
+                        e=new Enemy(new Point(i,j));
+                    }
                 }
             }
         }
-
+        for(Enemy i: enemies){
+            enemyTurn(i.getPos());
+        }
+        System.out.println("All the enemies take their turn!");
     }
 
     /**
@@ -609,7 +617,7 @@ public class GameEngine {
     public Direction rollMove() {
         int enemyMove;
         Random rand = new Random();
-        enemyMove = rand.nextInt(3);
+        enemyMove = rand.nextInt(4);
 
         switch (enemyMove) {
             case 0:
@@ -703,10 +711,6 @@ public class GameEngine {
         gameObjects.add(playerAmmo);
         gameObjects.add(radar);
         gameObjects.add(debug);
-
-        //gameObjects.add(radarCounter);
-        //gameObjects.add(debug);
-
         System.out.print("Saving game");
         timeDelay(1);
         timeDelay(1);
@@ -768,9 +772,6 @@ public class GameEngine {
         int num1, num2;
         Point enemyloc;
         int i = 0;
-
-
-        board.map[1][1].returnSymbol(debug);
 
         while(i < 6)
         {

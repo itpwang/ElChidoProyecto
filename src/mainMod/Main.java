@@ -1,5 +1,4 @@
 package mainMod;
-import java.awt.Point;
 
 /**
  * This class represents the main class in our program. Program
@@ -15,7 +14,8 @@ public class Main {
     public static void main(String[] args) {
 
         GameEngine g;
-        switch(UI.newGameorLoad()){
+
+        switch (UI.newGameorLoad()) {
             case 'N':
                 g = new GameEngine();
                 break;
@@ -23,10 +23,18 @@ public class Main {
                 g = new GameEngine();
                 break;
             case 'L':
-                g = new GameEngine(SaveEngine.readSave());
+                try{g = new GameEngine(SaveEngine.readSave());
+                }catch (NullPointerException e){
+                    System.out.println("Starting a new game . . .");
+                    g = new GameEngine();
+                }
                 break;
             case 'l':
-                g = new GameEngine(SaveEngine.readSave());
+                try{g = new GameEngine(SaveEngine.readSave());
+                }catch (NullPointerException e){
+                    System.out.println("Starting a new game . . .");
+                    g = new GameEngine();
+                }
                 break;
             default:
                 g = new GameEngine();
