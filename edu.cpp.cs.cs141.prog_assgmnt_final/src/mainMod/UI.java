@@ -67,7 +67,9 @@ public class UI {
         System.out.println(" Left : A ");
         System.out.println("Right : D ");
         System.out.println(" Down : S ");
-        System.out.println(" Save and Quit : P ");
+        System.out.println("-----------------------");
+        System.out.println(" Save and Quit : Q ");
+        System.out.println(" Toggle debug mode : X ");
     }
 
     public static void displayKeypadNoSave(){
@@ -90,7 +92,7 @@ public class UI {
 
             displayKeypad();
 
-            char direction = takeInput('W','A','S','D','P','w','a','s','d','p');
+            char direction = takeInput('W','A','S','D','Q','X','w','a','s','d','q', 'x');
 
             if (direction == 'W' || direction == 'w')
             {
@@ -116,6 +118,10 @@ public class UI {
             {
                 choice = GameEngine.Direction.SAVE;
                 input = true;
+            }
+            else if(direction == 'X' || direction == 'x') {
+            	choice = GameEngine.Direction.DEBUG;
+            	input = true;
             }
         }
 
@@ -313,5 +319,110 @@ public class UI {
             input = takeInput('L', 'l', 'N', 'n');
         }
         return input;
+    }
+    
+    /**
+     * This method displays the message for when debug mode is toggled
+     */
+    public static void drawDebugToggleMsg() {
+    	System.out.println("Debug mode toggled");
+    }
+    
+    /**
+     * This method displays the message for when the user shoots the room, why would you shoot a room
+     */
+    public static void drawShootRoomMsg() {
+    	System.out.println("You shot a room, idiot.");
+    }
+    
+    /**
+     * This method draws the invincibility message
+     */
+    public static void drawInvincibleMsg() {
+    	System.out.println("You are INVINCIBLE");
+    }
+    
+    /**
+     * This method displays the message for when invincibility wears off
+     */
+    public static void drawInvincibilityOffMsg() {
+    	System.out.println("Invincibility wore off");
+    }
+    
+    /**
+     * This method displays the enemies moved message
+     */
+    public static void drawEnemiesMovedMsg() {
+    	System.out.println("All the enemies moved");
+    }
+    
+    /**
+     * This method displays the "You died" message
+     */
+    public static void drawYouDiedMsg() {
+    	System.out.println("You ded");
+    }
+    
+    /**
+     * This method displays the enemy attack message
+     */
+    public static void drawEnemyAttackMsg() {
+    	System.out.println("The ninja attacks you!");
+    }
+    
+    /**
+     * This method displays the message for when the player looks at the wall
+     */
+    public static void drawLookWallMsg() {
+    	System.out.println("You see a wall ahead");
+    }
+    
+    /**
+     * This method displays the message for when the player looks at a ninja
+     */
+    public static void drawLookNinjaMsg() {
+    	System.out.println("You see a ninja ahead!");
+    }
+    
+    /**
+     * This method displays the message for when the player looks at nothing
+     */
+    public static void drawLookNothingMsg() {
+    	System.out.println("You see a nothing ahead");
+    }
+    
+    /**
+     * This method displays the message for when the player finds the briefcase room
+     */
+    public static void drawBriefcaseWinMsg() {
+    	System.out.println("You look into the room... You find a briefcase, congratulations! You win");
+    }
+    
+    /**
+     * This method displays the message for when the player doesn't find a briefcase in the room
+     */
+    public static void drawBriefcaseFailMsg() {
+    	System.out.println("You look into the room... But find no briefcase");
+    }
+    
+    /**
+     * This method draws the invincibility counter
+     */
+    public static void drawInvincibilityCount(int count) {
+    	System.out.println("InvCounter: " + count);
+    }
+    
+    /**
+     * This method draws the user's stats such as ammo count and lives
+     */
+    public static void drawPlayerStats(int lives, int ammoCount) {
+    	System.out.println("LIVES: " + lives + " AMMO: " + ammoCount);
+    }
+    
+    /**
+     * This method is drawn when the player has no ammo left
+     */
+    public static void drawNoAmmoMsg() {
+    	System.out.println("You have no ammo left!");
     }
 }
