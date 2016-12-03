@@ -1,21 +1,3 @@
-/**
- * CS 141: Intro to Programming and Problem Solving
- * Professor: Edwin Rodríguez
- *
- * Programming Assignment Final
- *
- * This is a text-based game where the player has to find a briefcase
- * located in 1 of 9 rooms. Complications include enemies that could kill you.
- * Powerups can also be obtained.
- *
- * Team Destructors
- *   Ivan Wang
- *   Travis Linkey
- *   Sean McCullough
- *   Zach Oeh
- *   Michael Ortega
- *   Andy Rosas
- */
 package mainMod;
 
 /**
@@ -33,11 +15,17 @@ public class Main {
          * Creates a new {@link GameEngine} object.
          */
         GameEngine g;
-
+        
+        /**
+         * Creates a new {@link UI} object
+         */
+        UI ui = new UI();
+        
+        
         /**
          * Prompts user for input to start new or load game.
          */
-        switch (UI.newGameOrLoad()) {
+        switch (ui.newGameOrLoad()) {
             // NEW Game
             case 'N':
                 g = new GameEngine();
@@ -69,7 +57,7 @@ public class Main {
          * While {@link GameEngine#gameOver()} and {@link GameEngine#isSavingGame()}
          * return false the player will be able to continue taking turns.
          */
-        g.changeDebug(UI.startMenu());
+        g.changeDebug(ui.startMenu());
         g.printBoard();
         while(!g.gameOver() && !g.isSavingGame()) {
             g.takeTurn();

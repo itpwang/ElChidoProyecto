@@ -1,22 +1,5 @@
-/**
- * CS 141: Intro to Programming and Problem Solving
- * Professor: Edwin Rodríguez
- *
- * Programming Assignment Final
- *
- * This is a text-based game where the player has to find a briefcase
- * located in 1 of 9 rooms. Complications include enemies that could kill you.
- * Powerups can also be obtained.
- *
- * Team Destructors
- *   Ivan Wang
- *   Travis Linkey
- *   Sean McCullough
- *   Zach Oeh
- *   Michael Ortega
- *   Andy Rosas
- */
 package mainMod;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -27,26 +10,25 @@ import java.util.Scanner;
 public class UI {
 
     /**
-     * static int field that represents userInput when prompted.
+     *  int field that represents userInput when prompted.
      */
-    private static int userInput;
+    private  int userInput;
 
     /**
      *  Scanner object that is used to take in input from the user.
      */
-    private static Scanner scan = new Scanner(System.in);
+    private  Scanner scan = new Scanner(System.in);
 
     /**
      * This field represents an enum from the {@link GameEngine} which represents the direction the user wants the move or look towards.
      */
-    public static GameEngine.Direction choice;
+    public  GameEngine.Direction choice;
 
     /**
      * This method outputs the game description
      * to the screen.
-     * @return {@code true/false}
      */
-    public static boolean startMenu(){
+    public  boolean startMenu(){
         System.out.println("*_________________________________*");
         System.out.println("* This is a dungeon crawlser game *");
         System.out.println("*_________________________________*");
@@ -62,7 +44,7 @@ public class UI {
      * This method outputs the keypad options
      * to the screen
      */
-    public static void displayKeypad() {
+    public  void displayKeypad() {
         System.out.println("  Up  : W ");
         System.out.println(" Left : A ");
         System.out.println("Right : D ");
@@ -72,7 +54,7 @@ public class UI {
         System.out.println(" Toggle debug mode : X ");
     }
 
-    public static void displayKeypadNoSave(){
+    public  void displayKeypadNoSave(){
         System.out.println("  Up  : W ");
         System.out.println(" Left : A ");
         System.out.println(" Down : S ");
@@ -83,7 +65,7 @@ public class UI {
      * This method prompts the user with which direction they would like to move and sets and returns their choice as a enum from the {@link GameEngine} class.
      * @return choice Enumeration for directions
      */
-    public static GameEngine.Direction lookPrompt() {
+    public  GameEngine.Direction lookPrompt() {
         boolean input = false;
 
         while(!input)
@@ -133,7 +115,7 @@ public class UI {
      * This method displays a prompt to the user to shoot or to move
      * @return int value representing user's choice to move or shoot
      */
-    public static int moveOrShootPrompt() {
+    public  int moveOrShootPrompt() {
         boolean input = false;
         int moveShoot = 0;
 
@@ -158,7 +140,7 @@ public class UI {
      * This method provides a prompt to the user requesting for them to input which direction they would like to move.
      * @return enumeration representing which direction they would like to shoot.
      */
-    public static  GameEngine.Direction shootPrompt() {
+    public   GameEngine.Direction shootPrompt() {
         GameEngine.Direction shootChoice = null;
         boolean input = false;
 
@@ -196,7 +178,7 @@ public class UI {
      *  This method provides the user with a prompt requesting them to enter which direction they would like to move.
      * @return enumeration representing which direction they would like to shoot.
      */
-    public static GameEngine.Direction movePrompt() {
+    public  GameEngine.Direction movePrompt() {
         boolean input = false;
         GameEngine.Direction moveChoice = null;
 
@@ -241,7 +223,7 @@ public class UI {
      * @param validInputs all possible valid inputs
      * @return choice the correct input for the prompt
      */
-    private static int takeInput(int...validInputs) {
+    private  int takeInput(int...validInputs) {
         int choice;
 
         try
@@ -263,7 +245,7 @@ public class UI {
      * @param c the value the user inputted
      * @return boolean valid representing if the input is valid or not
      */
-    private static boolean isInputValid(int inputs[], int c) {
+    private  boolean isInputValid(int inputs[], int c) {
         for(int i : inputs)
         {
             if(c == i)
@@ -276,7 +258,7 @@ public class UI {
      * @param validInputs all possible valid char inputs
      * @return choice the correct input for the prompt
      */
-    private static char takeInput(char...validInputs) {
+    private  char takeInput(char...validInputs) {
         char choice;
 
         try
@@ -298,7 +280,7 @@ public class UI {
      * @param c the value the user inputted
      * @return boolean valid representing if the input is valid or not
      */
-    private static boolean isInputValid(char inputs[], char c) {
+    private  boolean isInputValid(char inputs[], char c) {
         for(char i : inputs)
         {
             if(c == i)
@@ -311,7 +293,7 @@ public class UI {
      * This method prompts the user requesting them to enter if they would like to load or save a game.
      * @return input the choice representing if they want to
      */
-    public static char newGameOrLoad(){
+    public  char newGameOrLoad(){
         System.out.println("Do you want to start a new game or load a saved file?");
         System.out.println("Enter [N] for New Game OR [L] for Load ");
         char input = takeInput('L', 'l', 'N', 'n');
@@ -324,105 +306,105 @@ public class UI {
     /**
      * This method displays the message for when debug mode is toggled
      */
-    public static void drawDebugToggleMsg() {
+    public  void drawDebugToggleMsg() {
     	System.out.println("Debug mode toggled");
     }
     
     /**
      * This method displays the message for when the user shoots the room, why would you shoot a room
      */
-    public static void drawShootRoomMsg() {
+    public  void drawShootRoomMsg() {
     	System.out.println("You shot a room, idiot.");
     }
     
     /**
      * This method draws the invincibility message
      */
-    public static void drawInvincibleMsg() {
+    public  void drawInvincibleMsg() {
     	System.out.println("You are INVINCIBLE");
     }
     
     /**
      * This method displays the message for when invincibility wears off
      */
-    public static void drawInvincibilityOffMsg() {
+    public  void drawInvincibilityOffMsg() {
     	System.out.println("Invincibility wore off");
     }
     
     /**
      * This method displays the enemies moved message
      */
-    public static void drawEnemiesMovedMsg() {
+    public  void drawEnemiesMovedMsg() {
     	System.out.println("All the enemies moved");
     }
     
     /**
      * This method displays the "You died" message
      */
-    public static void drawYouDiedMsg() {
+    public  void drawYouDiedMsg() {
     	System.out.println("You ded");
     }
     
     /**
      * This method displays the enemy attack message
      */
-    public static void drawEnemyAttackMsg() {
+    public  void drawEnemyAttackMsg() {
     	System.out.println("The ninja attacks you!");
     }
     
     /**
      * This method displays the message for when the player looks at the wall
      */
-    public static void drawLookWallMsg() {
+    public  void drawLookWallMsg() {
     	System.out.println("You see a wall ahead");
     }
     
     /**
      * This method displays the message for when the player looks at a ninja
      */
-    public static void drawLookNinjaMsg() {
+    public  void drawLookNinjaMsg() {
     	System.out.println("You see a ninja ahead!");
     }
     
     /**
      * This method displays the message for when the player looks at nothing
      */
-    public static void drawLookNothingMsg() {
+    public  void drawLookNothingMsg() {
     	System.out.println("You see a nothing ahead");
     }
     
     /**
      * This method displays the message for when the player finds the briefcase room
      */
-    public static void drawBriefcaseWinMsg() {
+    public  void drawBriefcaseWinMsg() {
     	System.out.println("You look into the room... You find a briefcase, congratulations! You win");
     }
     
     /**
      * This method displays the message for when the player doesn't find a briefcase in the room
      */
-    public static void drawBriefcaseFailMsg() {
+    public  void drawBriefcaseFailMsg() {
     	System.out.println("You look into the room... But find no briefcase");
     }
     
     /**
      * This method draws the invincibility counter
      */
-    public static void drawInvincibilityCount(int count) {
+    public  void drawInvincibilityCount(int count) {
     	System.out.println("InvCounter: " + count);
     }
     
     /**
      * This method draws the user's stats such as ammo count and lives
      */
-    public static void drawPlayerStats(int lives, int ammoCount) {
+    public  void drawPlayerStats(int lives, int ammoCount) {
     	System.out.println("LIVES: " + lives + " AMMO: " + ammoCount);
     }
     
     /**
      * This method is drawn when the player has no ammo left
      */
-    public static void drawNoAmmoMsg() {
+    public  void drawNoAmmoMsg() {
     	System.out.println("You have no ammo left!");
     }
 }

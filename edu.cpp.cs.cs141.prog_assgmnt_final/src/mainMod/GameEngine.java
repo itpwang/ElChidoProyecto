@@ -1,21 +1,3 @@
-/**
- * CS 141: Intro to Programming and Problem Solving
- * Professor: Edwin Rodríguez
- *
- * Programming Assignment Final
- *
- * This is a text-based game where the player has to find a briefcase
- * located in 1 of 9 rooms. Complications include enemies that could kill you.
- * Powerups can also be obtained.
- *
- * Team Destructors
- *   Ivan Wang
- *   Travis Linkey
- *   Sean McCullough
- *   Zach Oeh
- *   Michael Ortega
- *   Andy Rosas
- */
 package mainMod;
 import java.util.*;
 import java.awt.Point;
@@ -25,6 +7,11 @@ import java.awt.Point;
  */
 public class GameEngine {
 
+	/**
+	 * This field holds the ui object
+	 */
+	private UI ui = new UI();
+	
     /**
      * This field represents the grid of the game. Instantiates a new object of type Grid.
      */
@@ -168,8 +155,8 @@ public class GameEngine {
 
         if(isInvincible)
         {
-            UI.drawInvincibleMsg();
-            UI.drawInvincibilityCount(invCounter);
+            ui.drawInvincibleMsg();
+            ui.drawInvincibilityCount(invCounter);
             timeDelay(1);
             invCounter--;
         }
@@ -187,12 +174,12 @@ public class GameEngine {
         }
         timeDelay(2);
         board.printGrid(debug);
-        UI.drawPlayerStats(player.getNumOfLives(), playerAmmo);
+        ui.drawPlayerStats(player.getNumOfLives(), playerAmmo);
         timeDelay(2);
 
         if(invCounter <= 0)
         {
-            UI.drawInvincibilityOffMsg();
+            ui.drawInvincibilityOffMsg();
             timeDelay(1);
             isInvincible = false;
             invCounter = 5;
@@ -217,7 +204,7 @@ public class GameEngine {
             if (dir == Direction.UP) {
                 if (!board.isOOB(p.x - i, p.y)) {
                 	if(board.map[p.x - i][p.y].isRoom()) {
-                		UI.drawShootRoomMsg();
+                		ui.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -231,7 +218,7 @@ public class GameEngine {
             else if (dir == Direction.DOWN) {
                 if (!board.isOOB(p.x + i, p.y)) {
                 	if(board.map[p.x + i][p.y].isRoom()) {
-                		UI.drawShootRoomMsg();
+                		ui.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -245,7 +232,7 @@ public class GameEngine {
             else if (dir == Direction.RIGHT) {
                 if (!board.isOOB(p.x, p.y + i)) {
                 	if(board.map[p.x][p.y + i].isRoom()) {
-                		UI.drawShootRoomMsg();
+                		ui.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -259,7 +246,7 @@ public class GameEngine {
             else if (dir == Direction.LEFT) {
                 if (!board.isOOB(p.x, p.y - i)) {
                 	if(board.map[p.x][p.y - i].isRoom()) {
-                		UI.drawShootRoomMsg();
+                		ui.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -293,16 +280,16 @@ public class GameEngine {
         int lives = player.getNumOfLives();
 
         while(userChoseDebug) {
-        	userChoseDebug = look(UI.lookPrompt());
+        	userChoseDebug = look(ui.lookPrompt());
         }
         if (savingGame)
             return;
 
-        int entry = UI.moveOrShootPrompt();
+        int entry = ui.moveOrShootPrompt();
 
         if(entry == 1)
         {
-            while(board.validMove(pPos, direction=UI.movePrompt())&&board.canMove(pPos)){
+            while(board.validMove(pPos, direction=ui.movePrompt())&&board.canMove(pPos)){
                 timeDelay(1);
                 switch (direction) {
                     case UP:
@@ -324,12 +311,12 @@ public class GameEngine {
                                 Room r = (Room) board.getTile(p);
                                 if(r.hasBriefcase())
                                 {
-                                    UI.drawBriefcaseWinMsg();
+                                    ui.drawBriefcaseWinMsg();
                                     gameWon = true;
                                     return;
                                 }
                                 else {
-                                    UI.drawBriefcaseFailMsg();
+                                    ui.drawBriefcaseFailMsg();
                                     return;
                                 }
 
@@ -381,13 +368,13 @@ public class GameEngine {
             }
         }
         else if(entry == 2){
-            direction=UI.shootPrompt();
+            direction=ui.shootPrompt();
             if(!playerAmmoEmpty())
             {
                 shoot(direction);
             }
             else
-                UI.drawNoAmmoMsg();
+                ui.drawNoAmmoMsg();
             timeDelay(1);
         }
     }
@@ -417,18 +404,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x - 1, ePos.y)) {
             if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
 
-                UI.drawEnemyAttackMsg();
+                ui.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    UI.drawYouDiedMsg();
+                    ui.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                    UI.drawInvincibleMsg();
+                    ui.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -437,18 +424,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x + 1, ePos.y)) {
             if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
 
-            	UI.drawEnemyAttackMsg();
+            	ui.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
                     timeDelay(1);
-                    UI.drawYouDiedMsg();
+                    ui.drawYouDiedMsg();
                     respawnPlayer();
                 }
                 else
-                	UI.drawInvincibleMsg();
+                	ui.drawInvincibleMsg();
                 timeDelay(1);
 
                return;
@@ -457,18 +444,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x, ePos.y + 1)) {
             if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
 
-            	UI.drawEnemyAttackMsg();
+            	ui.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    UI.drawYouDiedMsg();
+                    ui.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                	UI.drawInvincibleMsg();
+                	ui.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -477,18 +464,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x, ePos.y - 1)) {
             if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
 
-            	UI.drawEnemyAttackMsg();
+            	ui.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    UI.drawYouDiedMsg();
+                    ui.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                	UI.drawInvincibleMsg();
+                	ui.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -528,7 +515,7 @@ public class GameEngine {
         while(!board.validMove(ePos,movement)&&board.canMove(ePos))
         {
             movement=rollMove();
-        }
+        };
         while(board.validMove(ePos,movement)&&board.canMove(ePos)) {
             switch (movement) {
                 case UP:
@@ -584,7 +571,7 @@ public class GameEngine {
         for(Enemy i: enemies){
             enemyTurn(i.getPos());
         }
-        UI.drawEnemiesMovedMsg();
+        ui.drawEnemiesMovedMsg();
     }
 
     /**
@@ -724,7 +711,7 @@ public class GameEngine {
                 break;
             case DEBUG:
             {
-            	UI.drawDebugToggleMsg();
+            	ui.drawDebugToggleMsg();
             	debug = !debug;
             	board.printGrid(debug);
             	return true;
@@ -741,23 +728,23 @@ public class GameEngine {
             }
             else
             {
-                UI.drawLookWallMsg();
+                ui.drawLookWallMsg();
                 timeDelay(1);
             }
         }
         else
         {
-        	UI.drawLookWallMsg();
+        	ui.drawLookWallMsg();
             timeDelay(1);
         }
 
-        if(check1|| check2)
+        if(check1 == true || check2 == true)
         {
-            UI.drawLookNinjaMsg();
+            ui.drawLookNinjaMsg();
             timeDelay(1);
         }
         else
-            UI.drawLookNothingMsg();
+            ui.drawLookNothingMsg();
 
         timeDelay(1);
         board.printlookGrid(A,B, debug);
