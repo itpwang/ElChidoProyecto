@@ -9,15 +9,16 @@ a.k.a. "The Cool Project"
 Group Members: Ivan(Captain), Travis, Sean, Zach, Michael, Andy
 
 ----------
+[TOC]
 **Table of Contents** 
 
 - [El Chido Proyecto ](#)
-	- [Team Information](#)
-	- [Introduction](#)
-	- [Approach](#)
-	- [Design](#)
-	- [Discussion of Implementation](#)
-	- [Conclusion/Suggestions](#)
+	- [Team Information](#team-information)
+	- [Introduction](#introduction)
+	- [Approach](#approach)
+	- [Design](#design)
+	- [Discussion of Implementation](#discussion-of-implementation)
+	- [Conclusion/Suggestions](#conclusionsuggestions)
 
 
 
