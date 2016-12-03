@@ -92,7 +92,7 @@ public class GameEngine {
      * UP,DOWN,LEFT,RIGHT.
      */
     public enum Direction {
-        UP, DOWN, LEFT, RIGHT, SAVE
+        UP, DOWN, LEFT, RIGHT, SAVE, DEBUG
     }
 
     /**
@@ -150,8 +150,8 @@ public class GameEngine {
 
         if(isInvincible)
         {
-            System.out.println("You're still invincible!");
-            System.out.println("InvCounter: " + invCounter);
+            UI.drawInvincibleMsg();
+            UI.drawInvincibilityCount(invCounter);
             timeDelay(1);
             invCounter--;
         }
@@ -169,12 +169,12 @@ public class GameEngine {
         }
         timeDelay(2);
         board.printGrid(debug);
-        System.out.println("LIVES: " + player.getNumOfLives() + " AMMO: " + playerAmmo);
+        UI.drawPlayerStats(player.getNumOfLives(), playerAmmo);
         timeDelay(2);
 
         if(invCounter <= 0)
         {
-            System.out.println("Invincibility wore off!");
+            UI.drawInvincibilityOffMsg();
             timeDelay(1);
             isInvincible = false;
             invCounter = 5;
@@ -199,7 +199,7 @@ public class GameEngine {
             if (dir == Direction.UP) {
                 if (!board.isOOB(p.x - i, p.y)) {
                 	if(board.map[p.x - i][p.y].isRoom()) {
-                		System.out.println("you shot the room idiot");
+                		UI.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -213,7 +213,7 @@ public class GameEngine {
             else if (dir == Direction.DOWN) {
                 if (!board.isOOB(p.x + i, p.y)) {
                 	if(board.map[p.x + i][p.y].isRoom()) {
-                		System.out.println("you hit the room");
+                		UI.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -227,7 +227,7 @@ public class GameEngine {
             else if (dir == Direction.RIGHT) {
                 if (!board.isOOB(p.x, p.y + i)) {
                 	if(board.map[p.x][p.y + i].isRoom()) {
-                		System.out.println("you hit the room");
+                		UI.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -241,7 +241,7 @@ public class GameEngine {
             else if (dir == Direction.LEFT) {
                 if (!board.isOOB(p.x, p.y - i)) {
                 	if(board.map[p.x][p.y - i].isRoom()) {
-                		System.out.println("you hit the room");
+                		UI.drawShootRoomMsg();
                         timeDelay(1);
                 		break;
                 	}
@@ -271,10 +271,12 @@ public class GameEngine {
         Direction direction;
         Point pPos = player.getPos();
         char itemtype;
-
+        boolean userChoseDebug = true;
         int lives = player.getNumOfLives();
 
-        look(UI.lookPrompt());
+        while(userChoseDebug) {
+        	userChoseDebug = look(UI.lookPrompt());
+        }
         if (savingGame)
             return;
 
@@ -304,12 +306,12 @@ public class GameEngine {
                                 Room r = (Room) board.getTile(p);
                                 if(r.hasBriefcase())
                                 {
-                                    System.out.println("This room has the briefcase, You Win!!");
+                                    UI.drawBriefcaseWinMsg();
                                     gameWon = true;
                                     return;
                                 }
                                 else {
-                                    System.out.println("This room does not have the briefcase! Try again. . .");
+                                    UI.drawBriefcaseFailMsg();
                                     return;
                                 }
 
@@ -367,7 +369,7 @@ public class GameEngine {
                 shoot(direction);
             }
             else
-                System.out.println("You have no ammo!");
+                UI.drawNoAmmoMsg();
             timeDelay(1);
         }
     }
@@ -397,18 +399,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x - 1, ePos.y)) {
             if(board.getTile(ePos.x - 1, ePos.y).hasPlayer()) {
 
-                System.out.println("The Enemy attacks! ");
+                UI.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    System.out.println("You ded");
+                    UI.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                    System.out.println("Your invincible!");
+                    UI.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -417,18 +419,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x + 1, ePos.y)) {
             if (board.getTile(ePos.x + 1, ePos.y).hasPlayer()) {
 
-                System.out.println("The Enemy attacks! ");
+            	UI.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
                     timeDelay(1);
-                    System.out.println("You ded");
+                    UI.drawYouDiedMsg();
                     respawnPlayer();
                 }
                 else
-                    System.out.println("Your invincible!");
+                	UI.drawInvincibleMsg();
                 timeDelay(1);
 
                return;
@@ -437,18 +439,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x, ePos.y + 1)) {
             if(board.getTile(ePos.x, ePos.y + 1).hasPlayer()) {
 
-                System.out.println("The Enemy attacks! ");
+            	UI.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    System.out.println("You ded");
+                    UI.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                    System.out.println("Your invincible!");
+                	UI.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -457,18 +459,18 @@ public class GameEngine {
         if(!board.isOOB(ePos.x, ePos.y - 1)) {
             if(board.getTile(ePos.x, ePos.y - 1).hasPlayer()) {
 
-                System.out.println("The Enemy attacks! ");
+            	UI.drawEnemyAttackMsg();
                 timeDelay(1);
 
                 if(!isInvincible)
                 {
                     player.decLives();
-                    System.out.println("You ded");
+                    UI.drawYouDiedMsg();
                     timeDelay(1);
                     respawnPlayer();
                 }
                 else
-                    System.out.println("Your invincible!");
+                	UI.drawInvincibleMsg();
                 timeDelay(1);
 
                 return;
@@ -485,8 +487,26 @@ public class GameEngine {
      */
     public void enemyMove(Point ePos) {
         Direction movement = rollMove();
+        Direction lookDirection = board.getTile(ePos.x, ePos.y).getEnemy().getLookDirection();
+        if(playerIsInSight(ePos, lookDirection)) {
+        	board.getTile(ePos.x, ePos.y).getEnemy().setFollowingPlayer(true);
+        	board.getTile(ePos.x, ePos.y).getEnemy().setLookDirection(lookDirection);
+        }
+        else {
+        	board.getTile(ePos.x, ePos.y).getEnemy().setFollowingPlayer(false);
+        }
+        if(!board.getTile(ePos.x, ePos.y).getEnemy().isFollowingPlayer()) {
+        	lookDirection = rollMove();
+        	board.getTile(ePos.x, ePos.y).getEnemy().setLookDirection(lookDirection);
+        }
+        else {
+        	lookDirection = board.getTile(ePos.x, ePos.y).getEnemy().getLookDirection();
+        	movement = board.getTile(ePos.x, ePos.y).getEnemy().getLookDirection();
+        }
+        
 //        System.out.println("enemy at" + ePos.x +","+ ePos.y+ " moved"); //DEBUG
         //Move
+
         while(!board.validMove(ePos,movement)&&board.canMove(ePos))
         {
             movement=rollMove();
@@ -546,7 +566,7 @@ public class GameEngine {
         for(Enemy i: enemies){
             enemyTurn(i.getPos());
         }
-        System.out.println("All the enemies take their turn!");
+        UI.drawEnemiesMovedMsg();
     }
 
     /**
@@ -598,6 +618,31 @@ public class GameEngine {
     }
 
     /**
+     * This method checks whether the player is within enemy sight
+     */
+    private boolean playerIsInSight(Point enemyLocation, Direction enemyLookDirection) {
+    	for(int i = 1; i <= 2; i++) {
+        	if(enemyLookDirection == Direction.UP && !board.isOOB(enemyLocation.x - i, enemyLocation.y)) {
+        		if(board.getTile(enemyLocation.x - i, enemyLocation.y).hasPlayer() && !board.getTile(enemyLocation.x - i, enemyLocation.y).isRoom())
+        			return true;        		
+        	}
+        	else if(enemyLookDirection == Direction.DOWN && !board.isOOB(enemyLocation.x + i, enemyLocation.y)) {
+        		if(board.getTile(enemyLocation.x + i, enemyLocation.y).hasPlayer() && !board.getTile(enemyLocation.x + i, enemyLocation.y).isRoom())
+        			return true;        		
+        	}
+        	else if(enemyLookDirection == Direction.LEFT && !board.isOOB(enemyLocation.x, enemyLocation.y - i)) {
+        		if(board.getTile(enemyLocation.x, enemyLocation.y - i).hasPlayer() && !board.getTile(enemyLocation.x, enemyLocation.y - i).isRoom())
+        			return true;        		
+        	}
+        	else if(enemyLookDirection == Direction.RIGHT && !board.isOOB(enemyLocation.x, enemyLocation.y + i)) {
+        		if(board.getTile(enemyLocation.x, enemyLocation.y + i).hasPlayer() && !board.getTile(enemyLocation.x, enemyLocation.y + i).isRoom())
+        			return true;        		
+        	}
+    	}
+    	return false;
+    }
+    
+    /**
      * This method rolls a random number from 0 - 3
      * and returns an enum {@link Direction}
      *
@@ -625,9 +670,14 @@ public class GameEngine {
      * This method takes a {@link Direction}
      * and translates two points in that
      * {@link Direction}
+     * It also handles saving for some reason
+     * So I had to go along and put debug in there too. "Which direction would you like to look?" I want to look in debug direction fam
+     * Say no more
+     * It returns a boolean: True: Player chose debug (because without it, toggling debug would take a turn)
+     * False: Player didn't choose debug
      * @param direction
      */
-    public void look(Direction direction){
+    public boolean look(Direction direction){
         boolean check1 = false;
         boolean check2 = false;
 
@@ -653,7 +703,14 @@ public class GameEngine {
                 break;
             case SAVE:
                 saveGame();
-                return;
+                break;
+            case DEBUG:
+            {
+            	UI.drawDebugToggleMsg();
+            	debug = !debug;
+            	board.printGrid(debug);
+            	return true;
+            }
         }
 
         if(!board.isOOB((int)A.getX(),(int)A.getY()))
@@ -666,26 +723,27 @@ public class GameEngine {
             }
             else
             {
-                System.out.println("That's a wall. . ");
+                UI.drawLookWallMsg();
                 timeDelay(1);
             }
         }
         else
         {
-            System.out.println("That's a wall. . ");
+        	UI.drawLookWallMsg();
             timeDelay(1);
         }
 
         if(check1 == true || check2 == true)
         {
-            System.out.println("There is a Ninja ahead!. .");
+            UI.drawLookNinjaMsg();
             timeDelay(1);
         }
         else
-            System.out.println("There is nothing ahead");
+            UI.drawLookNothingMsg();
 
         timeDelay(1);
         board.printlookGrid(A,B, debug);
+        return false;
     }
 
     private void saveGame(Objects ...o) {
@@ -838,7 +896,6 @@ public class GameEngine {
             if(board.getTile(r,s).isRoom())
             {
                 board.getTile(r,s).setBriefcase();
-                System.out.println("\nBriefcase placed at \n" + r + " " + s);
                 briefcaseset = true;
             }
         }

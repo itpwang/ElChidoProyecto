@@ -118,7 +118,7 @@ public class Tile implements Serializable {
             }
 
             else if(isRoom) {
-                if(briefcase && GameEngine.getRadar())
+                if(briefcase)
                     return 'W';
             	return 'R';
             }       

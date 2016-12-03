@@ -26,7 +26,17 @@ public class Enemy extends Entity implements Serializable {
      * alive, and {@code false} if player is dead.
      */
     private boolean alive;
+    
+    /**
+     * This field contains the boolean value for whether the enemy is following/locked on to the player
+     */
+    private boolean isFollowingPlayer = false;
 
+    /**
+     * This field holds the direction in which the enemy is looking at
+     */
+    private GameEngine.Direction lookDirection = GameEngine.Direction.UP;
+    
     /**
      * This is {@link Player}'s default constructor.
      * Sets field alive to {@code true}
@@ -99,5 +109,34 @@ public class Enemy extends Entity implements Serializable {
     {
         this.Epos = p;
     }
+    
+    /**
+     * This method sets the look direction
+     */
+    public void setLookDirection(GameEngine.Direction d) {
+    	this.lookDirection = d;
+    }
+    
+    /**
+     * This method retrieves {@link #lookDirection}
+     */
+    public GameEngine.Direction getLookDirection() {
+    	return lookDirection;
+    }
 
+    /**
+     * This method returns whether the enemy is following the player
+     * @return True: Following | False: Not following
+     */
+	public boolean isFollowingPlayer() {
+		return isFollowingPlayer;
+	}
+
+	/**
+	 * This method sets the {@link Enemy#isFollowingPlayer}
+	 * @param isFollowingPlayer
+	 */
+	public void setFollowingPlayer(boolean isFollowingPlayer) {
+		this.isFollowingPlayer = isFollowingPlayer;
+	}
 }
