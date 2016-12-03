@@ -9,7 +9,15 @@ a.k.a. "The Cool Project"
 Group Members: Ivan(Captain), Travis, Sean, Zach, Michael, Andy
 
 ----------
-[TOC]
+**Table of Contents** 
+
+- [El Chido Proyecto ](#)
+	- [Team Information](#)
+	- [Introduction](#)
+	- [Approach](#)
+	- [Design](#)
+	- [Discussion of Implementation](#)
+	- [Conclusion/Suggestions](#)
 
 
 
@@ -42,8 +50,6 @@ For our project, we initially wanted a game board (Grid) that consisted of a 2D 
 
 Design
 --------
-
-
 ##UML Diagram of Classes
 ![Class Hierarchy](http://g.gravizo.com/g?%20%20class%20Main%7B%7D%20class%20GameEngine%20extends%20Main%7B%7D%20class%20SaveEngine%20extends%20GameEngine%7B%7D%20class%20GameState%20extends%20SaveEngine%7B%7D%20class%20UI%20extends%20GameEngine%7B%7D%20class%20Grid%20extends%20GameEngine%7B%7D%20class%20Tile%20extends%20Grid%7B%7D%20class%20Room%20extends%20Tile%7B%7D%20class%20Entity%20extends%20Tile%7B%7D%20class%20Player%20extends%20Entity%7B%7D%20class%20Enemy%20extends%20Entity%7B%7D%20class%20Item%20extends%20Tile%7B%7D%20class%20Invincibility%20extends%20Item%7B%7D%20class%20Ammo%20extends%20Item%7B%7D%20class%20Radar%20extends%20Item%7B%7D)
 
