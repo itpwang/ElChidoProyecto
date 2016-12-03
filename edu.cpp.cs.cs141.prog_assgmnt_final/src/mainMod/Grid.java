@@ -1,3 +1,21 @@
+/**
+ * CS 141: Intro to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment Final
+ *
+ * This is a text-based game where the player has to find a briefcase
+ * located in 1 of 9 rooms. Complications include enemies that could kill you.
+ * Powerups can also be obtained.
+ *
+ * Team Destructors
+ *   Ivan Wang
+ *   Travis Linkey
+ *   Sean McCullough
+ *   Zach Oeh
+ *   Michael Ortega
+ *   Andy Rosas
+ */
 package mainMod;
 import java.awt.Point;
 import java.io.Serializable;
@@ -175,6 +193,8 @@ public class Grid implements Serializable {
 
     /**
      * Moves enemy into a tile with an item, creating a tile with both an enemy and an item inside
+     * @param A
+     * @param B
      */
     public void itemBegoneSwap(Tile A, Tile B) {
         B.insertEnemy(A.getEnemy());
@@ -185,7 +205,9 @@ public class Grid implements Serializable {
     }
 
     /**
-     *
+     * Drops item on original tile.
+     * @param A
+     * @param B
      */
     public void dropThatItemBoy(Tile A, Tile B) {
         B.insertEnemy(A.getEnemy());

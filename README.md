@@ -6,7 +6,13 @@ a.k.a. "The Cool Project"
 **Team Information**
 -------------
 <b>Team Destructors</b>
-Group Members: Ivan(Captain), Travis, Sean, Zach, Michael, Andy
+Group Members:
+-Ivan Wang(Captain)
+-Travis Linkey
+-Sean McCullough
+-Zach Oeh
+-Michael Ortega
+-Andy Rosas
 
 ----------
 [TOC]
